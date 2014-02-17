@@ -1,9 +1,3 @@
-"call togglebg#map("<F5>")
-
-"let g:solarized_bold=0
-"set background=light
-"colorscheme solarized
-
 set nocompatible              " be iMproved
 filetype off                  " required!
 syntax enable
@@ -16,7 +10,7 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 " My bundles here:
-"
+Bundle 'https://github.com/altercation/vim-colors-solarized.git'
 " original repos on GitHub
 "Bundle 'tpope/vim-fugitive'
 "Bundle 'Lokaltog/vim-easymotion'
@@ -32,6 +26,16 @@ Bundle 'gmarik/vundle'
 " ...
 
 filetype plugin indent on     " required!
+
+let g:solarized_bold=1
+let g:solarized_underline=1
+let g:solarized_degrade=1
+let g:solarized_termcolors=256
+set background=light
+colorscheme solarized
+
+
+
 "
 " Brief help
 " :BundleList          - list configured bundles
