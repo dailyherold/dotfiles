@@ -29,6 +29,10 @@ For more information, check out the [wiki](http://github.com/justone/dotfiles/wi
 
 You can also run <tt>dfm --help</tt>.
 
-## My dotfiles
+## zprezto submodule 
 
-My dotfiles are in the <tt>personal</tt> branch.
+My personal [prezto](https://github.com/dailyherold/prezto) fork is added as a submodule. When cloning this repo, to initialize the prezto submodule:
+
+    $ git submodule init
+    $ git submodule update
+
