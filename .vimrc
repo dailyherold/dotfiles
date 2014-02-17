@@ -5,35 +5,39 @@ syntax enable
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
+"===================
+"      BUNDLES      
+"===================
 " let Vundle manage Vundle
-" required! 
 Bundle 'gmarik/vundle'
 
-" My bundles here:
 Bundle 'https://github.com/altercation/vim-colors-solarized.git'
-" original repos on GitHub
+Bundle 'bling/vim-airline'
+
 "Bundle 'tpope/vim-fugitive'
 "Bundle 'Lokaltog/vim-easymotion'
 "Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
-"Bundle 'tpope/vim-rails.git'
 " vim-scripts repos
 "Bundle 'L9'
 "Bundle 'FuzzyFinder'
-" non-GitHub repos
-"Bundle 'git://git.wincent.com/command-t.git'
-" Git repos on your local machine (i.e. when working on your own plugin)
-"Bundle 'file:///Users/gmarik/path/to/plugin'
-" ...
 
+"===================
+"      OPTIONS     
+"===================
 filetype plugin indent on     " required!
 
-let g:solarized_bold=1
-let g:solarized_underline=1
-let g:solarized_degrade=1
+"airline/powerline
+let g:airline_powerline_fonts=1
+set laststatus=2
+"solarized
+let g:solarized_bold=0
 let g:solarized_termcolors=256
 set background=light
 colorscheme solarized
 
+"===================
+"     SETTINGS     
+"===================
 
 
 "
