@@ -13,6 +13,8 @@ fi
 # add dfm to path
 export PATH=$PATH:$HOME/bin
 
+export TERM="xterm-256color"
+
 # Customize to your needs...
 
 ## Aliases ##
