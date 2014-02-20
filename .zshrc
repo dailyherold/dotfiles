@@ -2,7 +2,8 @@
 # Executes commands at the start of an interactive session.
 #
 # Authors:
-#   Sorin Ionescu <sorin.ionescu@gmail.com>
+#   John Paul Herold
+#   Branched from Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
 # Source Prezto.
@@ -10,12 +11,15 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-# add dfm to path
+# add .dotfiles/bin to path for dfm
 export PATH=$PATH:$HOME/bin
 
-export TERM="xterm-256color"
-
-# Customize to your needs...
+# handle colors if tmux is running
+if [ -n "$TMUX" ]; then
+  export TERM=screen-256color
+else
+  export TERM=xterm-256color
+fi
 
 ## Aliases ##
 # VPN #
@@ -28,9 +32,9 @@ alias ll='ls -lF --color'
 alias lla='ls -alF --color'
 # Other #
 alias ..='cd ..'
-alias ...='cd ../../'
-alias ....='cd ../../../'
-alias .....='cd ../../../../'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
 alias rm='rm -I'
 alias mv='mv -i'
 alias cp='cp -i'

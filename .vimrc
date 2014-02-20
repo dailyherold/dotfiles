@@ -30,8 +30,9 @@ filetype plugin indent on     " required!
 let g:airline_powerline_fonts=1
 set laststatus=2
 "solarized
+call togglebg#map("<F5>")
 let g:solarized_bold=0
-let g:solarized_termcolors=256
+"let g:solarized_termcolors=256
 set background=light
 colorscheme solarized
 
