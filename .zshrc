@@ -39,6 +39,7 @@ alias rm='rm -I'
 alias mv='mv -i'
 alias cp='cp -i'
 alias tmux='tmux -2'
+alias swapcaps='~/.dotfiles/util/swapcaps.sh'
 
 # Solarize ls colors
 if [ -x /usr/bin/dircolors ]; then
