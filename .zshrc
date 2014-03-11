@@ -43,7 +43,7 @@ alias swapcaps='~/.dotfiles/util/swapcaps.sh'
 
 # Solarize ls colors
 if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    test -r ~/repos/git/dircolors-solarized/dircolors.256dark && eval "$(dircolors -b ~/repos/git/dircolors-solarized/dircolors.256dark)" || eval "$(dircolors -b)"
 fi
 
 # Run xcape once.
