@@ -11,7 +11,7 @@ call vundle#rc()
 " let Vundle manage Vundle
 Bundle 'gmarik/vundle'
 
-Bundle 'https://github.com/altercation/vim-colors-solarized.git'
+Bundle 'altercation/vim-colors-solarized'
 Bundle 'bling/vim-airline'
 
 "Bundle 'tpope/vim-fugitive'
