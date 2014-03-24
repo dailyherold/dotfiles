@@ -31,6 +31,7 @@ alias ls='ls -F --color'
 alias ll='ls -lF --color'
 alias lla='ls -alF --color'
 # Other #
+alias c='clear'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
@@ -51,3 +52,6 @@ if [ -z "$(pgrep xcape)" ]; then
     ~/repos/git/xcape/xcape -e 'Control_L=Escape'
 fi
 
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
