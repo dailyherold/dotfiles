@@ -2,40 +2,59 @@ set nocompatible              " be iMproved
 filetype off                  " required!
 syntax enable
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
 "===================
-"      BUNDLES      
+"  VUNDLE/PLUGINS      
 "===================
 " let Vundle manage Vundle
-Bundle 'gmarik/vundle'
+Plugin 'gmarik/Vundle.vim'
 
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'bling/vim-airline'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'bling/vim-airline'
 
-"Bundle 'tpope/vim-fugitive'
-"Bundle 'Lokaltog/vim-easymotion'
-"Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
-" vim-scripts repos
-"Bundle 'L9'
-"Bundle 'FuzzyFinder'
+"Plugin 'tpope/vim-fugitive'
+"Plugin 'Lokaltog/vim-easymotion'
+"Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+"Plugin 'L9'
+"Plugin 'FuzzyFinder'
+
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList          - list configured plugins
+" :PluginInstall(!)    - install (update) plugins
+" :PluginSearch(!) foo - search (or refresh cache first) for foo
+" :PluginClean(!)      - confirm (or auto-approve) removal of unused plugins
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
 
 "===================
-"      OPTIONS     
+"  PLUGIN OPTIONS     
 "===================
-filetype plugin indent on     " required!
 
 "airline/powerline
 let g:airline_powerline_fonts=1
 set laststatus=2
 set noshowmode
+
 "solarized
 call togglebg#map("<F5>")
 let g:solarized_bold=0
 "let g:solarized_termcolors=256
 set background=light
 colorscheme solarized
+
+"===================
+"   VIM SETTINGS
+"===================
 
 "quick change modes
 if ! has('gui_running')
@@ -47,18 +66,3 @@ if ! has('gui_running')
     augroup END
 endif
 
-
-"===================
-"     SETTINGS     
-"===================
-
-
-"
-" Brief help
-" :BundleList          - list configured bundles
-" :BundleInstall(!)    - install (update) bundles
-" :BundleSearch(!) foo - search (or refresh cache first) for foo
-" :BundleClean(!)      - confirm (or auto-approve) removal of unused bundles
-"
-" see :h vundle for more details or wiki for FAQ
-" NOTE: comments after Bundle commands are not allowed.
