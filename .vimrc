@@ -13,8 +13,9 @@ Plugin 'gmarik/Vundle.vim'
 
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'bling/vim-airline'
+Plugin 'scrooloose/nerdtree'
+Plugin 'tpope/vim-fugitive'
 
-"Plugin 'tpope/vim-fugitive'
 "Plugin 'Lokaltog/vim-easymotion'
 "Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 "Plugin 'L9'
@@ -44,6 +45,9 @@ filetype plugin indent on    " required
 let g:airline_powerline_fonts=1
 set laststatus=2
 set noshowmode
+
+"nerdtree
+map <C-n> :NERDTreeToggle<CR>
 
 "solarized
 call togglebg#map("<F5>")
