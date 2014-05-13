@@ -1,7 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =5
-let g:netrw_dirhist_1='/home/jpherold/.cinnamon/configs'
-let g:netrw_dirhist_2='/home/jpherold/.cinnamon/configs/keyboard@cinnamon.org'
-let g:netrw_dirhist_3='/home/jpherold'
-let g:netrw_dirhist_4='/home/jpherold/.cinnamon'
-let g:netrw_dirhist_5='/home/jpherold'
