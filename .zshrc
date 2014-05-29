@@ -42,6 +42,9 @@ alias cp='cp -i'
 alias tmux='tmux -2'
 alias swapcaps='~/.dotfiles/util/swapcaps.sh'
 
+# TMUX
+alias tnew='tmux new-session -s'
+
 # Solarize ls colors
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/repos/git/dircolors-solarized/dircolors.256dark && eval "$(dircolors -b ~/repos/git/dircolors-solarized/dircolors.256dark)" || eval "$(dircolors -b)"

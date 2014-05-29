@@ -61,6 +61,9 @@ colorscheme solarized
 "   VIM SETTINGS
 "===================
 
+set number
+set autoread
+
 "quick change modes
 if ! has('gui_running')
     set ttimeoutlen=10

@@ -10,7 +10,5 @@ fi
 pgrep xcape|awk '{print "kill "$1}'|sh 
 
 # Restart xcape
-if [ -z "$(pgrep xcape)" ]; then
-    ~/repos/git/xcape/xcape -e 'Control_L=Escape'
-fi
+/home/jpherold/repos/git/xcape/xcape -e 'Control_L=Escape'
 
