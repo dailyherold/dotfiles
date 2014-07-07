@@ -16,7 +16,8 @@
 
 # Print a random, hopefully interesting, adage.
 if (( $+commands[fortune] )); then
-  fortune bible 
+#  fortune bible
+  verse 
   print
 fi
 

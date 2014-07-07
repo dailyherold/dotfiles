@@ -41,6 +41,7 @@ alias mv='mv -i'
 alias cp='cp -i'
 alias tmux='tmux -2'
 alias swapcaps='~/.dotfiles/util/swapcaps.sh'
+alias mvn='maven'
 
 # TMUX
 alias tnew='tmux new-session -s'
