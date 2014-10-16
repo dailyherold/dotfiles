@@ -59,6 +59,6 @@ export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
 
-export JBOSS_HOME=/home/jpherold/jboss-eap/jboss-eap-6.1
+export JBOSS_HOME=/home/jpherold/jbossEAP-6.1.0/jboss-eap-6.1
 export PATH=$PATH:$JBOSS_HOME/bin
 
