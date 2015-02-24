@@ -5,6 +5,9 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
+# Keychain
+eval `keychain --eval --agents ssh --inherit any jpherold devops`
+
 #
 # Browser
 #
