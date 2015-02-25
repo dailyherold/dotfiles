@@ -6,7 +6,7 @@
 #
 
 # Keychain
-eval `keychain --eval --agents ssh --inherit any jpherold devops`
+eval `keychain --eval --agents ssh --inherit any jpherold`
 
 #
 # Browser
