@@ -1,0 +1,430 @@
+---
+- hosts: 127.0.0.1
+  connection: local
+  remote_user: "{{ lookup('env','USER') }}"
+  become_method: sudo
+  vars:
+    current_user: "{{ lookup('env','HOME') }}"
+    current_user_home: "/home/{{ current_user }}"
+    default_packages:
+      - git
+      - subversion
+      - man
+      - gcc
+      - python-dev
+      - python-pip
+      - python-apt # for apt_repository module
+      - wget
+      - bzip2
+      - tar
+      - unzip
+      - make
+      - cmake
+      - build-essential
+    utility_packages:
+      - vim
+      - iotop
+      - iftop
+      - htop
+      - ioping
+      - ntp
+      - tree
+      - ack-grep
+      - silversearcher-ag
+      - powertop
+      - smartmontools
+
+  tasks:
+  - name: Update packages
+    apt: upgrade=yes update_cache=yes
+    become: yes
+    tags:
+      - packages
+
+  - name: Install default packages
+    apt: name={{ item }} state=latest
+    with_items: default_packages
+    become: yes
+    tags:
+      - packages
+  - name: Install utility packages
+    apt: name={{ item }} state=latest
+    with_items: utility_packages
+    become: yes
+    tags:
+      - packages
+      - utilities
+
+  - name: Install Python packages
+    pip: name={{ item }} state=latest
+    with_items:
+      - pysphere
+      - boto
+      - pywinrm
+      - paramiko
+      - PyYAML
+      - Jinja2
+      - httplib2
+      - argparse
+      - awscli
+      - six
+    become: yes
+    tags: ["packages", "pip"]
+
+# Git repos dir
+  - name: Create git repos dir
+    file:
+      dest: "{{ current_user_home }}/repos/git"
+      state: directory
+    tags: dir
+
+# Yubikey
+#  - name: Install Yubikey ppa using apt_repository module (not working with Mint right now)
+#    apt_repository:
+#      repo: 'ppa:yubico/stable'
+#    tags: yubikey
+  - name: Install Yubikey ppa using shell
+    shell: 'add-apt-repository -y ppa:yubico/stable'
+    become: yes
+    tags: yubikey
+
+  - name: Install Yubikey manager
+    apt:
+      update_cache: yes
+      name: yubikey-neo-manager
+      state: latest
+    become: yes
+    tags: ["yubikey", "packages"]
+
+  - name: Download u2f.rules #https://www.yubico.com/faq/enable-u2f-linux/
+    get_url:
+      dest: /etc/udev/rules.d/u2f.rules
+      url: https://raw.githubusercontent.com/Yubico/libu2f-host/master/70-u2f.rules
+    become: yes
+    tags: yubikey
+
+# Redshift
+  - name: Install Redshift
+    apt:
+      name: "{{ item }}"
+      state: latest
+    with_items:
+      - redshift
+      - redshift-gtk
+    become: yes
+    tags: ["redshift", "packages"]
+
+# SSH
+  - name: Copy gnome-keyring to user's autostart
+    copy:
+      src: /etc/xdg/autostart/gnome-keyring-ssh.desktop
+      dest: "{{ current_user_home }}/.config/autostart/"
+    tags: gnome-keyring
+
+  - name: Prevent gnome-keyring from starting
+    lineinfile:
+      dest: "{{ current_user_home }}/.config/autostart/gnome-keyring-ssh.desktop"
+      line: Hidden=true
+      state: present
+    tags: gnome-keyring
+
+# Xcape
+  - name: Install required packages for xcape
+    apt:
+      name: "{{ item }}"
+      state: latest
+    with_items:
+      - pkg-config
+      - libX11-dev
+      - libxtst-dev
+      - libxi-dev
+    become: yes
+    tags: ["xcape", "packages"]
+
+  - name: Clone xcape repo
+    git:
+      repo: https://github.com/alols/xcape.git
+      dest: "{{ current_user_home }}/repos/git/xcape"
+      accept_hostkey: yes
+      update: yes
+    tags: xcape
+
+  - name: Make xcape
+    shell: make
+    args:
+      chdir: "{{ current_user_home }}/repos/git/xcape"
+      creates: "{{ current_user_home }}/repos/git/xcape/xcape"
+    register: make_result
+    tags: xcape
+
+  - name: Make install xcape
+    shell: make install
+    args:
+      chdir: "{{ current_user_home }}/repos/git/xcape"
+    become: yes
+    when: make_result.changed
+    tags: xcape
+
+# Zsh
+  - name: Install Zsh
+    apt:
+      name: "{{ item }}"
+      state: latest
+    with_items:
+      - zsh
+      - zsh-doc
+    become: yes
+    tags: ["zsh", "packages"]
+
+  - name: Set Zsh as the default shell
+    user:
+      name: jpherold
+      shell: /bin/zsh
+    become: yes
+    tags: zsh
+
+# Dotfiles
+  - name: Clone dailyherold dotfiles repo
+    git:
+      repo: git@github.com:dailyherold/dotfiles.git
+      dest: "{{ current_user_home }}/.dotfiles"
+      accept_hostkey: yes
+      update: yes
+    tags: dotfiles
+
+  - name: Init and update submodules
+    shell: git submodule update --init --recursive
+    args:
+      chdir: "{{ current_user_home }}/.dotfiles"
+    tags: dotfiles
+
+  - name: DFM install
+    shell: ./bin/dfm install
+    args:
+      chdir: "{{ current_user_home }}/.dotfiles"
+      executable: yes
+    tags: dotfiles
+
+# Xclip
+  - name: Install Xclip
+    apt:
+      name: xclip
+      state: latest
+    become: yes
+    tags: ["xclip", "packages"]
+
+# Solarized
+  - name: Install dconf
+    apt:
+      name: dconf-cli
+      state: latest
+    become: yes
+    tags: ["solarized","solarized-gnome","packages"]
+
+  - name: Clone gnome terminal solarized colors
+    git:
+      repo: git@github.com:Anthony25/gnome-terminal-colors-solarized.git
+      dest: "{{ current_user_home }}/repos/git/gnome-terminal-colors-solarized"
+      accept_hostkey: yes
+      update: yes
+    tags: ["solarized","solarized-gnome"]
+
+  - name: Set gnome-terminal-colors-solarized
+    shell: ./set_dark.sh
+    args:
+      chdir: "{{ current_user_home }}/repos/git/gnome-terminal-colors-solarized"
+      executable: yes
+    tags: ["solarized","solarized-gnome"]
+
+  - name: Clone solarized dir-colors
+    git:
+      repo: git@github.com:seebi/dircolors-solarized.git
+      dest: "{{ current_user_home }}/repos/git/dircolors-solarized"
+      accept_hostkey: yes
+      update: yes
+    tags: ["solarized","solarized-dircolors"]
+
+# Sensors
+  - name: Install lm-sensors
+    apt:
+      name: lm-sensors
+      state: latest
+    become: yes
+    tags: ["sensors","packages"]
+
+  - name: Detect sensors
+    shell: sensors-detect
+    become: yes
+    tags: sensors
+
+  - name: View sensors
+    shell: sensors
+    register: sensors_output
+    tags: sensors
+
+  - name: Show sensors data
+    debug: var=sensors_output
+    tags: sensors
+
+  - name: Add Psensor ppa
+    shell: 'apt-add-repository -y ppa:jfi/ppa'
+    become: yes
+    tags: sensors
+
+  - name: Install Psensor
+    apt:
+      update_cache: yes
+      name: psensor
+      state: latest
+    become: yes
+    tags: ["sensors", "packages"]
+
+# Diodon
+  - name: Add Diodon ppa
+    shell: 'apt-add-repository -y ppa:diodon-team/stable'
+    become: yes
+    tags: diodon
+
+  - name: Install Diodon
+    apt:
+      update_cache: yes
+      name: diodon
+      state: latest
+    become: yes
+    tags: ["diodon","packages"]
+
+# Shutter
+  - name: Add Shutter ppa
+    shell: 'apt-add-repository -y ppa:shutter/ppa'
+    become: yes
+    tags: shutter
+
+  - name: Install Shutter
+    apt:
+      update_cache: yes
+      name: shutter
+      state: latest
+    become: yes
+    tags: ["shutter","packages"]
+
+# Zeal
+  - name: Add Zeal ppa
+    shell: 'apt-add-repository -y ppa:zeal-developers/ppa'
+    become: yes
+    tags: zeal
+
+  - name: Install Zeal
+    apt:
+      update_cache: yes
+      name: zeal
+      state: latest
+    become: yes
+    tags: ["zeal","packages"]
+
+# VirtualBox
+  - name: Install dkms
+    apt:
+      name: dkms
+      state: latest
+    become: yes
+    tags: ["virtualbox","packages"]
+
+  - name: Configure the Oracle APT key
+    apt_key: 
+      url: https://www.virtualbox.org/download/oracle_vbox.asc
+      state: present
+    become: yes
+    tags: virtualbox
+
+  - name: Configure the VirtualBox APT repositories
+    apt_repository:
+      repo: "deb http://download.virtualbox.org/virtualbox/debian trusty contrib"
+      state: present
+    become: yes
+    tags: virtualbox
+
+  - name: Install virtualbox
+    apt:
+      update_cache: yes
+      name: virtualbox-5.0
+      state: latest
+    become: yes
+    tags: ["virtualbox","packages"]
+
+  # Install extension pack as well
+
+# VPN
+  - name: Install vpnc
+    apt:
+      name: vpnc
+      state: latest
+    become: yes
+    tags: ["vpnc","packages"]
+
+# Lenovo TLP
+  - name: Ensure laptop-mode-tools is not installed
+    apt:
+      name: laptop-mode-tools
+      state: absent
+    become: yes
+    tags: tlp
+
+  - name: Add TLP ppa
+    shell: 'apt-add-repository -y ppa:linrunner/tlp'
+    become: yes
+    tags: tlp
+
+  - name: Install TLP
+    apt:
+      update_cache: yes
+      name: "{{ item }}"
+      state: latest
+    become: yes
+    with_items:
+      - tlp
+      - tlp-rdw
+      - tp-smapi-dkms
+      - acpi-call-dkms
+    tags: ["tlp","packages"]
+
+# tmux
+  - name: Install automake, libevent, and ncurses
+    apt:
+      name: "{{ item }}"
+      state: latest
+    with_items:
+      - automake
+      - libevent-2.0-5
+      - libevent-dev
+      - ncurses-dev
+    become: yes
+    tags: ["tmux","packages"]
+
+  - name: Clone tmux repo
+    git:
+      repo: https://github.com/tmux/tmux.git
+      dest: "{{ current_user_home }}/repos/git/tmux"
+      accept_hostkey: yes
+      update: yes
+    tags: tmux
+
+  - name: autogen tmux
+    shell: ./autogen.sh
+    args:
+      chdir: "{{ current_user_home }}/repos/git/tmux"
+      executable: yes
+    tags: tmux
+
+  - name: make tmux
+    shell: ./configure && make
+    args:
+      chdir: "{{ current_user_home }}/repos/git/tmux"
+      executable: yes
+    tags: tmux
+
+  - name: symlink tmux to .dotfiles/bin
+    file:
+      state: link
+      src: "{{ current_user_home }}/repos/git/tmux/tmux"
+      dest: "{{ current_user_home }}/.dotfiles/bin/tmux"
+    tags: tmux
