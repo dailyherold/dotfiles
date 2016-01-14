@@ -4,8 +4,8 @@
   remote_user: "{{ lookup('env','USER') }}"
   become_method: sudo
   vars:
-    current_user: "{{ lookup('env','HOME') }}"
-    current_user_home: "/home/{{ current_user }}"
+    current_user: "{{ lookup('env','USER') }}"
+    current_user_home: "{{ lookup('env','HOME') }}"
     default_packages:
       - git
       - subversion
@@ -178,7 +178,7 @@
 
   - name: Set Zsh as the default shell
     user:
-      name: jpherold
+      name: "{{ current_user }}"
       shell: /bin/zsh
     become: yes
     tags: zsh
@@ -213,6 +213,20 @@
     become: yes
     tags: ["xclip", "packages"]
 
+# Guake
+  - name: Add webupd8team ppa (guake)
+    shell: 'add-apt-repository -y ppa:webupd8team/unstable'
+    become: yes
+    tags: guake
+
+  - name: Install guake
+    apt:
+      update_cache: yes
+      name: guake
+      state: latest
+    become: yes
+    tags: ["guake","packages"]
+
 # Solarized
   - name: Install dconf
     apt:
@@ -243,6 +257,21 @@
       accept_hostkey: yes
       update: yes
     tags: ["solarized","solarized-dircolors"]
+
+  - name: Clone solarized colorscheme for Guake
+    git:
+      repo: https://github.com/coolwanglu/guake-colors-solarized.git
+      dest: "{{ current_user_home }}/repos/git/guake-colors-solarized"
+      accept_hostkey: yes
+      update: yes
+    tags: ["solarized","guake"]
+
+  - name: Set guake solarized colorscheme
+    shell: ./set_dark.sh
+    args:
+      chdir: "{{ current_user_home }}/repos/git/guake-colors-solarized"
+      executable: yes
+    tags: ["solarized","guake"]
 
 # Sensors
   - name: Install lm-sensors
@@ -428,3 +457,26 @@
       src: "{{ current_user_home }}/repos/git/tmux/tmux"
       dest: "{{ current_user_home }}/.dotfiles/bin/tmux"
     tags: tmux
+
+# HAL for some native encrypted flash streaming support
+  - name: Add hal-flash ppa
+    shell: 'add-apt-repository -y ppa:flexiondotorg/hal-flash'
+    become: yes
+    tags: flash
+
+  - name: Install hal-flash
+    apt:
+      update_cache: yes
+      name: libhal1-flash
+      state: latest
+    become: yes
+    tags: ["flash","packages"]
+
+  - name: Clear Adobe access directories
+    shell: rm -rf NativeCache AssetCache APSPrivateData2
+    args:
+      chdir: "{{ current_user_home }}/.adobe/Flash_Player"
+    tags: flash
+
+# Wine
+#  - name: Install wine
