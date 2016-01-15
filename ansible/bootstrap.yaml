@@ -33,6 +33,8 @@
       - silversearcher-ag
       - powertop
       - smartmontools
+      - traceroute
+      - mtr
 
   tasks:
   - name: Update packages
