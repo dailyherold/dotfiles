@@ -519,3 +519,14 @@
       - weechat-doc
     become: yes
     tags: ["weechat","packages"]
+
+# Dropbox
+  - name: Install Dropbox
+    apt:
+      name: "{{ item }}"
+      state: latest
+    with_items:
+      - dropbox
+      - nemo-dropbox
+    become: yes
+    tags: ["dropbox","packages"]
