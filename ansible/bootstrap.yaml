@@ -530,3 +530,18 @@
       - nemo-dropbox
     become: yes
     tags: ["dropbox","packages"]
+
+# SpiderOak
+  - name: Download SpiderOak package
+    get_url:
+      url: https://spideroak.com/getbuild?platform=ubuntu&arch=x86_64
+      dest: "{{ current_user_home }}/Downloads"
+    register: spideroak
+    tags: spideroak
+
+  - name: Install SpiderOak
+    apt:
+      deb: "{{ spideroak.dest }}"
+      state: present
+    become: yes
+    tags: ["spideroak","packages"]
