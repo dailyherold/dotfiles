@@ -487,13 +487,27 @@
 # Wine
 #  - name: Install wine
 
-# Java
+# Java 7
   - name: Install JDK 7
     apt:
       name: openjdk-7-jdk
       state: latest
     become: yes
     tags: ["java","packages"]
+
+# Java 8
+  - name: Add openjdk-r ppa
+    shell: 'add-apt-repository -y ppa:openjdk-r/ppa'
+    become: yes
+    tags: java8
+
+  - name: Install openjdk-8-jdk
+    apt:
+      update_cache: yes
+      name: openjdk-8-jdk
+      state: latest
+    become: yes
+    tags: ["java8","packages"]
 
 # Weechat
   - name: Add gpg key for Weechat repo
