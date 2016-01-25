@@ -6,6 +6,8 @@
   vars:
     current_user: "{{ lookup('env','USER') }}"
     current_user_home: "{{ lookup('env','HOME') }}"
+    apache_version: 3.3.9
+    gradle_version: 2.10
     default_packages:
       - git
       - subversion
@@ -545,3 +547,51 @@
       state: present
     become: yes
     tags: ["spideroak","packages"]
+
+# Maven
+  - name: Download Maven binary
+    get_url:
+      url: http://mirrors.advancedhosters.com/apache/maven/maven-3/{{ apache_version }}/binaries/apache-maven-{{ apache_version }}-bin.tar.gz
+      dest: "{{ current_user_home }}/Downloads"
+    register: maven_archive
+    tags: maven
+
+  - name: Unarchive Maven
+    unarchive:
+      src: "{{ maven_archive.dest }}"
+      dest: /opt
+    become: yes
+    register: maven
+    tags: maven
+
+  - name: symlink apache-maven-version to apache-maven
+    file:
+      state: link
+      src: /opt/apache-maven-{{ apache_version }}
+      dest: /opt/apache-maven
+    become: yes
+    tags: maven
+
+# Gradle
+  - name: Download Gradle
+    get_url:
+      url: https://services.gradle.org/distributions/gradle-{{ gradle_version }}-all.zip
+      dest: "{{ current_user_home }}/Downloads"
+    register: gradle_archive
+    tags: gradle
+
+  - name: Unarchive Gradle
+    unarchive:
+      src: "{{ gradle_archive.dest }}"
+      dest: /opt
+    become: yes
+    register: gradle
+    tags: gradle
+
+  - name: symlink gradle-version to gradle
+    file:
+      state: link
+      src: /opt/gradle-{{ gradle_version }}
+      dest: /opt/gradle
+    become: yes
+    tags: gradle
