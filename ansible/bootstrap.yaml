@@ -9,6 +9,7 @@
     maven_version: 3.3.9
     gradle_version: 2.10
     ant_version: 1.9.6
+    keychain_version: 2.8.2
     default_packages:
       - git
       - subversion
@@ -133,6 +134,31 @@
       line: Hidden=true
       state: present
     tags: gnome-keyring
+
+# Funtoo Keychain
+  - name: Download Keychain
+    get_url:
+      url: http://www.funtoo.org/distfiles/keychain/keychain-{{ keychain_version }}.tar.bz2
+      dest: "{{ current_user_home }}/Downloads"
+    register: keychain_archive
+    tags: keychain
+
+  - name: Unarchive Keychain
+    unarchive:
+      src: "{{ keychain_archive.dest }}"
+      dest: /opt
+    become: yes
+    register: keychain
+    tags: keychain
+
+  - name: symlink keychain-version to keychain
+    file:
+      state: link
+      src: /opt/keychain-{{ keychain_version }}
+      dest: /opt/keychain
+    become: yes
+    tags: keychain
+
 
 # Xcape
   - name: Install required packages for xcape

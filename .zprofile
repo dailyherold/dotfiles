@@ -50,6 +50,7 @@ path=(
   /opt/apache-ant/bin
   /opt/apache-maven/bin
   /opt/gradle/bin
+  /opt/keychain
   $path
 )
 
