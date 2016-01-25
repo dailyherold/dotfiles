@@ -660,3 +660,11 @@
       dest: /opt/apache-ant
     become: yes
     tags: ant
+
+# Verse
+  - name: Install verse
+    apt:
+      name: verse
+      state: latest
+    become: yes
+    tags: ["verse","packages"]
