@@ -6,8 +6,9 @@
   vars:
     current_user: "{{ lookup('env','USER') }}"
     current_user_home: "{{ lookup('env','HOME') }}"
-    apache_version: 3.3.9
+    maven_version: 3.3.9
     gradle_version: 2.10
+    ant_version: 1.9.6
     default_packages:
       - git
       - subversion
@@ -551,7 +552,7 @@
 # Maven
   - name: Download Maven binary
     get_url:
-      url: http://mirrors.advancedhosters.com/apache/maven/maven-3/{{ apache_version }}/binaries/apache-maven-{{ apache_version }}-bin.tar.gz
+      url: http://mirrors.advancedhosters.com/apache/maven/maven-3/{{ maven_version }}/binaries/apache-maven-{{ maven_version }}-bin.tar.gz
       dest: "{{ current_user_home }}/Downloads"
     register: maven_archive
     tags: maven
@@ -567,7 +568,7 @@
   - name: symlink apache-maven-version to apache-maven
     file:
       state: link
-      src: /opt/apache-maven-{{ apache_version }}
+      src: /opt/apache-maven-{{ maven_version }}
       dest: /opt/apache-maven
     become: yes
     tags: maven
@@ -595,3 +596,27 @@
       dest: /opt/gradle
     become: yes
     tags: gradle
+
+# Ant
+  - name: Download Ant
+    get_url:
+      url: http://www.webhostingjams.com/mirror/apache//ant/binaries/apache-ant-{{ ant_version }}-bin.tar.gz
+      dest: "{{ current_user_home }}/Downloads"
+    register: ant_archive
+    tags: ant
+
+  - name: Unarchive Ant
+    unarchive:
+      src: "{{ ant_archive.dest }}"
+      dest: /opt
+    become: yes
+    register: ant
+    tags: ant
+
+  - name: symlink apache-ant-version to apache-ant
+    file:
+      state: link
+      src: /opt/apache-ant-{{ ant_version }}
+      dest: /opt/apache-ant
+    become: yes
+    tags: ant
