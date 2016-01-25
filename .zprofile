@@ -5,8 +5,6 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
-# Keychain
-eval `keychain --eval --agents ssh --inherit any jpherold`
 
 #
 # Browser
@@ -82,3 +80,8 @@ if [[ ! -d "$TMPPREFIX" ]]; then
   mkdir -p "$TMPPREFIX"
 fi
 
+#
+# Keychain
+#
+
+eval `keychain --eval --agents ssh --inherit any jpherold`
