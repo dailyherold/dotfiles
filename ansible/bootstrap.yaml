@@ -10,6 +10,7 @@
     gradle_version: "2.10"
     ant_version: "1.9.6"
     keychain_version: "2.8.2"
+    beyondcompare_version: "4.1.3.20814"
     default_packages:
       - git
       - subversion
@@ -668,3 +669,18 @@
       state: latest
     become: yes
     tags: ["verse","packages"]
+
+# Beyond Compare
+  - name: Download Beyond Compare 4
+    get_url:
+      url: http://www.scootersoftware.com/bcompare-{{ beyondcompare_version }}_amd64.deb
+      dest: "{{ current_user_home }}/Downloads"
+    register: beyondcompare
+    tags: beyondcompare
+
+  - name: Install Beyond Compare 4
+    apt:
+      deb: "{{ beyondcompare.dest }}"
+      state: present
+    become: yes
+    tags: ["beyondcompare","packages"]
