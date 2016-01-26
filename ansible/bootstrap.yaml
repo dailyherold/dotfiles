@@ -11,6 +11,7 @@
     ant_version: "1.9.6"
     keychain_version: "2.8.2"
     beyondcompare_version: "4.1.3.20814"
+    terraform_version: "0.6.9"
     default_packages:
       - git
       - subversion
@@ -684,3 +685,26 @@
       state: present
     become: yes
     tags: ["beyondcompare","packages"]
+
+# Terraform
+  - name: Download Terraform
+    get_url:
+      url: https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_linux_amd64.zip
+      dest: "{{ current_user_home }}/Downloads"
+    register: terraform_archive
+    tags: terraform
+
+  - name: Ensure /opt/terraform
+    file:
+      state: directory
+      path: /opt/terraform
+    become: yes
+    register: terraform
+    tags: terraform
+
+  - name: Unarchive Terraform
+    unarchive:
+      src: "{{ terraform_archive.dest }}"
+      dest: "{{ terraform.path }}"
+    become: yes
+    tags: terraform

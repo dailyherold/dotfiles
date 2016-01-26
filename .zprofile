@@ -49,6 +49,7 @@ path=(
   /opt/apache-maven/bin
   /opt/gradle/bin
   /opt/keychain
+  /opt/terraform
   $path
 )
 
@@ -84,4 +85,4 @@ fi
 # Keychain
 #
 
-eval `keychain --eval --agents ssh --inherit any jpherold`
+eval `keychain --eval --agents ssh --inherit any jpherold ansible`
