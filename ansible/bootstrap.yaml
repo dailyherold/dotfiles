@@ -41,7 +41,7 @@
       - smartmontools
       - traceroute
       - mtr
-      - git
+      - curl
 
   tasks:
   - name: Update packages
