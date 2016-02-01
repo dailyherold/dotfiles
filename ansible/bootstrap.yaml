@@ -708,3 +708,63 @@
       dest: "{{ terraform.path }}"
     become: yes
     tags: terraform
+
+# Docker
+  - name: Add apt-key for Docker
+    apt_key:
+      state: present
+      keyserver: hkp://p80.pool.sks-keyservers.net:80
+      id: 58118E89F3A912897C070ADBF76221572C52609D
+    become: yes
+    tags: docker
+
+  - name: Add docker.list to apt-sources
+    lineinfile:
+      state: present
+      create: yes
+      dest: /etc/apt/sources.list.d/docker.list
+      line: deb https://apt.dockerproject.org/repo ubuntu-trusty main
+    register: docker_apt
+    become: yes
+    tags: docker
+
+  - name: Update apt cache
+    apt:
+      update_cache: yes
+    when: docker_apt.changed
+    become: yes
+    tags: docker
+
+  - name: Install linux-image-extra kernerl package and docker-engine
+    apt:
+      state: latest
+      name: "{{ item }}"
+    with_items:
+      - linux-image-extra-{{ ansible_kernel }}
+      - docker-engine
+    become: yes
+    tags: ["docker","packages"]
+
+  - name: Start and enable docker service
+    service:
+      state: started
+      enabled: yes
+      name: docker
+    become: yes
+    tags: docker
+
+  - name: Add docker group
+    group:
+      state: present
+      name: docker
+    become: yes
+    tags: docker
+
+  - name: Add current user to docker group
+    user:
+      state: present
+      append: yes
+      groups: docker
+      name: "{{ ansible_env.USER }}"
+    become: yes
+    tags: docker
