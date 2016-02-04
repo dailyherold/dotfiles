@@ -1,0 +1,6 @@
+#!/bin/bash
+ARG=("$@")
+x=$( printf "%s" "${ARG[@]}" )
+calc(){ awk "BEGIN{ print $* }" ;}
+calc $x
+
