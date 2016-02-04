@@ -12,6 +12,7 @@
     keychain_version: "2.8.2"
     beyondcompare_version: "4.1.3.20814"
     terraform_version: "0.6.9"
+    nvm_version: "0.30.2"
     default_packages:
       - git
       - subversion
@@ -768,3 +769,13 @@
       name: "{{ ansible_env.USER }}"
     become: yes
     tags: docker
+
+# Node Version Manager (NVM)
+  - name: Checkout nvm git repo
+    git:
+      repo: https://github.com/creationix/nvm.git
+      dest: "{{ current_user_home }}/.nvm"
+      accept_hostkey: yes
+      version: "v{{ nvm_version }}" # checks out specific tag version
+      update: yes
+    tags: nvm
