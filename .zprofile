@@ -50,6 +50,7 @@ path=(
   /opt/gradle/bin
   /opt/keychain
   /opt/terraform
+  /opt/packer
   $path
 )
 

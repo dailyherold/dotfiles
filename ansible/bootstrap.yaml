@@ -12,6 +12,7 @@
     keychain_version: "2.8.2"
     beyondcompare_version: "4.1.3.20814"
     terraform_version: "0.6.9"
+    packer_version: "0.8.6"
     nvm_version: "0.30.2"
     default_packages:
       - git
@@ -709,6 +710,29 @@
       dest: "{{ terraform.path }}"
     become: yes
     tags: terraform
+
+# Packer
+  - name: Download Packer
+    get_url:
+      url: https://releases.hashicorp.com/packer/{{ packer_version }}/packer_{{ packer_version }}_linux_amd64.zip
+      dest: "{{ current_user_home }}/Downloads"
+    register: packer_archive
+    tags: packer
+
+  - name: Ensure /opt/packer
+    file:
+      state: directory
+      path: /opt/packer
+    become: yes
+    register: packer
+    tags: packer
+
+  - name: Unarchive Packer
+    unarchive:
+      src: "{{ packer_archive.dest }}"
+      dest: "{{ packer.path }}"
+    become: yes
+    tags: packer
 
 # Docker
   - name: Add apt-key for Docker
