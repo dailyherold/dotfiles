@@ -1,0 +1,40 @@
+#!/bin/bash
+
+# Utility functions
+vpn_pid() {
+  ps aux \
+    | grep [v]pnc \
+    | awk '{print $2}'
+}
+
+# Status functions
+vpn_start() {
+  echo "Enter vpnc profile name and press [Enter]: "
+  read vpnc_profile
+  sudo vpnc "$vpnc_profile"
+}
+
+vpn_stop() {
+  sudo vpnc-disconnect
+}
+
+vpn_status() {
+  [[ ! -z "$(vpn_pid)" ]] && echo -e "Connected\npid:"$(vpn_pid)"" || echo "Disconnected"
+}
+
+main() {
+  declare arg="$1"
+
+  if [[ "$arg" = "start" ]]; then
+    vpn_start
+  elif [[ "$arg" = "stop" ]]; then
+    vpn_stop
+  elif [[ "$arg" = "status" ]]; then
+    vpn_status
+  else
+    echo "Invalid parameter, use start, stop, or status."
+  fi
+
+}
+main "$@"
+
