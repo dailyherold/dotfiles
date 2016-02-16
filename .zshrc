@@ -22,10 +22,6 @@ else
 fi
 
 ## Aliases ##
-# VPN #
-alias vpnstart='sudo vpnc Examsoft'
-alias vpnstop='sudo vpnc-disconnect'
-alias vpnstatus='~/vpn/vpnStatus'
 # ls
 alias ls='ls -F --color'
 alias ll='ls -lF --color'
@@ -57,4 +53,3 @@ fi
 export PATH="$HOME/.tmuxifier/bin:$PATH"
 eval "$(tmuxifier init -)"
 
-export PATH="$HOME/packer:$PATH"
