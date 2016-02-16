@@ -803,3 +803,11 @@
       version: "v{{ nvm_version }}" # checks out specific tag version
       update: yes
     tags: nvm
+
+# mdless (markdown less)
+  - name: Install mdless gem
+    gem:
+      state: latest
+      name: mdless
+    become: yes
+    tags: ["mdless","gem"]
