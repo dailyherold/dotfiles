@@ -827,3 +827,23 @@
       name: mdless
     become: yes
     tags: ["mdless","gem"]
+
+# sdkman
+  - name: Download sdkman script
+    get_url:
+      dest: "{{ current_user_home }}/sdkman_install"
+      url: http://get.sdkman.io
+      mode: "u+x,g+x,o+x"
+    register: sdkman_script
+    tags: sdkman
+
+  - debug: var=sdkman_script
+    tags: sdkman
+
+  - name: Install sdkman
+    command: /bin/bash {{ sdkman_script.dest }}
+    register: sdkman_install
+    tags: sdkman
+
+  - debug: msg={{ sdkman_install.stdout }}
+    tags: sdkman
