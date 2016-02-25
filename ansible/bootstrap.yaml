@@ -45,6 +45,7 @@
       - traceroute
       - mtr
       - curl
+      - ppa-purge
 
   tasks:
   - name: Update packages
@@ -61,7 +62,7 @@
       - packages
   - name: Install utility packages
     apt: name={{ item }} state=latest
-    with_items: utility_packages
+    with_items: "{{ utility_packages }}"
     become: yes
     tags:
       - packages
