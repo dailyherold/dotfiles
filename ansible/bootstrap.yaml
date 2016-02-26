@@ -15,6 +15,7 @@
     packer_version: "0.9.0"
     vagrant_version: "1.8.1"
     nvm_version: "0.30.2"
+    docker_compose_version: "1.6.2"
     default_packages:
       - git
       - subversion
@@ -810,6 +811,15 @@
       name: "{{ ansible_env.USER }}"
     become: yes
     tags: docker
+
+# Docker Compose
+  - name: Install Docker Compose
+    get_url:
+      dest: "/usr/local/bin/docker-compose"
+      url: https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-Linux-x86_64
+      mode: "u+x,g+x,o+x"
+    become: yes
+    tags: docker_compose
 
 # Node Version Manager (NVM)
   - name: Checkout nvm git repo
