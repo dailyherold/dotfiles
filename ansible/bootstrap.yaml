@@ -596,6 +596,33 @@
     become: yes
     tags: ["spideroak","packages"]
 
+# nvPY (Notes)
+  - name: Ensure nvPY dependencies
+    apt:
+      state: latest
+      name: "{{ item }}"
+    with_items:
+      - python
+      - python-tk
+      - python-pip
+      - python-markdown
+    become: yes
+    tags: ["nvpy","packages"]
+
+  - name: Install nvPY
+    pip:
+      state: latest
+      name: nvpy
+    become: yes
+    tags: ["nvpy","packages"]
+
+  - name: Set nvPY's conf for local notes synced to Dropbox dir
+    copy:
+      src: .nvpy.cfg
+      dest: "{{ current_user_home }}"
+    tags: ["nvpy","config"]
+
+
 # Maven
   - name: Download Maven binary
     get_url:
