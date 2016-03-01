@@ -16,6 +16,7 @@
     vagrant_version: "1.8.1"
     nvm_version: "0.30.2"
     docker_compose_version: "1.6.2"
+    datagrip_version: "1.0.3"
     default_packages:
       - git
       - subversion
@@ -885,3 +886,20 @@
 
   - debug: msg={{ sdkman_install.stdout }}
     tags: sdkman
+
+# Jetbrains DataGrip
+  - name: Download DataGrip
+    get_url:
+      dest: "{{ current_user_home }}/Downloads"
+      url: https://download.jetbrains.com/datagrip/datagrip-{{ datagrip_version }}-custom-jdk-linux.tar.gz
+      validate_certs: no
+    register: datagrip_archive
+    tags: datagrip
+
+  - name: Unarchive DataGrip
+    unarchive:
+      dest: "{{ current_user_home }}"
+      src: "{{ datagrip_archive.dest }}"
+    tags: datagrip
+
+
