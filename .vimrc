@@ -56,6 +56,8 @@ set noshowmode
 
 "nerdtree
 map <leader>n :NERDTreeToggle<CR>
+nmap <leader>j :NERDTreeFind<CR>
+let NERDTreeShowHidden=1
 
 "solarized
 call togglebg#map("<F5>")
@@ -76,6 +78,11 @@ set relativenumber
 set autoread
 set colorcolumn=90
 set pastetoggle=<F3>
+set hlsearch
+set nowrap
+
+" Esc search
+nnoremap <silent> <Esc> :nohlsearch<Bar>:echo<CR>
 
 " Quick reload of .vimrc
 nmap <leader>r :source ~/.vimrc<CR>
