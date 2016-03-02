@@ -18,6 +18,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'rking/ag.vim'
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'tmux-plugins/vim-tmux-focus-events'
 
 "Plugin 'Lokaltog/vim-easymotion'
 "Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
@@ -64,7 +65,21 @@ colorscheme solarized
 "===================
 
 set number
+set relativenumber
 set autoread
+
+" keymap to toggle line numbers
+nmap <F2> :set invnumber invrelativenumber<CR>
+
+" Toggle relative numbers on FocusLost
+autocmd FocusLost * :set number norelativenumber
+" Using vim-tmux-navigator, on FocusLost ^[[O was left behind
+" https://github.com/tmux-plugins/vim-tmux-focus-events/issues/2
+autocmd FocusLost * silent redraw!
+autocmd FocusGained * :set number relativenumber
+" Toggle relative numbers in insert mode
+autocmd InsertEnter * :set number norelativenumber
+autocmd InsertLeave * :set number relativenumber
 
 "quick change modes
 if ! has('gui_running')
