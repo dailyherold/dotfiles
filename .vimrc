@@ -1,6 +1,7 @@
 set nocompatible              " be iMproved
 filetype off                  " required!
 syntax enable
+let mapleader=" "
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -51,7 +52,7 @@ set laststatus=2
 set noshowmode
 
 "nerdtree
-map <C-n> :NERDTreeToggle<CR>
+map <leader>n :NERDTreeToggle<CR>
 
 "solarized
 call togglebg#map("<F5>")
@@ -67,6 +68,10 @@ colorscheme solarized
 set number
 set relativenumber
 set autoread
+set colorcolumn=90
+
+" Quick reload of .vimrc
+nmap <leader>r :source ~/.vimrc<CR>
 
 " keymap to toggle line numbers
 nmap <F2> :set invnumber invrelativenumber<CR>
