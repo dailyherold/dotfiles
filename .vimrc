@@ -2,6 +2,7 @@ set nocompatible              " be iMproved
 filetype off                  " required!
 syntax enable
 let mapleader=" "
+set hidden
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
