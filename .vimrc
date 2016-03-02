@@ -21,6 +21,8 @@ Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'rking/ag.vim'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'tmux-plugins/vim-tmux-focus-events'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'terryma/vim-multiple-cursors'
 
 "Plugin 'Lokaltog/vim-easymotion'
 "Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
@@ -62,6 +64,9 @@ let g:solarized_bold=0
 set background=light
 colorscheme solarized
 
+"gitgutter
+let g:gitgutter_sign_column_always=1
+
 "===================
 "   VIM SETTINGS
 "===================
@@ -70,6 +75,7 @@ set number
 set relativenumber
 set autoread
 set colorcolumn=90
+set pastetoggle=<F3>
 
 " Quick reload of .vimrc
 nmap <leader>r :source ~/.vimrc<CR>
