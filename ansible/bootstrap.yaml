@@ -906,10 +906,17 @@
   - name: Git clone fzf
     git:
       repo: https://github.com/junegunn/fzf.git
-      dest: "{{ current_user_home }}/.fvf"
+      dest: "{{ current_user_home }}/.fzf"
       depth: 1
       update: yes
     tags: fzf
+
+#  - name: Install fzf
+#    shell: "{{ current_user_home }}/.fzf/install --all"
+#    args:
+#     chdir: "{{ current_user_home }}/.fzf"
+#      executable: yes
+#    tags: fzf
 
   - name: You're not done yet!
     debug: msg="Install fzf by running ~/.fzf/install"
