@@ -21,6 +21,9 @@ else
   export TERM=xterm-256color
 fi
 
+# ignore EOF ('^D') (i.e. don't log out on it)
+setopt ignoreeof
+
 ## Aliases ##
 # ls
 alias ls='ls -F --color'
@@ -57,3 +60,5 @@ eval "$(tmuxifier init -)"
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/home/jpherold/.sdkman"
 [[ -s "/home/jpherold/.sdkman/bin/sdkman-init.sh" ]] && source "/home/jpherold/.sdkman/bin/sdkman-init.sh"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
