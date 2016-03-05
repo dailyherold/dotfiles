@@ -935,3 +935,17 @@
       state: latest
     become: yes
     tags: ["albert","packages"]
+
+# plank dock
+  - name: Add plank ppa
+    shell: 'add-apt-repository -y ppa:docky-core/stable'
+    become: yes
+    tags: plank
+
+  - name: Install plank
+    apt:
+      #update_cache: yes
+      name: plank
+      state: latest
+    become: yes
+    tags: ["plank","packages"]
