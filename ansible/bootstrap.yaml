@@ -24,7 +24,7 @@
       - gcc
       - python-dev
       - python-pip
-      - python-apt # for apt_repository module
+      - python-apt # for Ansible's apt_repository module
       - wget
       - bzip2
       - tar
@@ -922,3 +922,16 @@
     debug: msg="Install fzf by running ~/.fzf/install"
     tags: fzf
 
+# albert launcher
+  - name: Add albert ppa
+    shell: 'add-apt-repository -y ppa:flexiondotorg/albert'
+    become: yes
+    tags: albert
+
+  - name: Install albert
+    apt:
+      update_cache: yes
+      name: albert
+      state: latest
+    become: yes
+    tags: ["albert","packages"]
