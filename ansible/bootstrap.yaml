@@ -498,6 +498,15 @@
       dest: "{{ current_user_home }}/.dotfiles/bin/tmux"
     tags: tmux
 
+# tmux plugin manager
+  - name: Clone tpm repo
+    git:
+      repo: https://github.com/tmux-plugins/tpm
+      dest: "{{ current_user_home }}/.tmux/plugins/tpm"
+      accept_hostkey: yes
+      update: yes
+    tags: ["tmux","tpm"]
+
 # HAL for some native encrypted flash streaming support
   - name: Add hal-flash ppa
     shell: 'add-apt-repository -y ppa:flexiondotorg/hal-flash'
