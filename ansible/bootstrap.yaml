@@ -16,6 +16,7 @@
     vagrant_version: "1.8.1"
     nvm_version: "0.30.2"
     docker_compose_version: "1.6.2"
+    docker_machine_version: "v0.6.0"
     datagrip_version: "1.0.3"
     default_packages:
       - git
@@ -48,6 +49,7 @@
       - mtr
       - curl
       - ppa-purge
+      - wireshark
 
   tasks:
   - name: Update packages
@@ -857,6 +859,15 @@
       mode: "u+x,g+x,o+x"
     become: yes
     tags: docker_compose
+
+# Docker Machine
+  - name: Install Docker machine
+    get_url:
+      dest: "/usr/local/bin/docker-machine"
+      url: https://github.com/docker/machine/releases/download/{{ docker_machine_version }}/docker-machine-Linux-x86_64
+      mode: "u+x,g+x,o+x"
+    become: yes
+    tags: docker_machine
 
 # Node Version Manager (NVM)
   - name: Checkout nvm git repo
