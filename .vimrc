@@ -14,7 +14,8 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 
 Plugin 'altercation/vim-colors-solarized'
-Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 Plugin 'scrooloose/nerdtree'
 Plugin 'tpope/vim-fugitive'
 Plugin 'christoomey/vim-tmux-navigator'
@@ -23,6 +24,7 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'tmux-plugins/vim-tmux-focus-events'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'terryma/vim-multiple-cursors'
+Plugin 'pearofducks/ansible-vim'
 
 "Plugin 'Lokaltog/vim-easymotion'
 "Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
@@ -51,6 +53,7 @@ filetype plugin indent on    " required
 
 "airline/powerline
 let g:airline_powerline_fonts=1
+let g:airline#extensions#tabline#enabled = 1
 set laststatus=2
 set noshowmode
 
@@ -63,7 +66,7 @@ let NERDTreeShowHidden=1
 call togglebg#map("<F5>")
 let g:solarized_bold=0
 "let g:solarized_termcolors=256
-set background=light
+set background=dark
 colorscheme solarized
 
 "gitgutter
@@ -82,7 +85,7 @@ set hlsearch
 set nowrap
 
 " Esc search
-nnoremap <silent> <Esc> :nohlsearch<Bar>:echo<CR>
+"nnoremap <silent> <Esc> :nohlsearch<Bar>:echo<CR>
 
 " Quick reload of .vimrc
 nmap <leader>r :source ~/.vimrc<CR>
