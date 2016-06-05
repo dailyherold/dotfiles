@@ -50,6 +50,8 @@
       - curl
       - ppa-purge
       - wireshark
+      - tshark
+      - nmap
 
   tasks:
   - name: Update packages
@@ -857,6 +859,7 @@
       dest: "/usr/local/bin/docker-compose"
       url: https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-Linux-x86_64
       mode: "u+x,g+x,o+x"
+      force: yes
     become: yes
     tags: docker_compose
 
