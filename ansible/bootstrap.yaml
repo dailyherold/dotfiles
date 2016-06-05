@@ -18,6 +18,8 @@
     docker_compose_version: "1.7.0"
     docker_machine_version: "v0.6.0"
     datagrip_version: "1.0.3"
+    eclipse_release_name: "mars"
+    eclipse_minor_version: "2"
     default_packages:
       - git
       - subversion
@@ -972,3 +974,26 @@
       state: latest
     become: yes
     tags: ["plank","packages"]
+
+# Eclipse
+  - name: download Eclipse EE
+    get_url:
+      dest: "{{ current_user_home }}/Downloads"
+      url: http://eclipse.mirror.rafal.ca/technology/epp/downloads/release/{{ eclipse_release_name }}/{{ eclipse_minor_version }}/eclipse-jee-{{ eclipse_release_name }}-{{ eclipse_minor_version }}-linux-gtk-x86_64.tar.gz
+      validate_certs: no
+    register: eclipse_archive
+    tags: eclipse
+
+  - name: Unarchive Eclipse
+    unarchive:
+      dest: /opt
+      src: "{{ eclipse_archive.dest }}"
+    become: yes
+    tags: eclipse
+
+  - name: Copy Eclipse launcher shortcut
+    copy:
+      src: eclipse.desktop
+      dest: /usr/share/applications
+    become: yes
+    tags: eclipse
