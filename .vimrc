@@ -84,6 +84,10 @@ set pastetoggle=<F3>
 set hlsearch
 set nowrap
 
+" canonical dirs for backups and swap files
+set backupdir=~/.vim/backup//
+set directory=~/.vim/swp//
+
 " Esc search
 "nnoremap <silent> <Esc> :nohlsearch<Bar>:echo<CR>
 
