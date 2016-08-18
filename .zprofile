@@ -93,4 +93,4 @@ export NVM_DIR="$HOME/.nvm"
 # Keychain
 #
 
-eval `keychain --eval --agents ssh --inherit any jpherold ansible`
+eval `keychain --eval --agents ssh --inherit any jpherold`

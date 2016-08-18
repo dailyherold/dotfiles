@@ -12,7 +12,7 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # add .dotfiles/bin to path for dfm
-export PATH=$PATH:$HOME/bin
+export PATH=$PATH:$HOME/.dotfiles/bin
 
 # handle colors if tmux is running
 if [ -n "$TMUX" ]; then

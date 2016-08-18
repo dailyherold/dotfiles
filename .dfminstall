@@ -2,3 +2,4 @@ README.md skip
 .gitmodules skip
 util skip
 ansible skip
+bin skip
