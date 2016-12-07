@@ -53,10 +53,6 @@ if [ -z "$(pgrep xcape)" ]; then
     ~/repos/git/xcape/xcape -e 'Control_L=Escape'
 fi
 
-export PATH="$HOME/.tmuxifier/bin:$PATH"
-eval "$(tmuxifier init -)"
-
-
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/home/jpherold/.sdkman"
 [[ -s "/home/jpherold/.sdkman/bin/sdkman-init.sh" ]] && source "/home/jpherold/.sdkman/bin/sdkman-init.sh"
