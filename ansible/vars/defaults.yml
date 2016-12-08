@@ -49,6 +49,9 @@ extra_packages:
   - nmap
   - zsh
   - jq
+  - vpnc
+  - freerdp # used by vpnc for rdp hosts
+  - tmux
 
 debian_packages:
   - man
