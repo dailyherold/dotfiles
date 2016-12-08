@@ -12,7 +12,8 @@ run_bootstrap() {
   git clone https://github.com/dailyherold/dotfiles.git .dotfiles
   cd .dotfiles/ansible
 
-  ansible-playbook bootstrap.yml --step --ask-become-pass
+  # TODO: accept param to this script that can be passed onto ansible command e.g. --step
+  ansible-playbook bootstrap.yml
 }
 
 
