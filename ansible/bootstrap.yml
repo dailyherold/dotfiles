@@ -49,12 +49,6 @@
     - name: Symlink dotfiles
       command: bin/dfm install chdir={{ current_user_home }}/.dotfiles
 
-    - name: Vundle'ize vim
-      git:
-        repo: https://github.com/VundleVim/Vundle.vim.git
-        dest: "{{ current_user_home }}/.vim/bundle/Vundle.vim"
-        clone: yes
-
     - name: Ensure vim swp and backup directories
       file: state=directory path={{ item }}
       with_items:
