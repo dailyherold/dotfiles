@@ -1,0 +1,942 @@
+  - name: Update packages
+    apt: upgrade=yes update_cache=yes
+    become: yes
+    tags:
+      - packages
+
+  - name: Install default packages
+    apt: name={{ item }} state=latest
+    with_items: "{{ packages }}"
+    become: yes
+    tags:
+      - packages
+  - name: Install utility packages
+    apt: name={{ item }} state=latest
+    with_items: "{{ extra_packages }}"
+    become: yes
+    tags:
+      - packages
+      - utilities
+
+  - name: Install Python packages
+    pip: name={{ item }} state=latest
+    with_items:
+      - pysphere
+      - boto
+      - pywinrm
+      - paramiko
+      - PyYAML
+      - Jinja2
+      - httplib2
+      - argparse
+      - awscli
+      - six
+    become: yes
+    tags: ["packages", "pip"]
+
+# Git repos dir
+  - name: Create git repos dir
+    file:
+      dest: "{{ current_user_home }}/repos/git"
+      state: directory
+    tags: dir
+
+# Yubikey
+#  - name: Install Yubikey ppa using apt_repository module (not working with Mint right now)
+#    apt_repository:
+#      repo: 'ppa:yubico/stable'
+#    tags: yubikey
+  - name: Install Yubikey ppa using shell
+    shell: 'add-apt-repository -y ppa:yubico/stable'
+    become: yes
+    tags: yubikey
+
+  - name: Install Yubikey manager
+    apt:
+      update_cache: yes
+      name: yubikey-neo-manager
+      state: latest
+    become: yes
+    tags: ["yubikey", "packages"]
+
+  - name: Download u2f.rules #https://www.yubico.com/faq/enable-u2f-linux/
+    get_url:
+      dest: /etc/udev/rules.d/u2f.rules
+      url: https://raw.githubusercontent.com/Yubico/libu2f-host/master/70-u2f.rules
+    become: yes
+    tags: yubikey
+
+# Redshift
+  - name: Install Redshift
+    apt:
+      name: "{{ item }}"
+      state: latest
+    with_items:
+      - redshift
+      - redshift-gtk
+    become: yes
+    tags: ["redshift", "packages"]
+
+# SSH
+  - name: Copy gnome-keyring to user's autostart
+    copy:
+      src: /etc/xdg/autostart/gnome-keyring-ssh.desktop
+      dest: "{{ current_user_home }}/.config/autostart/"
+    tags: gnome-keyring
+
+  - name: Prevent gnome-keyring from starting
+    lineinfile:
+      dest: "{{ current_user_home }}/.config/autostart/gnome-keyring-ssh.desktop"
+      line: Hidden=true
+      state: present
+    tags: gnome-keyring
+
+# Funtoo Keychain
+  - name: Download Keychain
+    get_url:
+      url: http://www.funtoo.org/distfiles/keychain/keychain-{{ keychain_version }}.tar.bz2
+      dest: "{{ current_user_home }}/Downloads"
+    register: keychain_archive
+    tags: keychain
+
+  - name: Unarchive Keychain
+    unarchive:
+      src: "{{ keychain_archive.dest }}"
+      dest: /opt
+    become: yes
+    register: keychain
+    tags: keychain
+
+  - name: symlink keychain-version to keychain
+    file:
+      state: link
+      src: /opt/keychain-{{ keychain_version }}
+      dest: /opt/keychain
+    become: yes
+    tags: keychain
+
+
+# Xcape
+  - name: Install required packages for xcape
+    apt:
+      name: "{{ item }}"
+      state: latest
+    with_items:
+      - pkg-config
+      - libX11-dev
+      - libxtst-dev
+      - libxi-dev
+    become: yes
+    tags: ["xcape", "packages"]
+
+  - name: Clone xcape repo
+    git:
+      repo: https://github.com/alols/xcape.git
+      dest: "{{ current_user_home }}/repos/git/xcape"
+      accept_hostkey: yes
+      update: yes
+    tags: xcape
+
+  - name: Make xcape
+    shell: make
+    args:
+      chdir: "{{ current_user_home }}/repos/git/xcape"
+      creates: "{{ current_user_home }}/repos/git/xcape/xcape"
+    register: make_result
+    tags: xcape
+
+  - name: Make install xcape
+    shell: make install
+    args:
+      chdir: "{{ current_user_home }}/repos/git/xcape"
+    become: yes
+    when: make_result.changed
+    tags: xcape
+
+# Zsh
+  - name: Install Zsh
+    apt:
+      name: "{{ item }}"
+      state: latest
+    with_items:
+      - zsh
+      - zsh-doc
+    become: yes
+    tags: ["zsh", "packages"]
+
+  - name: Set Zsh as the default shell
+    user:
+      name: "{{ current_user }}"
+      shell: /bin/zsh
+    become: yes
+    tags: zsh
+
+# Dotfiles
+  - name: Clone dailyherold dotfiles repo
+    git:
+      repo: git@github.com:dailyherold/dotfiles.git
+      dest: "{{ current_user_home }}/.dotfiles"
+      accept_hostkey: yes
+      update: yes
+    tags: dotfiles
+
+  - name: Init and update submodules
+    shell: git submodule update --init --recursive
+    args:
+      chdir: "{{ current_user_home }}/.dotfiles"
+    tags: dotfiles
+
+  - name: DFM install
+    shell: ./bin/dfm install
+    args:
+      chdir: "{{ current_user_home }}/.dotfiles"
+      executable: yes
+    tags: dotfiles
+
+# Xclip
+  - name: Install Xclip
+    apt:
+      name: xclip
+      state: latest
+    become: yes
+    tags: ["xclip", "packages"]
+
+# Guake
+  - name: Add webupd8team ppa (guake)
+    shell: 'add-apt-repository -y ppa:webupd8team/unstable'
+    become: yes
+    tags: guake
+
+  - name: Install guake
+    apt:
+      update_cache: yes
+      name: guake
+      state: latest
+    become: yes
+    tags: ["guake","packages"]
+
+# Solarized
+  - name: Install dconf
+    apt:
+      name: dconf-cli
+      state: latest
+    become: yes
+    tags: ["solarized","solarized-gnome","packages"]
+
+  - name: Clone gnome terminal solarized colors
+    git:
+      repo: git@github.com:Anthony25/gnome-terminal-colors-solarized.git
+      dest: "{{ current_user_home }}/repos/git/gnome-terminal-colors-solarized"
+      accept_hostkey: yes
+      update: yes
+    tags: ["solarized","solarized-gnome"]
+
+  - name: Set gnome-terminal-colors-solarized
+    shell: ./set_dark.sh
+    args:
+      chdir: "{{ current_user_home }}/repos/git/gnome-terminal-colors-solarized"
+      executable: yes
+    tags: ["solarized","solarized-gnome"]
+
+  - name: Clone solarized dir-colors
+    git:
+      repo: git@github.com:seebi/dircolors-solarized.git
+      dest: "{{ current_user_home }}/repos/git/dircolors-solarized"
+      accept_hostkey: yes
+      update: yes
+    tags: ["solarized","solarized-dircolors"]
+
+  - name: Clone solarized colorscheme for Guake
+    git:
+      repo: https://github.com/coolwanglu/guake-colors-solarized.git
+      dest: "{{ current_user_home }}/repos/git/guake-colors-solarized"
+      accept_hostkey: yes
+      update: yes
+    tags: ["solarized","guake"]
+
+  - name: Set guake solarized colorscheme
+    shell: ./set_dark.sh
+    args:
+      chdir: "{{ current_user_home }}/repos/git/guake-colors-solarized"
+      executable: yes
+    tags: ["solarized","guake"]
+
+# Sensors
+  - name: Install lm-sensors
+    apt:
+      name: lm-sensors
+      state: latest
+    become: yes
+    tags: ["sensors","packages"]
+
+  - name: Detect sensors
+    shell: sensors-detect
+    become: yes
+    tags: sensors
+
+  - name: View sensors
+    shell: sensors
+    register: sensors_output
+    tags: sensors
+
+  - name: Show sensors data
+    debug: var=sensors_output
+    tags: sensors
+
+  - name: Add Psensor ppa
+    shell: 'apt-add-repository -y ppa:jfi/ppa'
+    become: yes
+    tags: sensors
+
+  - name: Install Psensor
+    apt:
+      update_cache: yes
+      name: psensor
+      state: latest
+    become: yes
+    tags: ["sensors", "packages"]
+
+# Diodon
+  - name: Add Diodon ppa
+    shell: 'apt-add-repository -y ppa:diodon-team/stable'
+    become: yes
+    tags: diodon
+
+  - name: Install Diodon
+    apt:
+      update_cache: yes
+      name: diodon
+      state: latest
+    become: yes
+    tags: ["diodon","packages"]
+
+# Shutter
+  - name: Add Shutter ppa
+    shell: 'apt-add-repository -y ppa:shutter/ppa'
+    become: yes
+    tags: shutter
+
+  - name: Install Shutter
+    apt:
+      update_cache: yes
+      name: shutter
+      state: latest
+    become: yes
+    tags: ["shutter","packages"]
+
+# Zeal
+  - name: Add Zeal ppa
+    shell: 'apt-add-repository -y ppa:zeal-developers/ppa'
+    become: yes
+    tags: zeal
+
+  - name: Install Zeal
+    apt:
+      update_cache: yes
+      name: zeal
+      state: latest
+    become: yes
+    tags: ["zeal","packages"]
+
+# VirtualBox
+  - name: Install dkms
+    apt:
+      name: dkms
+      state: latest
+    become: yes
+    tags: ["virtualbox","packages"]
+
+  - name: Configure the Oracle APT key
+    apt_key:
+      url: https://www.virtualbox.org/download/oracle_vbox.asc
+      state: present
+    become: yes
+    tags: virtualbox
+
+  - name: Configure the VirtualBox APT repositories
+    apt_repository:
+      repo: "deb http://download.virtualbox.org/virtualbox/debian trusty contrib"
+      state: present
+    become: yes
+    tags: virtualbox
+
+  - name: Install virtualbox
+    apt:
+      update_cache: yes
+      name: virtualbox-5.0
+      state: latest
+    become: yes
+    tags: ["virtualbox","packages"]
+
+  # Install extension pack as well
+
+# VPN
+  - name: Install vpnc
+    apt:
+      name: vpnc
+      state: latest
+    become: yes
+    tags: ["vpnc","packages"]
+
+# Lenovo TLP
+  - name: Ensure laptop-mode-tools is not installed
+    apt:
+      name: laptop-mode-tools
+      state: absent
+    become: yes
+    tags: tlp
+
+  - name: Add TLP ppa
+    shell: 'apt-add-repository -y ppa:linrunner/tlp'
+    become: yes
+    tags: tlp
+
+  - name: Install TLP
+    apt:
+      update_cache: yes
+      name: "{{ item }}"
+      state: latest
+    become: yes
+    with_items:
+      - tlp
+      - tlp-rdw
+      - tp-smapi-dkms
+      - acpi-call-dkms
+    tags: ["tlp","packages"]
+
+# tmux
+  - name: Install automake, libevent, and ncurses
+    apt:
+      name: "{{ item }}"
+      state: latest
+    with_items:
+      - automake
+      - libevent-2.0-5
+      - libevent-dev
+      - ncurses-dev
+    become: yes
+    tags: ["tmux","packages"]
+
+  - name: Clone tmux repo
+    git:
+      repo: https://github.com/tmux/tmux.git
+      dest: "{{ current_user_home }}/repos/git/tmux"
+      accept_hostkey: yes
+      update: yes
+    tags: tmux
+
+  - name: autogen tmux
+    shell: ./autogen.sh
+    args:
+      chdir: "{{ current_user_home }}/repos/git/tmux"
+      executable: yes
+    tags: tmux
+
+  - name: make tmux
+    shell: ./configure && make
+    args:
+      chdir: "{{ current_user_home }}/repos/git/tmux"
+      executable: yes
+    tags: tmux
+
+  - name: symlink tmux to .dotfiles/bin
+    file:
+      state: link
+      src: "{{ current_user_home }}/repos/git/tmux/tmux"
+      dest: "{{ current_user_home }}/.dotfiles/bin/tmux"
+    tags: tmux
+
+# tmux plugin manager
+  - name: Clone tpm repo
+    git:
+      repo: https://github.com/tmux-plugins/tpm
+      dest: "{{ current_user_home }}/.tmux/plugins/tpm"
+      accept_hostkey: yes
+      update: yes
+    tags: ["tmux","tpm"]
+
+# HAL for some native encrypted flash streaming support
+  - name: Add hal-flash ppa
+    shell: 'add-apt-repository -y ppa:flexiondotorg/hal-flash'
+    become: yes
+    tags: flash
+
+  - name: Install hal-flash
+    apt:
+      update_cache: yes
+      name: libhal1-flash
+      state: latest
+    become: yes
+    tags: ["flash","packages"]
+
+  - name: Clear Adobe access directories
+    shell: rm -rf NativeCache AssetCache APSPrivateData2
+    args:
+      chdir: "{{ current_user_home }}/.adobe/Flash_Player"
+    tags: flash
+
+# Wine
+#  - name: Install wine
+
+# Java 7
+  - name: Install JDK 7
+    apt:
+      name: openjdk-7-jdk
+      state: latest
+    become: yes
+    tags: ["java","packages"]
+
+# Java 8
+  - name: Add openjdk-r ppa
+    shell: 'add-apt-repository -y ppa:openjdk-r/ppa'
+    become: yes
+    tags: java8
+
+  - name: Install openjdk-8-jdk
+    apt:
+      update_cache: yes
+      name: openjdk-8-jdk
+      state: latest
+    become: yes
+    tags: ["java8","packages"]
+
+# Weechat
+  - name: Add gpg key for Weechat repo
+    apt_key:
+      keyserver: keys.gnupg.net
+      id: 11E9DE8848F2B65222AA75B8D1820DB22A11534E
+      state: present
+    become: yes
+    tags: weechat
+
+  - name: Add Weechat repo
+    apt_repository:
+      repo: deb https://weechat.org/ubuntu trusty main
+      state: present
+    become: yes
+    tags: weechat
+
+  - name: Install Weechat
+    apt:
+      update_cache: yes
+      name: "{{ item }}"
+      state: latest
+    with_items:
+      - weechat-curses
+      - weechat-plugins
+      - weechat-doc
+    become: yes
+    tags: ["weechat","packages"]
+
+# Dropbox
+  - name: Install Dropbox
+    apt:
+      name: "{{ item }}"
+      state: latest
+    with_items:
+      - dropbox
+      - nemo-dropbox
+    become: yes
+    tags: ["dropbox","packages"]
+
+# SpiderOak
+  - name: Download SpiderOak package
+    get_url:
+      url: https://spideroak.com/getbuild?platform=ubuntu&arch=x86_64
+      dest: "{{ current_user_home }}/Downloads"
+    register: spideroak
+    tags: spideroak
+
+  - name: Install SpiderOak
+    apt:
+      deb: "{{ spideroak.dest }}"
+      state: present
+    become: yes
+    tags: ["spideroak","packages"]
+
+# nvPY (Notes)
+  - name: Ensure nvPY dependencies
+    apt:
+      state: latest
+      name: "{{ item }}"
+    with_items:
+      - python
+      - python-tk
+      - python-pip
+      - python-markdown
+    become: yes
+    tags: ["nvpy","packages"]
+
+  - name: Install nvPY
+    pip:
+      state: latest
+      name: nvpy
+    become: yes
+    tags: ["nvpy","packages"]
+
+  - name: Set nvPY's conf for local notes synced to Dropbox dir
+    copy:
+      src: .nvpy.cfg
+      dest: "{{ current_user_home }}"
+    tags: ["nvpy","config"]
+
+
+# Maven
+  - name: Download Maven binary
+    get_url:
+      url: http://mirrors.advancedhosters.com/apache/maven/maven-3/{{ maven_version }}/binaries/apache-maven-{{ maven_version }}-bin.tar.gz
+      dest: "{{ current_user_home }}/Downloads"
+    register: maven_archive
+    tags: maven
+
+  - name: Unarchive Maven
+    unarchive:
+      src: "{{ maven_archive.dest }}"
+      dest: /opt
+    become: yes
+    register: maven
+    tags: maven
+
+  - name: symlink apache-maven-version to apache-maven
+    file:
+      state: link
+      src: /opt/apache-maven-{{ maven_version }}
+      dest: /opt/apache-maven
+    become: yes
+    tags: maven
+
+# Gradle
+  - name: Download Gradle
+    get_url:
+      url: https://services.gradle.org/distributions/gradle-{{ gradle_version }}-all.zip
+      dest: "{{ current_user_home }}/Downloads"
+    register: gradle_archive
+    tags: gradle
+
+  - name: Unarchive Gradle
+    unarchive:
+      src: "{{ gradle_archive.dest }}"
+      dest: /opt
+    become: yes
+    register: gradle
+    tags: gradle
+
+  - name: symlink gradle-version to gradle
+    file:
+      state: link
+      src: /opt/gradle-{{ gradle_version }}
+      dest: /opt/gradle
+    become: yes
+    tags: gradle
+
+# Ant
+  - name: Download Ant
+    get_url:
+      url: http://www.webhostingjams.com/mirror/apache//ant/binaries/apache-ant-{{ ant_version }}-bin.tar.gz
+      dest: "{{ current_user_home }}/Downloads"
+    register: ant_archive
+    tags: ant
+
+  - name: Unarchive Ant
+    unarchive:
+      src: "{{ ant_archive.dest }}"
+      dest: /opt
+    become: yes
+    register: ant
+    tags: ant
+
+  - name: symlink apache-ant-version to apache-ant
+    file:
+      state: link
+      src: /opt/apache-ant-{{ ant_version }}
+      dest: /opt/apache-ant
+    become: yes
+    tags: ant
+
+# Verse
+  - name: Install verse
+    apt:
+      name: verse
+      state: latest
+    become: yes
+    tags: ["verse","packages"]
+
+# Beyond Compare
+  - name: Download Beyond Compare 4
+    get_url:
+      url: http://www.scootersoftware.com/bcompare-{{ beyondcompare_version }}_amd64.deb
+      dest: "{{ current_user_home }}/Downloads"
+    register: beyondcompare
+    tags: beyondcompare
+
+  - name: Install Beyond Compare 4
+    apt:
+      deb: "{{ beyondcompare.dest }}"
+      state: present
+    become: yes
+    tags: ["beyondcompare","packages"]
+
+# Terraform
+  - name: Download Terraform
+    get_url:
+      url: https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_linux_amd64.zip
+      dest: "{{ current_user_home }}/Downloads"
+    register: terraform_archive
+    tags: terraform
+
+  - name: Ensure /opt/terraform
+    file:
+      state: directory
+      path: /opt/terraform
+    become: yes
+    register: terraform
+    tags: terraform
+
+  - name: Unarchive Terraform
+    unarchive:
+      src: "{{ terraform_archive.dest }}"
+      dest: "{{ terraform.path }}"
+    become: yes
+    tags: terraform
+
+# Packer
+  - name: Download Packer
+    get_url:
+      url: https://releases.hashicorp.com/packer/{{ packer_version }}/packer_{{ packer_version }}_linux_amd64.zip
+      dest: "{{ current_user_home }}/Downloads"
+    register: packer_archive
+    tags: packer
+
+  - name: Ensure /opt/packer
+    file:
+      state: directory
+      path: /opt/packer
+    become: yes
+    register: packer
+    tags: packer
+
+  - name: Unarchive Packer
+    unarchive:
+      src: "{{ packer_archive.dest }}"
+      dest: "{{ packer.path }}"
+    become: yes
+    tags: packer
+
+# Vagrant
+  - name: Download Vagrant
+    get_url:
+      url: https://releases.hashicorp.com/vagrant/{{ vagrant_version }}/vagrant_{{ vagrant_version }}_x86_64.deb
+      dest: "{{ current_user_home }}/Downloads"
+    register: vagrant_deb
+    tags: vagrant
+
+  - name: Install Vagrant deb
+    apt:
+      state: present
+      deb: "{{ vagrant_deb.dest }}"
+    become: yes
+    tags: ["vagrant","packages"]
+
+# Docker
+  - name: Add apt-key for Docker
+    apt_key:
+      state: present
+      keyserver: hkp://p80.pool.sks-keyservers.net:80
+      id: 58118E89F3A912897C070ADBF76221572C52609D
+    become: yes
+    tags: docker
+
+  - name: Add docker.list to apt-sources
+    lineinfile:
+      state: present
+      create: yes
+      dest: /etc/apt/sources.list.d/docker.list
+      line: deb https://apt.dockerproject.org/repo ubuntu-trusty main
+    register: docker_apt
+    become: yes
+    tags: docker
+
+  - name: Update apt cache
+    apt:
+      update_cache: yes
+    when: docker_apt.changed
+    become: yes
+    tags: docker
+
+  - name: Install linux-image-extra kernerl package and docker-engine
+    apt:
+      state: latest
+      name: "{{ item }}"
+    with_items:
+      - linux-image-extra-{{ ansible_kernel }}
+      - docker-engine
+    become: yes
+    tags: ["docker","packages"]
+
+  - name: Start and enable docker service
+    service:
+      state: started
+      enabled: yes
+      name: docker
+    become: yes
+    tags: docker
+
+  - name: Add docker group
+    group:
+      state: present
+      name: docker
+    become: yes
+    tags: docker
+
+  - name: Add current user to docker group
+    user:
+      state: present
+      append: yes
+      groups: docker
+      name: "{{ ansible_env.USER }}"
+    become: yes
+    tags: docker
+
+# Docker Compose
+  - name: Install Docker Compose
+    get_url:
+      dest: "/usr/local/bin/docker-compose"
+      url: https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-Linux-x86_64
+      mode: "u+x,g+x,o+x"
+      force: yes
+    become: yes
+    tags: docker_compose
+
+# Docker Machine
+  - name: Install Docker machine
+    get_url:
+      dest: "/usr/local/bin/docker-machine"
+      url: https://github.com/docker/machine/releases/download/{{ docker_machine_version }}/docker-machine-Linux-x86_64
+      mode: "u+x,g+x,o+x"
+      force: yes # otherwise file will only be downloaded if the destination does not exist
+    become: yes
+    tags: docker_machine
+
+# Node Version Manager (NVM)
+  - name: Checkout nvm git repo
+    git:
+      repo: https://github.com/creationix/nvm.git
+      dest: "{{ current_user_home }}/.nvm"
+      accept_hostkey: yes
+      version: "v{{ nvm_version }}" # checks out specific tag version
+      update: yes
+    tags: nvm
+
+# mdless (markdown less)
+  - name: Install mdless gem
+    gem:
+      state: latest
+      name: mdless
+    become: yes
+    tags: ["mdless","gem"]
+
+# sdkman
+  - name: Download sdkman script
+    get_url:
+      dest: "{{ current_user_home }}/sdkman_install"
+      url: http://get.sdkman.io
+      mode: "u+x,g+x,o+x"
+    register: sdkman_script
+    tags: sdkman
+
+  - debug: var=sdkman_script
+    tags: sdkman
+
+  - name: Install sdkman
+    command: /bin/bash {{ sdkman_script.dest }}
+    register: sdkman_install
+    tags: sdkman
+
+  - debug: msg={{ sdkman_install.stdout }}
+    tags: sdkman
+
+# Jetbrains DataGrip
+  - name: Download DataGrip
+    get_url:
+      dest: "{{ current_user_home }}/Downloads"
+      url: https://download.jetbrains.com/datagrip/datagrip-{{ datagrip_version }}-custom-jdk-linux.tar.gz
+      validate_certs: no
+    register: datagrip_archive
+    tags: datagrip
+
+  - name: Unarchive DataGrip
+    unarchive:
+      dest: "{{ current_user_home }}"
+      src: "{{ datagrip_archive.dest }}"
+    tags: datagrip
+
+# fzf
+  - name: Git clone fzf
+    git:
+      repo: https://github.com/junegunn/fzf.git
+      dest: "{{ current_user_home }}/.fzf"
+      depth: 1
+      update: yes
+    tags: fzf
+
+#  - name: Install fzf
+#    shell: "{{ current_user_home }}/.fzf/install --all"
+#    args:
+#     chdir: "{{ current_user_home }}/.fzf"
+#      executable: yes
+#    tags: fzf
+
+  - name: You're not done yet!
+    debug: msg="Install fzf by running ~/.fzf/install"
+    tags: fzf
+
+# albert launcher
+  - name: Add albert ppa
+    shell: 'add-apt-repository -y ppa:flexiondotorg/albert'
+    become: yes
+    tags: albert
+
+  - name: Install albert
+    apt:
+      update_cache: yes
+      name: albert
+      state: latest
+    become: yes
+    tags: ["albert","packages"]
+
+# plank dock
+  - name: Add plank ppa
+    shell: 'add-apt-repository -y ppa:docky-core/stable'
+    become: yes
+    tags: plank
+
+  - name: Install plank
+    apt:
+      #update_cache: yes
+      name: plank
+      state: latest
+    become: yes
+    tags: ["plank","packages"]
+
+# Eclipse
+  - name: download Eclipse EE
+    get_url:
+      dest: "{{ current_user_home }}/Downloads"
+      url: http://eclipse.mirror.rafal.ca/technology/epp/downloads/release/{{ eclipse_release_name }}/{{ eclipse_minor_version }}/eclipse-jee-{{ eclipse_release_name }}-{{ eclipse_minor_version }}-linux-gtk-x86_64.tar.gz
+      validate_certs: no
+    register: eclipse_archive
+    tags: eclipse
+
+  - name: Unarchive Eclipse
+    unarchive:
+      dest: /opt
+      src: "{{ eclipse_archive.dest }}"
+    become: yes
+    tags: eclipse
+
+  - name: Copy Eclipse launcher shortcut
+    copy:
+      src: eclipse.desktop
+      dest: /usr/share/applications
+    become: yes
+    tags: eclipse

@@ -1,0 +1,18 @@
+- name: Update all packages
+  dnf: name=* state=latest
+  become: yes
+
+- name: Install standard packages
+  dnf: name={{ item }} state=latest
+  become: yes
+  with_items: "{{ packages }}"
+
+- name: Install extra packages
+  dnf: name={{ item }} state=latest
+  become: yes
+  with_items: "{{ extra_packages }}"
+
+- name: Install redhat family packages
+  dnf: name={{ item }} state=latest
+  become: yes
+  with_items: "{{ redhat_packages }}"
