@@ -49,5 +49,20 @@
     - name: Symlink dotfiles
       command: bin/dfm install chdir={{ current_user_home }}/.dotfiles
 
+    - name: Vundle'ize vim
+      git:
+        repo: https://github.com/VundleVim/Vundle.vim.git
+        dest: "{{ current_user_home }}/.vim/bundle/Vundle.vim"
+        clone: yes
+
+    - name: Ensure vim swp and backup directories
+      file: state=directory path={{ item }}
+      with_items:
+        - "{{ current_user_home }}/.vim/backup"
+        - "{{ current_user_home }}/.vim/swp"
+
+    - name: Install vim plugins
+      command: /usr/bin/vim +PluginInstall +qall
+
     - name: Change .dotfiles repo from https to ssh
       shell: "git remote set-url origin git@github.com:dailyherold/dotfiles.git"
