@@ -1,21 +1,15 @@
 ---
 # tasks file for ssh
 
-## Thwart thy dreaded gnome-keyring
-- name: Copy gnome-keyring to user's autostart
-  copy:
-    src: /etc/xdg/autostart/gnome-keyring-ssh.desktop
-    dest: "{{ current_user_home }}/.config/autostart/"
-  tags: gnome-keyring
+- name: Ensure there is an .ssh directory
+  file:
+    path: "{{ current_user_home }}/.ssh"
+    state: directory
+    owner: "{{ current_user }}"
+    group: "{{ current_user }}"
+    mode: 0700
 
-- name: Prevent gnome-keyring from starting
-  lineinfile:
-    dest: "{{ current_user_home }}/.config/autostart/gnome-keyring-ssh.desktop"
-    line: Hidden=true
-    state: present
-  tags: gnome-keyring
-
-## Long live Funtoo keychain
+## Funtoo keychain
 - name: Funtoo keychain tasks
   include: funtoo-keychain.yml
 
