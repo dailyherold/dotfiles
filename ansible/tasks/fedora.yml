@@ -17,3 +17,16 @@
   dnf: name={{ item }} state=latest
   become: yes
   with_items: "{{ redhat_packages }}"
+
+## Additional apps/packages
+- name: Install Google Chrome
+  dnf:
+    name: google-chrome-stable
+    state: latest
+  become: yes
+
+- name: Install Slack
+  dnf:
+    name: https://downloads.slack-edge.com/linux_releases/slack-2.3.3-0.1.fc21.x86_64.rpm
+    state: latest
+  become: yes
