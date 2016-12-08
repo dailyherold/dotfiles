@@ -9,7 +9,7 @@ command_exists() {
 run_bootstrap() {
   cd $HOME
   echo "Cloning dotfiles repo"
-  git clone https://github.com/dailyherold/dotfiles.git .dotfiles
+  git clone --recursive https://github.com/dailyherold/dotfiles.git .dotfiles
   cd .dotfiles/ansible
 
   # TODO: accept param to this script that can be passed onto ansible command e.g. --step
