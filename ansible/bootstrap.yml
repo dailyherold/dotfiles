@@ -55,8 +55,12 @@
         - "{{ current_user_home }}/.vim/backup"
         - "{{ current_user_home }}/.vim/swp"
 
-    - name: Install vim plugins
-      command: /usr/bin/vim +PluginInstall +qall
+    # TODO: this won't work because on start up vim complains about certain functions not
+    # being available and asking to press enter to continue. The plugin install command
+    # fixes that, but need to see if there is a way to silence any start up warning/errors
+    #
+    #- name: Install vim plugins
+    #  command: /usr/bin/vim +PluginInstall +qall
 
     - name: Change .dotfiles repo from https to ssh
       shell: "git remote set-url origin git@github.com:dailyherold/dotfiles.git"
