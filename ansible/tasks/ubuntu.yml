@@ -1,3 +1,4 @@
+---
   - name: Update packages
     apt: upgrade=yes update_cache=yes
     become: yes
