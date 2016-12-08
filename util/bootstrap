@@ -1,0 +1,48 @@
+#!/bin/sh
+
+required_commands=(ansible git)
+required_packages=(python2-dnf)
+install_packages=()
+
+command_exists() {
+  command -v "$@" > /dev/null 2>&1
+}
+
+run_bootstrap() {
+  cd $HOME
+  echo "Cloning dotfiles repo"
+  git clone https://github.com/dailyherold/dotfiles.git .dotfiles
+  cd .dotfiles/ansible
+
+  ansible-playbook bootstrap.yml --step --ask-become-pass
+}
+
+
+echo "Checking for required commands and packages..."
+
+for i in "${required_commands[@]}"; do
+  if command_exists "${i}"; then
+    echo "    ${i} already exists"
+  else
+    echo "Adding ${i} to install_packages array"
+    install_packages+=("${i}")
+  fi
+done
+
+install_packages+=("${required_packages[@]}")
+
+if [ "${#install_packages[@]}" -eq 0 ]; then
+  run_bootstrap
+else
+  echo "Installing packages: ${install_packages}"
+
+  sh_c='sh -c'
+
+  if [ "$user" != 'root' ]; then
+    sh_c='sudo -E sh -c'
+  fi
+
+  $sh_c "dnf -y install ${install_packages[@]}"
+
+  run_bootstrap
+fi
