@@ -64,3 +64,11 @@
 
     - name: Change .dotfiles repo from https to ssh
       shell: "git remote set-url origin git@github.com:dailyherold/dotfiles.git"
+
+    - name: Set zsh as default shell
+      user:
+        name: jpherold
+        shell: /bin/zsh
+        state: present
+      become: yes
+      when: usr_shell == 'zsh'
