@@ -77,45 +77,6 @@
     become: yes
     tags: ["redshift", "packages"]
 
-# SSH
-  - name: Copy gnome-keyring to user's autostart
-    copy:
-      src: /etc/xdg/autostart/gnome-keyring-ssh.desktop
-      dest: "{{ current_user_home }}/.config/autostart/"
-    tags: gnome-keyring
-
-  - name: Prevent gnome-keyring from starting
-    lineinfile:
-      dest: "{{ current_user_home }}/.config/autostart/gnome-keyring-ssh.desktop"
-      line: Hidden=true
-      state: present
-    tags: gnome-keyring
-
-# Funtoo Keychain
-  - name: Download Keychain
-    get_url:
-      url: http://www.funtoo.org/distfiles/keychain/keychain-{{ keychain_version }}.tar.bz2
-      dest: "{{ current_user_home }}/Downloads"
-    register: keychain_archive
-    tags: keychain
-
-  - name: Unarchive Keychain
-    unarchive:
-      src: "{{ keychain_archive.dest }}"
-      dest: /opt
-    become: yes
-    register: keychain
-    tags: keychain
-
-  - name: symlink keychain-version to keychain
-    file:
-      state: link
-      src: /opt/keychain-{{ keychain_version }}
-      dest: /opt/keychain
-    become: yes
-    tags: keychain
-
-
 # Xcape
   - name: Install required packages for xcape
     apt:

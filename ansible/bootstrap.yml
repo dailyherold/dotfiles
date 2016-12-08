@@ -12,7 +12,7 @@
     - vars/main.yml
     - vars/{{ current_user | default('defaults') }}.yml
 
-  tasks:
+  pre_tasks:
     ## DEBUG
     #- debug: var=hostvars[inventory_hostname]
 
@@ -25,7 +25,10 @@
       include: tasks/ubuntu.yml
       when: ( ansible_distribution == 'Ubuntu') or ( ansible_distribution == 'Debian' )
 
-    ## Universal tasks
+  roles:
+    - ssh
+
+  post_tasks:
     - name: Setup git config
       template:
         dest: "{{ current_user_home }}/.gitconfig"
