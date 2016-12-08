@@ -9,12 +9,19 @@
     current_user_home: "{{ lookup('env','HOME') }}"
 
   vars_files:
-    - vars/main.yml
-    - vars/{{ current_user | default('defaults') }}.yml
+    - vars/defaults.yml
 
   pre_tasks:
     ## DEBUG
     #- debug: var=hostvars[inventory_hostname]
+
+    ## Include user var file if it exists
+    - name: Look for user var file
+      stat: path=vars/{{ current_user }}.yml
+      register: usr_vars
+    - name: Include user var file if it exists
+      include_vars: vars/{{ current_user }}.yml
+      when: usr_vars.stat.exists
 
     ## Distro specific tasks
     - name: Fedora/Korora tasks
