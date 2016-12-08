@@ -40,3 +40,6 @@
       template:
         dest: "{{ current_user_home }}/.gitconfig"
         src: ../templates/.gitconfig.j2
+
+    - name: Change .dotfiles repo from https to ssh
+      shell: "git remote set-url origin git@github.com:dailyherold/dotfiles.git"
