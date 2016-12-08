@@ -46,5 +46,8 @@
         state: directory
         path: "{{ dev_home }}"
 
+    - name: Symlink dotfiles
+      command: bin/dfm install chdir={{ current_user_home }}/.dotfiles
+
     - name: Change .dotfiles repo from https to ssh
       shell: "git remote set-url origin git@github.com:dailyherold/dotfiles.git"
