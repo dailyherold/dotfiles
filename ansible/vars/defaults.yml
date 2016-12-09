@@ -4,6 +4,7 @@ nickname: stevieg
 company: LiverpoolFC
 
 dev_home: "/home/{{ current_user }}/dev"
+custom_vmmouse: false
 
 maven_version: "3.3.9"
 gradle_version: "2.10"
