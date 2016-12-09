@@ -60,6 +60,7 @@ extra_packages:
 
 debian_packages:
   - man
+  - vim-gtk # for some additional xserver support (e.g. clipboard)
   - build-essential
   - python-dev
   - python-apt # for Ansible's apt_repository module
@@ -70,6 +71,7 @@ debian_packages:
 
 redhat_packages:
   - man-pages
+  - vim-X11 # for some additional xserver support (e.g. clipboard)
   - python-devel
   - python2-dnf # for Ansible's dnf module
   - ack
