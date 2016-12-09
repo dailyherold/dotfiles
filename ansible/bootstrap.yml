@@ -32,6 +32,10 @@
       include: tasks/ubuntu.yml
       when: ( ansible_distribution == 'Ubuntu') or ( ansible_distribution == 'Debian' )
 
+    # TODO: finish out the rest of this archive download and install
+    #- name: Install Postman
+    #  get_url: https://app.getpostman.com/app/download/linux64
+
   roles:
     - ssh
 
