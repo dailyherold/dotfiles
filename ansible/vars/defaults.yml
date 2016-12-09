@@ -52,6 +52,8 @@ extra_packages:
   - vpnc
   - freerdp # used by vpnc for rdp hosts
   - tmux
+  - redshift
+  - redshift-gtk
 
 debian_packages:
   - man
