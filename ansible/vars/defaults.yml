@@ -56,6 +56,7 @@ extra_packages:
   - redshift
   - redshift-gtk
   - remmina
+  - xclip
 
 debian_packages:
   - man
