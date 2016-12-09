@@ -66,6 +66,9 @@
     #- name: Install vim plugins
     #  command: /usr/bin/vim +PluginInstall +qall
 
+    - name: Refresh font cache
+      command: /usr/bin/fc-cache -vf {{ current_user_home }}/.fonts
+
     - name: Change .dotfiles repo from https to ssh
       shell: "git remote set-url origin git@github.com:dailyherold/dotfiles.git"
 
