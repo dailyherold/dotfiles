@@ -66,6 +66,14 @@
     #- name: Install vim plugins
     #  command: /usr/bin/vim +PluginInstall +qall
 
+    - name: Set custom vmmouse input device tweaks
+      copy:
+        dest: /usr/share/X11/xorg.conf.d/50-vmmouse.conf
+        src: files/50-vmmouse.conf
+        backup: yes
+      become: yes
+      when: custom_vmmouse == true
+
     - name: Refresh font cache
       command: /usr/bin/fc-cache -vf {{ current_user_home }}/.fonts
 
