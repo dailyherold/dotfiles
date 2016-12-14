@@ -25,14 +25,19 @@ eclipse_minor_version: "2"
 packages:
   - git
   - subversion
-  #- gcc
   - python-pip
   - wget
   - bzip2
   - tar
   - unzip
-  - make
-  #- cmake
+  - make # devtools
+  - automake # devtools
+  - cmake # devtools
+  - gcc # devtools
+  - gcc-c++ # devtools
+  - kernel-devel # devtools
+  - python-devel # devtools
+  - python3-devel # devtools
 extra_packages:
   - vim-enhanced
   - iotop
