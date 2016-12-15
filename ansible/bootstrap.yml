@@ -37,7 +37,7 @@
     #  get_url: https://app.getpostman.com/app/download/linux64
 
   roles:
-    - ssh
+    - { role: ssh, tags: [ 'ssh' ] }
     - { role: sublime, tags: [ 'sublime' ] }
 
   post_tasks:
@@ -53,6 +53,10 @@
 
     - name: Symlink dotfiles
       command: bin/dfm install chdir={{ current_user_home }}/.dotfiles
+
+    # Refresh fonts after .fonts was symlinked from dotfiles repo
+    - name: Refresh font cache
+      command: /usr/bin/fc-cache -vf {{ current_user_home }}/.fonts
 
     - name: Ensure vim swp and backup directories
       file: state=directory path={{ item }}
@@ -74,9 +78,6 @@
         backup: yes
       become: yes
       when: custom_vmmouse == true
-
-    - name: Refresh font cache
-      command: /usr/bin/fc-cache -vf {{ current_user_home }}/.fonts
 
     - name: Change .dotfiles repo from https to ssh
       shell: "git remote set-url origin git@github.com:dailyherold/dotfiles.git"
