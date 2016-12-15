@@ -12,8 +12,8 @@ run_bootstrap() {
   git clone --recursive https://github.com/dailyherold/dotfiles.git .dotfiles
   cd .dotfiles/ansible
 
-  # TODO: accept param to this script that can be passed onto ansible command e.g. --step
-  ansible-playbook bootstrap.yml
+  # Params passed in from command line are used as ansible-playbook
+  ansible-playbook bootstrap.yml "$@"
 }
 
 
@@ -27,4 +27,5 @@ fi
 
 $sh_c "dnf -y -q install ${required_packages}"
 
-run_bootstrap
+# Pass arguments from command line to the ansible call within function
+run_bootstrap "$@"
