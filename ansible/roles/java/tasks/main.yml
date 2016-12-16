@@ -1,0 +1,29 @@
+---
+# tasks file for java
+
+# By default oracle_arch is "i586"
+- name: Ensure system architecture
+  set_fact:
+    sublime_arch: "x64"
+  when: ansible_architecture == "x86_64"
+
+- name: Download Oracle java 8 jdk
+  get_url:
+    url: "{{ oracle_url }}"
+    dest: "{{ current_user_home }}/Downloads"
+    headers: "Cookie:oraclelicense=a"
+  register: oracle_download
+
+- name: Install Oracle java 8 jdk
+  dnf:
+    name: "{{ oracle_download.dest }}"
+    state: present
+  become: yes
+
+  #- name: Alternatives install Oracle java 8 jdk
+  #  alternatives:
+  #    link: /usr/bin/java
+  #    name: java
+  #    path: "/usr/java/jdk1.{{ oracle_version_major }}.0_{{ oracle_version_minor }}/"
+  #    priority: 1000
+  #  become: yes

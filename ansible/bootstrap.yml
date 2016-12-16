@@ -39,6 +39,7 @@
   roles:
     - { role: ssh, tags: [ 'ssh' ] }
     - { role: sublime, tags: [ 'sublime' ] }
+    - { role: java, tags: [ 'java' ] }
 
   post_tasks:
     - name: Setup git config

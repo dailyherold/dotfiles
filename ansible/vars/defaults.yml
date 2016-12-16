@@ -38,6 +38,7 @@ packages:
   - kernel-devel # devtools
   - python-devel # devtools
   - python3-devel # devtools
+  - java-1.8.0-openjdk-devel
 extra_packages:
   - vim-enhanced
   - iotop
