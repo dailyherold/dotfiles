@@ -1,0 +1,15 @@
+---
+
+- name: (Ubuntu) Install packages
+  apt:
+    name: "{{ item }}"
+    state: latest
+  become: yes
+  with_items:
+    - git
+    - gcc
+    - make
+    - pkg-config
+    - libx11-dev
+    - libxtst-dev
+    - libxi-dev

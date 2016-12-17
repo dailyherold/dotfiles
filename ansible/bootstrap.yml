@@ -36,10 +36,19 @@
     #- name: Install Postman
     #  get_url: https://app.getpostman.com/app/download/linux64
 
+    - name: Ensure home repos folder
+      file:
+        state: directory
+        path: "{{ ansible_user_dir }}/repos/{{ item }}"
+      with_items:
+        - git
+        - svn
+
   roles:
     - { role: ssh, tags: [ 'ssh' ] }
     - { role: sublime, tags: [ 'sublime' ] }
     - { role: java, tags: [ 'java' ] }
+    - { role: xcape, xcape_install_dir: "{{ ansible_user_dir }}/repos/git", tags: [ 'xcape' ] }
 
   post_tasks:
     - name: Setup git config

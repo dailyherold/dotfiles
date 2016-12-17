@@ -1,0 +1,15 @@
+---
+
+- name: (Fedora) Install packages
+  dnf:
+    name: "{{ item }}"
+    state: latest
+  become: yes
+  with_items:
+    - git
+    - gcc
+    - make
+    - pkgconfig
+    - libX11-devel
+    - libXtst-devel
+    - libXi-devel
