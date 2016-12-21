@@ -54,7 +54,7 @@
   post_tasks:
     - name: Setup git config
       template:
-        dest: "{{ current_user_home }}/.gitconfig"
+        dest: "{{ ansible_user_dir }}/.gitconfig"
         src: ../templates/.gitconfig.j2
 
     - name: Ensure dev directory
@@ -63,17 +63,17 @@
         path: "{{ dev_home }}"
 
     - name: Symlink dotfiles
-      command: bin/dfm install chdir={{ current_user_home }}/.dotfiles
+      command: bin/dfm install chdir={{ ansible_user_dir }}/.dotfiles
 
     # Refresh fonts after .fonts was symlinked from dotfiles repo
     - name: Refresh font cache
-      command: /usr/bin/fc-cache -vf {{ current_user_home }}/.fonts
+      command: /usr/bin/fc-cache -vf {{ ansible_user_dir }}/.fonts
 
     - name: Ensure vim swp and backup directories
       file: state=directory path={{ item }}
       with_items:
-        - "{{ current_user_home }}/.vim/backup"
-        - "{{ current_user_home }}/.vim/swp"
+        - "{{ ansible_user_dir }}/.vim/backup"
+        - "{{ ansible_user_dir }}/.vim/swp"
 
     # TODO: this won't work because on start up vim complains about certain functions not
     # being available and asking to press enter to continue. The plugin install command
