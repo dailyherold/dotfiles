@@ -1,0 +1,13 @@
+---
+
+- name: Download SpiderOak package
+  get_url:
+    url: https://spideroak.com/getbuild?platform=ubuntu&arch={{ ansible_architecture }}
+    dest: "{{ current_user_home }}/Downloads"
+  register: spideroak_download
+
+- name: Install SpiderOak
+  apt:
+    deb: "{{ spideroak_download.dest }}"
+    state: present
+  become: yes

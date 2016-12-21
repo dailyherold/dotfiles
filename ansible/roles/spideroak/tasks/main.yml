@@ -1,0 +1,10 @@
+---
+# tasks file for spideroak
+
+- name: Ensure Fedora/Korora package dependencies
+  include: fedora.yml
+  when: ( ansible_distribution == 'Korora') or ( ansible_distribution == 'Fedora' )
+
+- name: Ensure Ubuntu package dependencies
+  include: ubuntu.yml
+  when: ( ansible_distribution == 'Ubuntu') or ( ansible_distribution == 'Debian' )

@@ -49,6 +49,7 @@
     - { role: sublime, tags: [ 'sublime' ] }
     - { role: java, tags: [ 'java' ] }
     - { role: xcape, xcape_install_dir: "{{ ansible_user_dir }}/repos/git", tags: [ 'xcape' ] }
+    - { role: spideroak, tags: [ 'spideroak' ] }
 
   post_tasks:
     - name: Setup git config
