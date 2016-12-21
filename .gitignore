@@ -1,4 +1,13 @@
+# EDITORS #
+###########
+*.sw[a-z]
+*~
 .vim/bundle/**
-~.vim/bundle/vundle
 .vim/swp/*
 .vim/backup/*
+
+# ANSIBLE #
+###########
+*.retry
+.vault_pass.txt
+
