@@ -27,6 +27,6 @@
 
 - name: Install Slack
   dnf:
-    name: https://downloads.slack-edge.com/linux_releases/slack-2.3.3-0.1.fc21.x86_64.rpm
+    name: https://downloads.slack-edge.com/linux_releases/slack-{{ slack_version }}.x86_64.rpm
     state: latest
   become: yes
