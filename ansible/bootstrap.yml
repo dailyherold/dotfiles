@@ -51,6 +51,7 @@
     - { role: xcape, xcape_install_dir: "{{ ansible_user_dir }}/repos/git", tags: [ 'xcape' ] }
     - { role: spideroak, tags: [ 'spideroak' ] }
     - { role: thinkpad, tags: [ 'thinkpad' ], when: thinkpad_workstation == true }
+    - { role: hashicorp, tags: [ 'hashicorp' ] }
 
   post_tasks:
     - name: Setup git config

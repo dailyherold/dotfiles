@@ -1,0 +1,31 @@
+---
+# tasks file for hashicorp
+
+# By default hashicorp_arch is "386"
+- name: Ensure system architecture
+  set_fact:
+    hashicorp_arch: "amd64"
+  when: ansible_architecture == "x86_64"
+
+# Packer
+- name: Download Packer
+  get_url:
+    url: https://releases.hashicorp.com/packer/{{ packer_version }}/packer_{{ packer_version }}_linux_{{ hashicorp_arch }}.zip
+    dest: "{{ ansible_user_dir }}/Downloads"
+  register: packer_archive
+  tags: packer
+
+- name: Ensure /opt/packer
+  file:
+    state: directory
+    path: /opt/packer
+  become: yes
+  register: packer
+  tags: packer
+
+- name: Unarchive Packer
+  unarchive:
+    src: "{{ packer_archive.dest }}"
+    dest: "{{ packer.path }}"
+  become: yes
+  tags: packer

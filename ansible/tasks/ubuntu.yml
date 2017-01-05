@@ -636,29 +636,6 @@
     become: yes
     tags: terraform
 
-# Packer
-  - name: Download Packer
-    get_url:
-      url: https://releases.hashicorp.com/packer/{{ packer_version }}/packer_{{ packer_version }}_linux_amd64.zip
-      dest: "{{ current_user_home }}/Downloads"
-    register: packer_archive
-    tags: packer
-
-  - name: Ensure /opt/packer
-    file:
-      state: directory
-      path: /opt/packer
-    become: yes
-    register: packer
-    tags: packer
-
-  - name: Unarchive Packer
-    unarchive:
-      src: "{{ packer_archive.dest }}"
-      dest: "{{ packer.path }}"
-    become: yes
-    tags: packer
-
 # Vagrant
   - name: Download Vagrant
     get_url:
