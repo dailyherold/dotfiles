@@ -1,0 +1,23 @@
+---
+
+- name: Ensure laptop-mode-tools is not installed
+  apt:
+    name: laptop-mode-tools
+    state: absent
+  become: yes
+
+- name: Add TLP ppa
+  shell: 'apt-add-repository -y ppa:linrunner/tlp'
+  become: yes
+
+- name: Install TLP
+  apt:
+    update_cache: yes
+    name: "{{ item }}"
+    state: latest
+  become: yes
+  with_items:
+    - tlp
+    - tlp-rdw
+    - tp-smapi-dkms
+    - acpi-call-dkms

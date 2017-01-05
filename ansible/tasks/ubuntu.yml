@@ -340,31 +340,6 @@
     become: yes
     tags: ["vpnc","packages"]
 
-# Lenovo TLP
-  - name: Ensure laptop-mode-tools is not installed
-    apt:
-      name: laptop-mode-tools
-      state: absent
-    become: yes
-    tags: tlp
-
-  - name: Add TLP ppa
-    shell: 'apt-add-repository -y ppa:linrunner/tlp'
-    become: yes
-    tags: tlp
-
-  - name: Install TLP
-    apt:
-      update_cache: yes
-      name: "{{ item }}"
-      state: latest
-    become: yes
-    with_items:
-      - tlp
-      - tlp-rdw
-      - tp-smapi-dkms
-      - acpi-call-dkms
-    tags: ["tlp","packages"]
 
 # tmux
   - name: Install automake, libevent, and ncurses
