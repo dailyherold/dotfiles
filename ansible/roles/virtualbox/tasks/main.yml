@@ -1,9 +1,9 @@
 ---
-# tasks file for thinkpad
-- name: Ensure Fedora/Korora package dependencies
+# tasks file for virtualbox
+- name: Fedora/Korora tasks
   include: fedora.yml
   when: ( ansible_distribution == 'Korora') or ( ansible_distribution == 'Fedora' )
  
-- name: Ensure Ubuntu package dependencies
+- name: Ensure Ubuntu tasks
   include: ubuntu.yml
   when: ( ansible_distribution == 'Ubuntu') or ( ansible_distribution == 'Debian' )

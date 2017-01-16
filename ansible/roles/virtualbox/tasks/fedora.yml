@@ -1,0 +1,24 @@
+---
+
+- name: Install dkms
+  dnf:
+    name: dkms
+    state: latest
+  become: yes
+
+- name: Add virtualbox repo
+  yum_repository:
+    state: present
+    name: virtualbox
+    description: Fedora $releasever - $basearch - VirtualBox
+    baseurl: http://download.virtualbox.org/virtualbox/rpm/fedora/$releasever/$basearch
+    enabled: yes
+    gpgcheck: yes
+    gpgkey: https://www.virtualbox.org/download/oracle_vbox.asc
+  become: yes
+
+- name: Install virtualbox
+  dnf:
+    state: latest
+    name: VirtualBox-{{ virtualbox_version }}
+  become: yes

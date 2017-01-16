@@ -52,6 +52,7 @@
     - { role: spideroak, tags: [ 'spideroak' ] }
     - { role: thinkpad, tags: [ 'thinkpad' ], when: thinkpad_workstation == true }
     - { role: hashicorp, tags: [ 'hashicorp' ] }
+    - { role: virtualbox, tags: [ 'virtualbox' ] }
 
   post_tasks:
     - name: Setup git config
