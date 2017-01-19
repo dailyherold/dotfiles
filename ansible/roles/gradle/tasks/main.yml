@@ -1,0 +1,33 @@
+---
+# tasks file for gradle
+
+- name: Download Gradle
+  get_url:
+    url: https://services.gradle.org/distributions/gradle-{{ gradle_version }}-all.zip
+    dest: "{{ ansible_user_dir }}/Downloads"
+  register: gradle_archive
+
+- name: Unarchive Gradle
+  unarchive:
+    src: "{{ gradle_archive.dest }}"
+    dest: /opt
+  become: yes
+  register: gradle
+
+- name: symlink gradle-version to gradle
+  file:
+    state: link
+    src: /opt/gradle-{{ gradle_version }}
+    dest: /opt/gradle
+  become: yes
+
+- name: Ensure .gradle directory
+  file:
+    state: directory
+    path: "{{ ansible_user_dir }}/.gradle"
+
+- name: Set gradle.settings file
+  template:
+    src: gradle.properties.j2
+    dest: "{{ ansible_user_dir }}/.gradle/gradle.properties"
+

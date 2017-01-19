@@ -55,6 +55,7 @@
     - { role: virtualbox, tags: [ 'virtualbox' ] }
     - { role: docker, install_docker_compose: true, tags: [ 'docker' ] }
     - { role: maven, tags: [ 'maven' ] }
+    - { role: gradle, gradle_daemon: true, tags: [ 'gradle' ] }
 
   post_tasks:
     - name: Setup git config
