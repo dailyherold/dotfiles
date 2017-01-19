@@ -53,6 +53,7 @@
     - { role: thinkpad, tags: [ 'thinkpad' ], when: thinkpad_workstation == true }
     - { role: hashicorp, tags: [ 'hashicorp' ] }
     - { role: virtualbox, tags: [ 'virtualbox' ] }
+    - { role: docker, install_docker_compose: true, tags: [ 'docker' ] }
 
   post_tasks:
     - name: Setup git config

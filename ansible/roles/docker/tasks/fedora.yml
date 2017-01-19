@@ -1,0 +1,20 @@
+---
+
+- name: Ensure docker yum repo
+  copy:
+    src: files/docker.repo.fedora
+    dest: /etc/yum.repos.d/docker.repo
+  become: yes
+
+- name: Install docker-engine
+  dnf:
+    state: latest
+    name: docker-engine
+  become: yes
+
+- name: Enable and start docker service
+  systemd:
+    name: docker
+    state: started
+    enabled: yes
+

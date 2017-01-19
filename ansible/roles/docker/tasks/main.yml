@@ -1,0 +1,30 @@
+---
+# tasks file for docker
+
+- name: Fedora/Korora tasks
+  include: fedora.yml
+  when: ( ansible_distribution == 'Korora') or ( ansible_distribution == 'Fedora' )
+ 
+- name: Ensure Ubuntu tasks
+  include: ubuntu.yml
+  when: ( ansible_distribution == 'Ubuntu') or ( ansible_distribution == 'Debian' )
+
+- name: Ensure docker group
+  group:
+    name: docker
+    state: present
+    system: yes
+  become: yes
+
+- name: Add current user into docker group
+  user:
+    append: yes
+    groups: docker
+    state: present
+    name: "{{ ansible_user_id }}"
+  become: yes
+  notify: restart-docker
+
+- name: Include docker-compose
+  include: docker-compose.yml
+  when: install_docker_compose == true
