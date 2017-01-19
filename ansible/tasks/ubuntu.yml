@@ -485,31 +485,6 @@
       dest: "{{ current_user_home }}"
     tags: ["nvpy","config"]
 
-
-# Maven
-  - name: Download Maven binary
-    get_url:
-      url: http://mirrors.advancedhosters.com/apache/maven/maven-3/{{ maven_version }}/binaries/apache-maven-{{ maven_version }}-bin.tar.gz
-      dest: "{{ current_user_home }}/Downloads"
-    register: maven_archive
-    tags: maven
-
-  - name: Unarchive Maven
-    unarchive:
-      src: "{{ maven_archive.dest }}"
-      dest: /opt
-    become: yes
-    register: maven
-    tags: maven
-
-  - name: symlink apache-maven-version to apache-maven
-    file:
-      state: link
-      src: /opt/apache-maven-{{ maven_version }}
-      dest: /opt/apache-maven
-    become: yes
-    tags: maven
-
 # Gradle
   - name: Download Gradle
     get_url:

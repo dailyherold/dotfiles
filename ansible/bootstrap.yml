@@ -54,6 +54,7 @@
     - { role: hashicorp, tags: [ 'hashicorp' ] }
     - { role: virtualbox, tags: [ 'virtualbox' ] }
     - { role: docker, install_docker_compose: true, tags: [ 'docker' ] }
+    - { role: maven, tags: [ 'maven' ] }
 
   post_tasks:
     - name: Setup git config

@@ -1,0 +1,23 @@
+---
+# tasks file for maven
+
+- name: Download Maven binary
+  get_url:
+    url: http://mirror.stjschools.org/public/apache/maven/maven-3/{{ maven_version }}/binaries/apache-maven-{{ maven_version }}-bin.tar.gz
+    dest: "{{ ansible_user_dir }}/Downloads"
+  register: maven_archive
+
+- name: Unarchive Maven
+  unarchive:
+    src: "{{ maven_archive.dest }}"
+    dest: /opt
+  become: yes
+  register: maven
+
+- name: symlink apache-maven-version to apache-maven
+  file:
+    state: link
+    src: /opt/apache-maven-{{ maven_version }}
+    dest: /opt/apache-maven
+  become: yes
+
