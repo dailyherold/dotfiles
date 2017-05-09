@@ -14,7 +14,7 @@ docker_machine_version: "v0.7.0"
 datagrip_version: "1.0.3"
 eclipse_release_name: "mars"
 eclipse_minor_version: "2"
-slack_version: "2.4.2-0.1.fc21"
+slack_version: "2.6.0-0.1.fc21"
 
 
 
