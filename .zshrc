@@ -53,6 +53,9 @@ if [ -z "$(pgrep xcape)" ]; then
     ~/repos/git/xcape/xcape -e 'Control_L=Escape'
 fi
 
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
+
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/home/jpherold/.sdkman"
 [[ -s "/home/jpherold/.sdkman/bin/sdkman-init.sh" ]] && source "/home/jpherold/.sdkman/bin/sdkman-init.sh"

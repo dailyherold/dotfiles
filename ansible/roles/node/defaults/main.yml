@@ -1,0 +1,4 @@
+---
+# defaults file for node
+
+nvm_git_tag: v0.33.0

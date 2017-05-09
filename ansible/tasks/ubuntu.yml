@@ -580,16 +580,6 @@
     become: yes
     tags: docker_machine
 
-# Node Version Manager (NVM)
-  - name: Checkout nvm git repo
-    git:
-      repo: https://github.com/creationix/nvm.git
-      dest: "{{ current_user_home }}/.nvm"
-      accept_hostkey: yes
-      version: "v{{ nvm_version }}" # checks out specific tag version
-      update: yes
-    tags: nvm
-
 # mdless (markdown less)
   - name: Install mdless gem
     gem:
