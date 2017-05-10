@@ -69,6 +69,10 @@ let g:solarized_bold=0
 set background=dark
 colorscheme solarized
 
+"transparent bg
+hi Normal ctermbg=none
+hi NonText ctermbg=none
+
 "gitgutter
 let g:gitgutter_sign_column_always=1
 
