@@ -22,3 +22,7 @@
     state: latest
     name: VirtualBox-{{ virtualbox_version }}
   become: yes
+
+# TODO:
+# add extensions pack
+# add user to vboxusers group (for USB device support)

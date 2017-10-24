@@ -27,3 +27,6 @@
   #    path: "/usr/java/jdk1.{{ oracle_version_major }}.0_{{ oracle_version_minor }}/"
   #    priority: 1000
   #  become: yes
+
+# TODO
+# install jce_policy-8.zip files
