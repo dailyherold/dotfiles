@@ -39,6 +39,7 @@ alias rm='rm -I'
 alias mv='mv -i'
 alias cp='cp -i'
 alias tmux='tmux -2'
+alias gw='./gradlew'
 
 # TMUX
 alias tnew='tmux new-session -s'
