@@ -45,6 +45,7 @@ typeset -gU cdpath fpath mailpath path
 # Set the list of directories that Zsh searches for programs.
 path=(
   /usr/local/{bin,sbin}
+  /usr/local/go/bin
   /opt/apache-ant/bin
   /opt/apache-maven/bin
   /opt/gradle/bin
