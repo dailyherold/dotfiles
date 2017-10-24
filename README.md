@@ -24,3 +24,22 @@ Check out `dfm` though if you are curious about it's role, as I think it is a sw
 - Speaking of scripts, add a true bootstrap script that installs Ansible, sets dotfiles, and kicks off a playbook.
 - Consider dfm's role and if I would just want to use Ansible for similar tasks.
 
+## Updating submodules
+
+There are two submodules in this repo, `.zprezto` and `.vim/bundle/Vundle.vim`. `.zprezto` is forked, which means that [origin](https://github.com/dailyherold/prezto/) does not stay up to day with [upstream](https://github.com/sorin-ionescu/prezto). We will need to first update the forked repo with upstream.
+
+To update `.zprezto` follow these steps (`pwd` should be `.zprezto`):
+
+- Run `git remote -v` and check if there is an upstream remote for the original repo. If not run `git remote add upstream https://github.com/sorin-ionescu/prezto.git`.
+- Ensure you are on `master`, and run `git fetch upstream` followed by `git merge upstream/master` if you are okay with the changes. `git pull` also an option but doesn't give you a break to assess what you are about to merge.
+- After merging, we need to update zprezto's submodules as well: `git submodule update --init --recursive`.
+- Commit and push the changes to origin to ensure the forked prezto repo is up to date.
+
+To update `.zprezto` and `.vim/bundle/Vundle.vim` submodules (`pwd` should be root of this dotfile repo):
+
+- Init and update each submodule: `git submodule update --init --recursive`.
+- Ensure each submodule is on master branch: `git submodule foreach git checkout master`.
+- Pull in latest changes from each submodule's origin repo: `git submodule foreach git pull --rebase origin master`.
+- If there were changes, `git status` should show each submodule directory as modified with with "(new commits)" next to it.
+- Add those directories to the stage then commit them.
+
