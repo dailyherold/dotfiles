@@ -90,3 +90,4 @@ redhat_packages:
   - the_silver_searcher
   - wireshark-gtk
   - lm_sensors # hardware sensors for temperature/RPM
+  - chrome-gnome-shell # needed for gnome extension installs via browser
