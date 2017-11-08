@@ -66,6 +66,7 @@ extra_packages:
   - dropbox
   - gpaste # clipboard manager
   - gpaste-ui # ui for gpaste
+  - i3lock # simple screen lock that doesn't do stupid gnome power management turn off screen stuff (despite me telling it not to)
 
 debian_packages:
   - man
