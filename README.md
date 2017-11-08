@@ -12,9 +12,14 @@ You'll also find some scattered scripts and nuggets here and there that might no
 
 First, read all the codes. Hopefully I'll inspire you with things here and there. In my opinion the repo is too opinionated to be forked, or expected to work upon clone. ha. 
 
-With that said, I would like to refine the repo into something that is friendler for the curious folk. In due time. 
-
 Check out `dfm` though if you are curious about it's role, as I think it is a sweet little utility. The repo itself was also built from justone's dotfiles skeleton. For more information, check out his [wiki](http://github.com/justone/dotfiles/wiki).
+
+- `cd $HOME && git clone https://github.com/dailyherold/dotfiles.git .dotfiles`
+- `cd .dotfiles && git submodule update --init --recursive`
+- Open up vim and run `:PluginInstall`
+- `git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm`
+- `tmux source ~/.tmux.conf`
+- tmux `prefix` + `I` (capital I, as in *I*nstall)
 
 ## Todo
 - Break up monolithic Ansible playbook into roles.
