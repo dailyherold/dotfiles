@@ -92,6 +92,14 @@ export NVM_DIR="$HOME/.nvm"
 
 #
 # Keychain
+# https://www.funtoo.org/Keychain
 #
 
+# For Gnome <=3.24 in Wayland support, this is needed to ensure SSH_AUTH_SOCK isn't overridden
+# https://wiki.archlinux.org/index.php/GNOME/Keyring#Disable_keyring_daemon_components
+# https://eklitzke.org/down-the-ssh-auth-sock-rabbit-hole-a-gnome-adventure
+# https://bugzilla.gnome.org/show_bug.cgi?id=772919
+export GSM_SKIP_SSH_AGENT_WORKAROUND=1
+
+# Start Keychain
 eval `keychain --eval --agents ssh --inherit any jpherold`
