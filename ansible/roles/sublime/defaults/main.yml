@@ -2,6 +2,6 @@
 # defaults file for sublime
 sublime_arch: x32
 
-sublime_build_number: 3126
+sublime_build_number: 3143
 
 sublime_url: https://download.sublimetext.com/sublime_text_3_build_{{ sublime_build_number }}_{{ sublime_arch }}.tar.bz2
