@@ -5,6 +5,7 @@ company: LiverpoolFC
 
 dev_home: "/home/{{ current_user }}/dev"
 custom_vmmouse: false
+onlykey_support: false
 thinkpad_workstation: false
 
 ant_version: "1.10.1"

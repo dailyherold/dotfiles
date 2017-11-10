@@ -5,4 +5,5 @@ company: ExamSoft
 
 usr_shell: zsh
 custom_vmmouse: true
+onlykey_support: true
 thinkpad_workstation: true
