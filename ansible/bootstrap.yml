@@ -64,6 +64,11 @@
         dest: "{{ ansible_user_dir }}/.gitconfig"
         src: ../templates/.gitconfig.j2
 
+    - name: Set default git commit template
+      copy:
+        dest: "{{ ansible_user_dir }}/.gitcommit.txt"
+        src: ../files/.gitcommit.txt
+
     - name: Ensure dev directory
       file:
         state: directory
