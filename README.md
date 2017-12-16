@@ -16,6 +16,7 @@ Check out `dfm` though if you are curious about it's role, as I think it is a sw
 
 - `cd $HOME && git clone https://github.com/dailyherold/dotfiles.git .dotfiles`
 - `cd .dotfiles && git submodule update --init --recursive`
+- Execute playbook `ansible-playbook bootstrap.yml --ask-become-pass`
 - Open up vim and run `:PluginInstall`
 - `git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm`
 - `tmux source ~/.tmux.conf`
