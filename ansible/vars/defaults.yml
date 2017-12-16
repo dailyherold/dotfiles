@@ -88,6 +88,7 @@ redhat_packages:
   - python-devel
   - python2-dnf # for Ansible's dnf module
   - python-netaddr # used by Ansible for some network fu
+  - libselinux-python # used by Ansible
   - ack
   - the_silver_searcher
   - wireshark-gtk
