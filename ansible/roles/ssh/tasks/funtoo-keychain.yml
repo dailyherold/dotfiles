@@ -18,7 +18,7 @@
 ## Long live Funtoo keychain
 - name: Download keychain
   get_url:
-    url: http://www.funtoo.org/distfiles/keychain/keychain-{{ keychain_version }}.tar.bz2
+    url: https://github.com/funtoo/keychain/archive/{{ keychain_version }}.tar.gz
     dest: "{{ current_user_home }}/Downloads"
   register: keychain_archive
   tags: keychain
