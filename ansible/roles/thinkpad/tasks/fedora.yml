@@ -9,7 +9,6 @@
     - tlp # power saving
     - tlp-rdw # optional, Radio Device Wizard
     - kernel-devel # optional, needed for the akmod packages below
-    - http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-stable.noarch.rpm
 
 - name: Mask systemd-rfkill.service to avoid tlp radio options
   systemd:
