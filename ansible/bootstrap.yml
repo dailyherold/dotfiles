@@ -107,7 +107,7 @@
         dest: /etc/udev/rules.d
         src: files/49-teensy.rules
       become: yes
-      when: onlykey_support = true
+      when: onlykey_support == true
 
     - name: Change .dotfiles repo from https to ssh
       shell: "git remote set-url origin git@github.com:dailyherold/dotfiles.git"
