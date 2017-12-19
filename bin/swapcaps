@@ -1,14 +1,51 @@
 #! /bin/bash
 
-if setxkbmap -print|grep --quiet "swapcaps"; then
-  setxkbmap -option
-else
-  setxkbmap -option ctrl:swapcaps
-fi
+is_wayland() {
+  if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
+    return 1
+  else
+    return 0
+  fi
+}
 
-# Kill xcape
-pgrep xcape|awk '{print "kill "$1}'|sh 
+x_cmds() {
+  if setxkbmap -print|grep --quiet "swapcaps"; then
+    setxkbmap -option
+    echo "toggled off"
+  else
+    setxkbmap -option ctrl:swapcaps
+    echo "toggled on"
+  fi
+}
 
-# Restart xcape
-/home/jpherold/repos/git/xcape/xcape -e 'Control_L=Escape'
+wayland_cmds() {
+  if [[ $(gsettings get org.gnome.desktop.input-sources xkb-options) = "['ctrl:swapcaps']" ]]; then
+    gsettings set org.gnome.desktop.input-sources xkb-options "['']"
+    echo "toggled off"
+  else
+    gsettings set org.gnome.desktop.input-sources xkb-options "['ctrl:swapcaps']"
+    echo "toggled on"
+  fi
+}
+
+ctrl_as_esc() {
+  # Kill xcape
+  pgrep xcape|awk '{print "kill "$1}'|sh 
+
+  # Restart xcape
+  $HOME/repos/git/xcape/xcape -e 'Control_L=Escape'
+}
+
+main() {
+  # Modifier: run ctrl/caps swap commands
+  if [ is_wayland ]; then
+    wayland_cmds
+  else
+    x_cmds
+  fi
+
+  # Keypress: run ctrl as escape commands
+  ctrl_as_esc
+}
+main
 
