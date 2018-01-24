@@ -102,6 +102,14 @@
       become: yes
       when: custom_vmmouse == true
 
+    # Used by Jetbrains IDEs
+    # https://confluence.jetbrains.com/display/IDEADEV/Inotify+Watches+Limit
+    - name: Set custom inotify watches limit
+      copy:
+        dest: /etc/sysctl.d/60-jetbrains.conf
+        src: files/60-jetbrains.conf
+      become: yes
+
     - name: Ensure OnlyKey firmware support (both flashing and use)
       copy:
         dest: /etc/udev/rules.d
