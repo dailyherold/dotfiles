@@ -36,6 +36,7 @@ packages:
   - python-devel # devtools
   - python3-devel # devtools
   - java-1.8.0-openjdk-devel
+  - sysstat # useful system stat utilities (mpstat, pidstat, iostat, sar, etc)
 extra_packages:
   - vim-enhanced
   - iotop
