@@ -8,14 +8,14 @@ custom_vmmouse: false
 onlykey_support: false
 thinkpad_workstation: false
 
-ant_version: "1.10.1"
-beyondcompare_version: "4.2.3.22587"
-terraform_version: "0.10.7"
+ant_version: "1.10.2"
+beyondcompare_version: "4.2.4.22795"
+terraform_version: "0.11.3"
 docker_machine_version: "v0.13.0"
 datagrip_version: "1.0.3"
 eclipse_release_name: "oxygen"
-eclipse_minor_version: "1a"
-slack_version: "2.8.2-0.1.fc21"
+eclipse_minor_version: "2"
+slack_version: "slack-3.0.5-0.1.fc21.x86_64"
 
 
 
