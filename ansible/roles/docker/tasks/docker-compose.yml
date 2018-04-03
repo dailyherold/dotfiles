@@ -7,3 +7,4 @@
     mode: "u+x,g+rx,o+rx"
     force: yes
   become: yes
+  tags: docker-compose
