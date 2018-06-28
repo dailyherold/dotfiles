@@ -61,4 +61,8 @@ export NVM_DIR="$HOME/.nvm"
 export SDKMAN_DIR="/home/jpherold/.sdkman"
 [[ -s "/home/jpherold/.sdkman/bin/sdkman-init.sh" ]] && source "/home/jpherold/.sdkman/bin/sdkman-init.sh"
 
+# AWS MFA Helper
+# https://github.com/asagage/aws-mfa-script
+source ~/.dotfiles/bin/alias.sh
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
