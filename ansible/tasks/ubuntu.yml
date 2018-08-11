@@ -11,6 +11,14 @@
     become: yes
     tags:
       - packages
+
+  - name: Install debian specific packages
+    apt: name={{ item }} state=latest
+    with_items: "{{ debian_packages }}"
+    become: yes
+    tags:
+      - packages
+
   - name: Install utility packages
     apt: name={{ item }} state=latest
     with_items: "{{ extra_packages }}"
@@ -67,17 +75,6 @@
     become: yes
     tags: yubikey
 
-# Redshift
-  - name: Install Redshift
-    apt:
-      name: "{{ item }}"
-      state: latest
-    with_items:
-      - redshift
-      - redshift-gtk
-    become: yes
-    tags: ["redshift", "packages"]
-
 # Xcape
   - name: Install required packages for xcape
     apt:
@@ -132,21 +129,6 @@
       shell: /bin/zsh
     become: yes
     tags: zsh
-
-# Dotfiles
-  - name: Clone dailyherold dotfiles repo
-    git:
-      repo: git@github.com:dailyherold/dotfiles.git
-      dest: "{{ current_user_home }}/.dotfiles"
-      accept_hostkey: yes
-      update: yes
-    tags: dotfiles
-
-  - name: Init and update submodules
-    shell: git submodule update --init --recursive
-    args:
-      chdir: "{{ current_user_home }}/.dotfiles"
-    tags: dotfiles
 
   - name: DFM install
     shell: ./bin/dfm install
@@ -271,20 +253,6 @@
       state: latest
     become: yes
     tags: ["diodon","packages"]
-
-# Shutter
-  - name: Add Shutter ppa
-    shell: 'apt-add-repository -y ppa:shutter/ppa'
-    become: yes
-    tags: shutter
-
-  - name: Install Shutter
-    apt:
-      update_cache: yes
-      name: shutter
-      state: latest
-    become: yes
-    tags: ["shutter","packages"]
 
 # Zeal
   - name: Add Zeal ppa
@@ -569,16 +537,6 @@
       deb: "{{ vagrant_deb.dest }}"
     become: yes
     tags: ["vagrant","packages"]
-
-# Docker Machine
-  - name: Install Docker machine
-    get_url:
-      dest: "/usr/local/bin/docker-machine"
-      url: https://github.com/docker/machine/releases/download/{{ docker_machine_version }}/docker-machine-Linux-x86_64
-      mode: "u+x,g+x,o+x"
-      force: yes # otherwise file will only be downloaded if the destination does not exist
-    become: yes
-    tags: docker_machine
 
 # mdless (markdown less)
   - name: Install mdless gem

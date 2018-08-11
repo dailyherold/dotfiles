@@ -32,11 +32,6 @@ packages:
   - automake # devtools
   - cmake # devtools
   - gcc # devtools
-  - gcc-c++ # devtools
-  - kernel-devel # devtools
-  - python-devel # devtools
-  - python3-devel # devtools
-  - java-1.8.0-openjdk-devel
   - sysstat # useful system stat utilities (mpstat, pidstat, iostat, sar, etc)
 extra_packages:
   - vim-enhanced
@@ -58,36 +53,42 @@ extra_packages:
   - vpnc
   - freerdp # used by vpnc for rdp hosts
   - tmux
-  - redshift
-  - redshift-gtk
   - remmina
   - xclip
   - awscli
   - zeal # offline documentation browser
   - guake # drop down terminal
   - shutter # awesome screenshots
-  - dropbox
   - gpaste # clipboard manager
-  - gpaste-ui # ui for gpaste
   - i3lock # simple screen lock that doesn't do stupid gnome power management turn off screen stuff (despite me telling it not to)
   - stress # basic stress test terminal app
+  - gawk # used by tmux-fingers plugin
 
 debian_packages:
   - man
+  - g++
+  - linux-headers-generic
   - vim-gtk # for some additional xserver support (e.g. clipboard)
   - build-essential
+  - openjdk-8-jdk
   - python-dev
+  - python3-dev
   - python-apt # for Ansible's apt_repository module
   - ppa-purge
   - ack-grep
   - silversearcher-ag
   - tshark
   - lm-sensors # hardware sensors for temperature/RPM
+  #- nautilus-dropbox # TODO add role for dropbox (or storage in general)
 
 redhat_packages:
   - man-pages
+  - gcc-c++ # devtools
+  - kernel-devel # devtools
   - vim-X11 # for some additional xserver support (e.g. clipboard)
+  - java-1.8.0-openjdk-devel
   - python-devel
+  - python3-devel # devtools
   - python2-dnf # for Ansible's dnf module
   - python-netaddr # used by Ansible for some network fu
   - libselinux-python # used by Ansible
@@ -96,3 +97,5 @@ redhat_packages:
   - wireshark-gtk
   - lm_sensors # hardware sensors for temperature/RPM
   - chrome-gnome-shell # needed for gnome extension installs via browser
+  - dropbox
+  - gpaste-ui # ui for gpaste
