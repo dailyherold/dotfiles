@@ -75,43 +75,6 @@
     become: yes
     tags: yubikey
 
-# Xcape
-  - name: Install required packages for xcape
-    apt:
-      name: "{{ item }}"
-      state: latest
-    with_items:
-      - pkg-config
-      - libX11-dev
-      - libxtst-dev
-      - libxi-dev
-    become: yes
-    tags: ["xcape", "packages"]
-
-  - name: Clone xcape repo
-    git:
-      repo: https://github.com/alols/xcape.git
-      dest: "{{ current_user_home }}/repos/git/xcape"
-      accept_hostkey: yes
-      update: yes
-    tags: xcape
-
-  - name: Make xcape
-    shell: make
-    args:
-      chdir: "{{ current_user_home }}/repos/git/xcape"
-      creates: "{{ current_user_home }}/repos/git/xcape/xcape"
-    register: make_result
-    tags: xcape
-
-  - name: Make install xcape
-    shell: make install
-    args:
-      chdir: "{{ current_user_home }}/repos/git/xcape"
-    become: yes
-    when: make_result.changed
-    tags: xcape
-
 # Zsh
   - name: Install Zsh
     apt:
