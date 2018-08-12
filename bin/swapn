@@ -1,5 +1,5 @@
 #!/bin/bash
 DSIDCOOKIE="DSID=$1"
 CMD="sudo openconnect --juniper --cookie=\"$DSIDCOOKIE\" mydesktop.swacorp.com"
-echo $CMD
-$CMD
+echo "Running the following command: $CMD"
+eval $CMD
