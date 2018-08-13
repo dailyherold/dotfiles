@@ -1,0 +1,29 @@
+#!/bin/sh
+set -e
+
+ubuntu_packages() {
+  sudo apt-get update -y \
+  && sudo apt-get install software-properties-common -y \
+  && sudo apt-add-repository ppa:ansible/ansible -y \
+  && sudo apt-get update -y \
+  && sudo apt-get install ansible -y
+}
+
+# basic dist logic from https://get.docker.com/
+get_distribution() {
+	lsb_dist=""
+	# Every system that we officially support has /etc/os-release
+	if [ -r /etc/os-release ]; then
+		lsb_dist="$(. /etc/os-release && echo "$ID")"
+	fi
+	# Returning an empty string here should be alright since the
+	# case statements don't act unless you provide an actual value
+	echo "$lsb_dist"
+}
+
+lsb_dist=$( get_distribution )
+
+case "$lsb_dist" in
+  ubuntu) ubuntu_packages;;
+  *) echo "$lsb_dist not yet supported";;
+esac
