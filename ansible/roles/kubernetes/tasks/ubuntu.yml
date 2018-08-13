@@ -1,0 +1,25 @@
+---
+# Using kubectl install instructions: https://kubernetes.io/docs/tasks/tools/install-kubectl/
+#
+- name: Add kubectl GPG key
+  apt_key:
+    state: present
+    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+    validate_certs: no
+  become: yes
+
+- name: Add required packages
+  apt:
+    state: latest
+    name: apt-transport-https
+  become: yes
+
+- name: Add kubernetes repo to sources list
+  shell: 'echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list'
+
+- name: Install kubectl package
+  apt:
+    state: latest
+    name: kubectl
+    update_cache: yes
+  become: yes
