@@ -27,6 +27,13 @@
       - packages
       - utilities
 
+  - name: Install snap packages
+    command: snap install {{ item }}
+    with_items: "{{ debian_snap_packages }}"
+    become: yes
+    tags:
+      - packages
+
   - name: Install Python packages
     pip: name={{ item }} state=latest
     with_items:

@@ -85,6 +85,10 @@ debian_packages:
   #- nautilus-dropbox # TODO add role for dropbox (or storage in general)
   - libvirt-bin # qemu virtualization
 
+debian_snap_packages:
+  - telegram-desktop
+  - slack
+
 redhat_packages:
   - man-pages
   - gcc-c++ # devtools
