@@ -66,6 +66,11 @@ extra_packages:
   - openconnect # SWA vpn
   - qemu # qemu virtualization
   - qemu-kvm # qemu virtualization
+  - snapd # snap package daemon
+
+snap_packages:
+  - telegram-desktop
+  - slack
 
 debian_packages:
   - man
@@ -84,10 +89,6 @@ debian_packages:
   - lm-sensors # hardware sensors for temperature/RPM
   #- nautilus-dropbox # TODO add role for dropbox (or storage in general)
   - libvirt-bin # qemu virtualization
-
-debian_snap_packages:
-  - telegram-desktop
-  - slack
 
 redhat_packages:
   - man-pages

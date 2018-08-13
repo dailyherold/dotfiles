@@ -18,6 +18,13 @@
   become: yes
   with_items: "{{ redhat_packages }}"
 
+# https://docs.snapcraft.io/core/install-fedora
+- name: Support snap packages with classic confinement
+  file:
+    state: link
+    src: /var/lib/snapd/snap
+    dest: /snap
+
 ## Additional apps/packages
 - name: Install Google Chrome
   dnf:
