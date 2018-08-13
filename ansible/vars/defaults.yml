@@ -63,6 +63,9 @@ extra_packages:
   - i3lock # simple screen lock that doesn't do stupid gnome power management turn off screen stuff (despite me telling it not to)
   - stress # basic stress test terminal app
   - gawk # used by tmux-fingers plugin
+  - openconnect # SWA vpn
+  - qemu # qemu virtualization
+  - qemu-kvm # qemu virtualization
 
 debian_packages:
   - man
@@ -80,6 +83,7 @@ debian_packages:
   - tshark
   - lm-sensors # hardware sensors for temperature/RPM
   #- nautilus-dropbox # TODO add role for dropbox (or storage in general)
+  - libvirt-bin # qemu virtualization
 
 redhat_packages:
   - man-pages
