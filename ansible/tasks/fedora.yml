@@ -31,9 +31,3 @@
     name: google-chrome-stable
     state: latest
   become: yes
-
-- name: Install Slack
-  dnf:
-    name: https://downloads.slack-edge.com/linux_releases/slack-{{ slack_version }}.x86_64.rpm
-    state: latest
-  become: yes

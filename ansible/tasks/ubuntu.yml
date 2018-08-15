@@ -231,15 +231,6 @@
     become: yes
     tags: ["zeal","packages"]
 
-# VPN
-  - name: Install vpnc
-    apt:
-      name: vpnc
-      state: latest
-    become: yes
-    tags: ["vpnc","packages"]
-
-
 # tmux
   - name: Install automake, libevent, and ncurses
     apt:
