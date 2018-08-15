@@ -8,3 +8,11 @@
 - name: Ensure Ubuntu tasks
   include: ubuntu.yml
   when: ( ansible_distribution == 'Ubuntu') or ( ansible_distribution == 'Debian' )
+
+- name: Download Heptio AWS authenticator
+  get_url:
+    url: "{{ heptio_url }}"
+    dest: /usr/local/bin
+    mode: u=rwx,g=rx,o=rx
+    validate_certs: false
+  become: yes
