@@ -1,55 +1,30 @@
 ---
-- name: Ensure required packages
+# https://docs.docker.com/install/linux/docker-ce/ubuntu/#install-using-the-repository
+
+- name: Install required packages
   apt:
-    name: "{{ item }}"
     state: latest
+    name: "{{ item }}"
   become: yes
   with_items:
     - apt-transport-https
     - ca-certificates
+    - curl
+    - software-properties-common
 
-- name: Add apt-key for Docker
+- name: Add Docker GPG key
   apt_key:
     state: present
-    keyserver: hkp://ha.pool.sks-keyservers.net:80
-    id: 58118E89F3A912897C070ADBF76221572C52609D
+    url: https://download.docker.com/linux/ubuntu/gpg
+    validate_certs: no
   become: yes
 
-- name: Add docker.list to apt-sources
-  lineinfile:
-    state: present
-    create: yes
-    dest: /etc/apt/sources.list.d/docker.list
-    line: deb https://apt.dockerproject.org/repo ubuntu-xenial main
-  register: docker_apt
-  become: yes
+- name: Select stable channel
+  shell: 'echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable" | sudo tee /etc/apt/sources.list.d/docker-ce.list'
 
-- name: Update apt cache
+- name: Install Docker package
   apt:
+    state: latest
+    name: docker-ce
     update_cache: yes
-  when: docker_apt.changed
   become: yes
-
-- name: Install linux-image-extra-* packages
-  apt:
-    state: latest
-    name: "{{ item }}"
-  with_items:
-    - linux-image-extra-{{ ansible_kernel }}
-    - linux-image-extra-virtual
-  become: yes
-  tags: ["docker","packages"]
-
-- name: Install docker-engine
-  apt:
-    state: latest
-    name: docker-engine
-  become: yes
-
-- name: Enable and start docker service
-  service:
-    state: started
-    enabled: yes
-    name: docker
-  become: yes
-
