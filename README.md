@@ -14,20 +14,19 @@ First, read all the codes. Hopefully I'll inspire you with things here and there
 
 Check out `dfm` though if you are curious about it's role, as I think it is a sweet little utility. The repo itself was also built from justone's dotfiles skeleton. For more information, check out his [wiki](http://github.com/justone/dotfiles/wiki).
 
-- `cd $HOME && git clone https://github.com/dailyherold/dotfiles.git .dotfiles`
-- `cd .dotfiles && git submodule update --init --recursive`
-- Execute playbook `ansible-playbook bootstrap.yml --ask-become-pass`
+- Clone repo: `cd $HOME && git clone https://github.com/dailyherold/dotfiles.git .dotfiles`
+- Pull submodules: `cd .dotfiles && git submodule update --init --recursive`
+- Bootstrap: `./bootstrap && cd ansible && ansible-playbook bootstrap.yml -v --ask-become-pass`
 - Open up vim and run `:PluginInstall`
-- `git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm`
-- `tmux source ~/.tmux.conf`
-- tmux `prefix` + `I` (capital I, as in *I*nstall)
+- Clone tmux plugin manager: `git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm`
+- Start tmux: `tmux`
+- Install tmux plugins: tmux `prefix` + `I`
 
 ## Todo
-- Break up monolithic Ansible playbook into roles.
+- (IN PROGRESS) Break up monolithic Ansible playbook into roles.
 - Abstract some of those roles as separate repos and add to Ansible Galaxy. Then include those "remote" roles in playbook.
 - Consider one "barebones" playbook for setting up all the terminal goodies along with dependencies, and another playbook for rest of my system packages and tweaks. This would be good for those that want to try out my terminal config without getting the rest of the enchiladas.
 - Update all poorly written scripts.
-- Speaking of scripts, add a true bootstrap script that installs Ansible, sets dotfiles, and kicks off a playbook.
 - Consider dfm's role and if I would just want to use Ansible for similar tasks.
 
 ## Updating submodules
