@@ -3,5 +3,5 @@
 
 hashicorp_arch: "386"
 
-packer_version: "1.2.1"
-vagrant_version: "2.0.2"
+packer_version: "1.2.5"
+vagrant_version: "2.1.2"
