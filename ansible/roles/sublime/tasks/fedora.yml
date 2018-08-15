@@ -1,0 +1,54 @@
+---
+# Used Fedy's install script as a template for tasks
+# https://github.com/folkswithhats/fedy/blob/master/plugins/sublimetext.plugin/install.sh
+
+# By default sublime_arch is "x32"
+- name: Ensure system architecture
+  set_fact:
+    sublime_arch: "x64"
+  when: ansible_architecture == "x86_64"
+
+# Change the build number by overriding the default var or changing the default var
+- name: Download Sublime
+  get_url:
+    url: "{{ sublime_url }}"
+    dest: "{{ current_user_home }}/Downloads"
+  register: sublime_download
+
+- name: Ensure /opt/sublime_text_3 dir
+  file: state=directory path=/opt/sublime_text_3
+  become: yes
+
+- name: Unarchive Sublime
+  unarchive:
+    dest: /opt/sublime_text_3
+    src: "{{ sublime_download.dest }}"
+    extra_opts: ['--strip-components=1']
+  become: yes
+
+# Create a list of icon sizes in sublime archive
+- name: Get Sublime icon folders
+  shell: ls -1 /opt/sublime_text_3/Icon
+  register: icon_dirs
+
+- name: Register icons
+  shell: xdg-icon-resource install --novendor --size "{{ item | regex_replace('x[0-9]+$','') }}" "/opt/sublime_text_3/Icon/{{ item }}/sublime-text.png" "sublime-text"
+  with_items:
+    - "{{ icon_dirs.stdout_lines }}"
+
+- name: Refresh icon cache
+  shell: gtk-update-icon-cache -f -t /usr/share/icons/hicolor
+  become: yes
+
+- name: Create subl symlink
+  file:
+    state: link
+    path: /usr/bin/subl
+    src: /opt/sublime_text_3/sublime_text
+  become: yes
+
+- name: Create Sublime desktop entry
+  copy:
+    src: sublime-text-3.desktop
+    dest: /usr/share/applications
+  become: yes
