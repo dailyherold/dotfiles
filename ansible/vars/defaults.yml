@@ -24,6 +24,7 @@ packages:
   - git
   - subversion
   - python-pip
+  - python3-pip
   - wget
   - bzip2
   - tar
@@ -33,6 +34,7 @@ packages:
   - cmake # devtools
   - gcc # devtools
   - sysstat # useful system stat utilities (mpstat, pidstat, iostat, sar, etc)
+
 extra_packages:
   - vim-enhanced
   - iotop
@@ -108,3 +110,14 @@ redhat_packages:
   - chrome-gnome-shell # needed for gnome extension installs via browser
   - dropbox
   - gpaste-ui # ui for gpaste
+
+pip_modules:
+  - boto3
+  - awscli
+  - virtualenv
+  #- paramiko
+  #- PyYAML
+  #- Jinja2
+  #- httplib2
+  #- argparse
+  #- six

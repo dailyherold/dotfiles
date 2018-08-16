@@ -36,8 +36,13 @@
       command: snap install {{ item }}
       with_items: "{{ snap_packages }}"
       become: yes
-      tags:
-        - packages
+      tags: ["packages"]
+
+    - name: Install Python packages
+      pip: name={{ item }} state=latest
+      with_items: "{{ pip_modules }}"
+      become: yes
+      tags: ["packages", "pip"]
 
     # TODO: finish out the rest of this archive download and install
     #- name: Install Postman

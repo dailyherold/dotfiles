@@ -27,22 +27,6 @@
       - packages
       - utilities
 
-  - name: Install Python packages
-    pip: name={{ item }} state=latest
-    with_items:
-      - pysphere
-      - boto
-      - pywinrm
-      - paramiko
-      - PyYAML
-      - Jinja2
-      - httplib2
-      - argparse
-      - awscli
-      - six
-    become: yes
-    tags: ["packages", "pip"]
-
 # Git repos dir
   - name: Create git repos dir
     file:

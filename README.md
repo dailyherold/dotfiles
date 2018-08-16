@@ -16,7 +16,8 @@ Check out `dfm` though if you are curious about it's role, as I think it is a sw
 
 - Clone repo: `cd $HOME && git clone https://github.com/dailyherold/dotfiles.git .dotfiles`
 - Pull submodules: `cd .dotfiles && git submodule update --init --recursive`
-- Bootstrap: `./bootstrap && cd ansible && ansible-playbook bootstrap.yml -v --ask-become-pass`
+- Bootstrap: `./bootstrap
+- Run ansible playbook (use python3): `cd ansible && ansible-playbook bootstrap.yml -v --ask-become-pass -e 'ansible_python_interpreter=/usr/bin/python3'`
 - Open up vim and run `:PluginInstall`
 - Clone tmux plugin manager: `git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm`
 - Start tmux: `tmux`
