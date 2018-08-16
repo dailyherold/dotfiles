@@ -63,6 +63,7 @@
     - { role: xcape, xcape_install_dir: "{{ ansible_user_dir }}/repos/git", tags: [ 'xcape' ] }
     - { role: spideroak, tags: [ 'spideroak' ] }
     - { role: thinkpad, tags: [ 'thinkpad' ], when: thinkpad_workstation == true }
+    - { role: dell, tags: [ 'dell' ], when: dell_workstation == true }
     - { role: hashicorp, tags: [ 'hashicorp' ] }
     - { role: virtualbox, tags: [ 'virtualbox' ] }
     - { role: docker, install_docker_compose: true, tags: [ 'docker' ] }

@@ -7,6 +7,7 @@ dev_home: "/home/{{ current_user }}/dev"
 custom_vmmouse: false
 onlykey_support: false
 thinkpad_workstation: false
+dell_workstation: false
 
 ant_version: "1.10.2"
 beyondcompare_version: "4.2.4.22795"
