@@ -1,0 +1,10 @@
+---
+# tasks file for dell
+
+- name: Fedora/Korora tasks
+  include: fedora.yml
+  when: ( ansible_distribution == 'Korora') or ( ansible_distribution == 'Fedora' )
+
+- name: Ensure Ubuntu tasks
+  include: ubuntu.yml
+  when: ( ansible_distribution == 'Ubuntu') or ( ansible_distribution == 'Debian' )

@@ -1,0 +1,16 @@
+---
+# tasks file for dell - ubuntu
+
+- name: Install sysfsutils for changing /sys settings
+  apt:
+    state: latest
+    name: sysfsutils
+  become: yes
+
+- name: Enable deep sleep/suspend
+  lineinfile:
+    state: present
+    line: power/mem_sleep = deep
+    path: /etc/sysfs.d/mem_sleep.conf
+    create: yes
+  become: yes
