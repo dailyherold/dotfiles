@@ -59,35 +59,6 @@
     become: yes
     tags: yubikey
 
-  - name: DFM install
-    shell: ./bin/dfm install
-    args:
-      chdir: "{{ current_user_home }}/.dotfiles"
-      executable: yes
-    tags: dotfiles
-
-# Xclip
-  - name: Install Xclip
-    apt:
-      name: xclip
-      state: latest
-    become: yes
-    tags: ["xclip", "packages"]
-
-# Guake
-  - name: Add webupd8team ppa (guake)
-    shell: 'add-apt-repository -y ppa:webupd8team/unstable'
-    become: yes
-    tags: guake
-
-  - name: Install guake
-    apt:
-      update_cache: yes
-      name: guake
-      state: latest
-    become: yes
-    tags: ["guake","packages"]
-
 # Solarized
   - name: Install dconf
     apt:
@@ -183,62 +154,6 @@
     become: yes
     tags: ["diodon","packages"]
 
-# Zeal
-  - name: Add Zeal ppa
-    shell: 'apt-add-repository -y ppa:zeal-developers/ppa'
-    become: yes
-    tags: zeal
-
-  - name: Install Zeal
-    apt:
-      update_cache: yes
-      name: zeal
-      state: latest
-    become: yes
-    tags: ["zeal","packages"]
-
-# tmux
-  - name: Install automake, libevent, and ncurses
-    apt:
-      name: "{{ item }}"
-      state: latest
-    with_items:
-      - automake
-      - libevent-2.0-5
-      - libevent-dev
-      - ncurses-dev
-    become: yes
-    tags: ["tmux","packages"]
-
-  - name: Clone tmux repo
-    git:
-      repo: https://github.com/tmux/tmux.git
-      dest: "{{ current_user_home }}/repos/git/tmux"
-      accept_hostkey: yes
-      update: yes
-    tags: tmux
-
-  - name: autogen tmux
-    shell: ./autogen.sh
-    args:
-      chdir: "{{ current_user_home }}/repos/git/tmux"
-      executable: yes
-    tags: tmux
-
-  - name: make tmux
-    shell: ./configure && make
-    args:
-      chdir: "{{ current_user_home }}/repos/git/tmux"
-      executable: yes
-    tags: tmux
-
-  - name: symlink tmux to .dotfiles/bin
-    file:
-      state: link
-      src: "{{ current_user_home }}/repos/git/tmux/tmux"
-      dest: "{{ current_user_home }}/.dotfiles/bin/tmux"
-    tags: tmux
-
 # tmux plugin manager
   - name: Clone tpm repo
     git:
@@ -267,31 +182,6 @@
     args:
       chdir: "{{ current_user_home }}/.adobe/Flash_Player"
     tags: flash
-
-# Wine
-#  - name: Install wine
-
-# Java 7
-  - name: Install JDK 7
-    apt:
-      name: openjdk-7-jdk
-      state: latest
-    become: yes
-    tags: ["java","packages"]
-
-# Java 8
-  - name: Add openjdk-r ppa
-    shell: 'add-apt-repository -y ppa:openjdk-r/ppa'
-    become: yes
-    tags: java8
-
-  - name: Install openjdk-8-jdk
-    apt:
-      update_cache: yes
-      name: openjdk-8-jdk
-      state: latest
-    become: yes
-    tags: ["java8","packages"]
 
 # Weechat
   - name: Add gpg key for Weechat repo
@@ -331,21 +221,6 @@
       - nemo-dropbox
     become: yes
     tags: ["dropbox","packages"]
-
-# SpiderOak
-  - name: Download SpiderOak package
-    get_url:
-      url: https://spideroak.com/getbuild?platform=ubuntu&arch=x86_64
-      dest: "{{ current_user_home }}/Downloads"
-    register: spideroak
-    tags: spideroak
-
-  - name: Install SpiderOak
-    apt:
-      deb: "{{ spideroak.dest }}"
-      state: present
-    become: yes
-    tags: ["spideroak","packages"]
 
 # nvPY (Notes)
   - name: Ensure nvPY dependencies
