@@ -136,7 +136,7 @@
 
     - name: Set zsh as default shell
       user:
-        name: jpherold
+        name: "{{ current_user }}"
         shell: /bin/zsh
         state: present
       become: yes

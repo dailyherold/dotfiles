@@ -59,24 +59,6 @@
     become: yes
     tags: yubikey
 
-# Zsh
-  - name: Install Zsh
-    apt:
-      name: "{{ item }}"
-      state: latest
-    with_items:
-      - zsh
-      - zsh-doc
-    become: yes
-    tags: ["zsh", "packages"]
-
-  - name: Set Zsh as the default shell
-    user:
-      name: "{{ current_user }}"
-      shell: /bin/zsh
-    become: yes
-    tags: zsh
-
   - name: DFM install
     shell: ./bin/dfm install
     args:
