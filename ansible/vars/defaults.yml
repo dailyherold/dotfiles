@@ -93,6 +93,7 @@ debian_packages:
   - lm-sensors # hardware sensors for temperature/RPM
   #- nautilus-dropbox # TODO add role for dropbox (or storage in general)
   - libvirt-bin # qemu virtualization
+  - verse # bible verse package
 
 redhat_packages:
   - man-pages

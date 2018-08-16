@@ -272,14 +272,6 @@
     become: yes
     tags: ant
 
-# Verse
-  - name: Install verse
-    apt:
-      name: verse
-      state: latest
-    become: yes
-    tags: ["verse","packages"]
-
 # Beyond Compare
   - name: Download Beyond Compare 4
     get_url:
