@@ -4,7 +4,7 @@ nickname: stevieg
 company: LiverpoolFC
 
 dev_home: "/home/{{ current_user }}/dev"
-custom_vmmouse: false
+custom_libinput: false
 onlykey_support: false
 thinkpad_workstation: false
 dell_workstation: false
@@ -71,6 +71,7 @@ extra_packages:
   - qemu # qemu virtualization
   - qemu-kvm # qemu virtualization
   - snapd # snap package daemon
+  - libinput-tools # helpful libinput commands like `libinput debug-events --device /dev/input/event8`
 
 snap_packages:
   - telegram-desktop

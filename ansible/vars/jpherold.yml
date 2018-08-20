@@ -4,6 +4,6 @@ nickname: dailyherold
 company: Southwest Airlines
 
 usr_shell: zsh
-custom_vmmouse: true
+custom_libinput: true
 onlykey_support: true
 dell_workstation: true

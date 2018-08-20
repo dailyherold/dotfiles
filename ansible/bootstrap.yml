@@ -108,13 +108,16 @@
     #- name: Install vim plugins
     #  command: /usr/bin/vim +PluginInstall +qall
 
-    - name: Set custom vmmouse input device tweaks
+    - name: Set custom libinput device settings
       copy:
-        dest: /etc/X11/xorg.conf.d/50-vmmouse.conf
-        src: files/50-vmmouse.conf
+        dest: /etc/X11/xorg.conf.d/
+        src: "{{ item }}"
         backup: yes
+      with_items:
+        - files/30-pointers.conf
       become: yes
-      when: custom_vmmouse == true
+      when: custom_libinput == true
+      tags: ["libinput"]
 
     # Used by Jetbrains IDEs
     # https://confluence.jetbrains.com/display/IDEADEV/Inotify+Watches+Limit
