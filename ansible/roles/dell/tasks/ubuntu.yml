@@ -14,3 +14,19 @@
     path: /etc/sysfs.d/mem_sleep.conf
     create: yes
   become: yes
+
+- name: Install TLP
+  apt:
+    state: latest
+    name: "{{ item }}"
+  with_items:
+    - tlp
+    - tlp-rdw
+  become: yes
+
+- name: Start and enable TLP
+  service:
+    name: tlp
+    state: started
+    enabled: yes
+  become: yes
