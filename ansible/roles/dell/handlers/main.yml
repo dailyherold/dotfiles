@@ -1,2 +1,10 @@
 ---
 # handlers file for dell
+
+- name: update-grub
+  command: /usr/sbin/update-grub2
+  become: yes
+
+- name: systemd-reload
+  command: /bin/systmctl daemon-reload
+  become: yes

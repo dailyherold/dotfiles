@@ -8,3 +8,35 @@
 - name: Ensure Ubuntu tasks
   include: ubuntu.yml
   when: ( ansible_distribution == 'Ubuntu') or ( ansible_distribution == 'Debian' )
+
+- name: Blacklist nouveau
+  lineinfile:
+    state: present
+    line: blacklist nouveau
+    path: /etc/modprobe.d/no-nouveau.conf
+    create: yes
+  become: yes
+
+- name: Create gpuoff service
+  copy:
+    src: gpuoff.service
+    dest: /etc/systemd/system/
+  handler: systemd-reload
+  become: yes
+
+- name: Start and enable gpuoff.service
+  service:
+    state: started
+    enabled: yes
+    name: gpuoff.service
+  become: yes
+
+- name: Set Grub kernel params
+  lineinfile:
+    state: present
+    line: GRUB_CMDLINE_LINUX_DEFAULT="quiet splash i915.modeset=1"
+    path: /etc/default/grub
+    regexp: '^GRUB_CMDLINE_LINUX_DEFAULT=.*$'
+    backup: yes
+  #handler: update-grub
+  become: yes
