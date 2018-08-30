@@ -353,21 +353,6 @@
   - debug: msg={{ sdkman_install.stdout }}
     tags: sdkman
 
-# Jetbrains DataGrip
-  - name: Download DataGrip
-    get_url:
-      dest: "{{ current_user_home }}/Downloads"
-      url: https://download.jetbrains.com/datagrip/datagrip-{{ datagrip_version }}-custom-jdk-linux.tar.gz
-      validate_certs: no
-    register: datagrip_archive
-    tags: datagrip
-
-  - name: Unarchive DataGrip
-    unarchive:
-      dest: "{{ current_user_home }}"
-      src: "{{ datagrip_archive.dest }}"
-    tags: datagrip
-
 # fzf
   - name: Git clone fzf
     git:

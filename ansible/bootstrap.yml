@@ -64,6 +64,7 @@
     - { role: spideroak, tags: [ 'spideroak' ] }
     - { role: thinkpad, tags: [ 'thinkpad' ], when: thinkpad_workstation == true }
     - { role: dell, tags: [ 'dell' ], when: dell_workstation == true }
+    - { role: jetbrains, tags: [ 'jetbrains' ] }
     - { role: hashicorp, tags: [ 'hashicorp' ] }
     - { role: virtualbox, tags: [ 'virtualbox' ] }
     - { role: docker, install_docker_compose: true, tags: [ 'docker' ] }
@@ -118,14 +119,6 @@
       become: yes
       when: custom_libinput == true
       tags: ["libinput"]
-
-    # Used by Jetbrains IDEs
-    # https://confluence.jetbrains.com/display/IDEADEV/Inotify+Watches+Limit
-    - name: Set custom inotify watches limit
-      copy:
-        dest: /etc/sysctl.d/60-jetbrains.conf
-        src: files/60-jetbrains.conf
-      become: yes
 
     - name: Ensure OnlyKey firmware support (both flashing and use)
       copy:
