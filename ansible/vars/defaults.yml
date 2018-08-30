@@ -37,7 +37,7 @@ packages:
   - sysstat # useful system stat utilities (mpstat, pidstat, iostat, sar, etc)
 
 extra_packages:
-  - vim-enhanced
+  - vim
   - iotop
   - iftop
   - htop
@@ -55,7 +55,6 @@ extra_packages:
   - zsh-doc
   - jq
   - vpnc
-  - freerdp # used by vpnc for rdp hosts
   - tmux
   - remmina
   - xclip
@@ -72,6 +71,8 @@ extra_packages:
   - qemu-kvm # qemu virtualization
   - snapd # snap package daemon
   - libinput-tools # helpful libinput commands like `libinput debug-events --device /dev/input/event8`
+  - cifs-utils # for cifs mounts (e.g. samba)
+  - vlc # for da videos
 
 snap_packages:
   - telegram-desktop
