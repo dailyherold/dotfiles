@@ -21,7 +21,8 @@
   copy:
     src: gpuoff.service
     dest: /etc/systemd/system/
-  handler: systemd-reload
+  notify:
+    - systemd-reload
   become: yes
 
 - name: Start and enable gpuoff.service
@@ -38,5 +39,6 @@
     path: /etc/default/grub
     regexp: '^GRUB_CMDLINE_LINUX_DEFAULT=.*$'
     backup: yes
-  #handler: update-grub
+  notify:
+    - update-grub
   become: yes
