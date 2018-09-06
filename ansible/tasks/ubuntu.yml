@@ -287,44 +287,6 @@
     become: yes
     tags: ["beyondcompare","packages"]
 
-# Terraform
-  - name: Download Terraform
-    get_url:
-      url: https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_linux_amd64.zip
-      dest: "{{ current_user_home }}/Downloads"
-    register: terraform_archive
-    tags: terraform
-
-  - name: Ensure /opt/terraform
-    file:
-      state: directory
-      path: /opt/terraform
-    become: yes
-    register: terraform
-    tags: terraform
-
-  - name: Unarchive Terraform
-    unarchive:
-      src: "{{ terraform_archive.dest }}"
-      dest: "{{ terraform.path }}"
-    become: yes
-    tags: terraform
-
-# Vagrant
-  - name: Download Vagrant
-    get_url:
-      url: https://releases.hashicorp.com/vagrant/{{ vagrant_version }}/vagrant_{{ vagrant_version }}_x86_64.deb
-      dest: "{{ current_user_home }}/Downloads"
-    register: vagrant_deb
-    tags: vagrant
-
-  - name: Install Vagrant deb
-    apt:
-      state: present
-      deb: "{{ vagrant_deb.dest }}"
-    become: yes
-    tags: ["vagrant","packages"]
-
 # mdless (markdown less)
   - name: Install mdless gem
     gem:

@@ -30,9 +30,42 @@
   become: yes
   tags: packer
 
+# Terraform
+- name: Download Terraform
+  get_url:
+    url: https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_linux_{{ hashicorp_arch }}.zip
+    dest: "{{ ansible_user_dir }}/Downloads"
+  register: terraform_archive
+  tags: terraform
+
+- name: Ensure /opt/terraform
+  file:
+    state: directory
+    path: /opt/terraform
+  become: yes
+  register: terraform
+  tags: terraform
+
+- name: Unarchive Terraform
+  unarchive:
+    src: "{{ terraform_archive.dest }}"
+    dest: "{{ terraform.path }}"
+  become: yes
+  tags: terraform
+
 # Vagrant
-- name: Download Vagrant
+- name: Download and install Vagrant (Fedora)
   dnf:
     name: https://releases.hashicorp.com/vagrant/{{ vagrant_version }}/vagrant_{{ vagrant_version }}_{{ ansible_architecture }}.rpm
     state: present
   become: yes
+  when: ( ansible_distribution == 'Korora') or ( ansible_distribution == 'Fedora' )
+  tags: vagrant
+
+- name: Download and install Vagrant (Ubuntu)
+  apt:
+    deb: https://releases.hashicorp.com/vagrant/{{ vagrant_version }}/vagrant_{{ vagrant_version }}_{{ ansible_architecture }}.deb
+    state: present
+  become: yes
+  when: ( ansible_distribution == 'Ubuntu') or ( ansible_distribution == 'Debian' )
+  tags: vagrant
