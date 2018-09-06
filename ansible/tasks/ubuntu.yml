@@ -140,20 +140,6 @@
     become: yes
     tags: ["sensors", "packages"]
 
-# Diodon
-  - name: Add Diodon ppa
-    shell: 'apt-add-repository -y ppa:diodon-team/stable'
-    become: yes
-    tags: diodon
-
-  - name: Install Diodon
-    apt:
-      update_cache: yes
-      name: diodon
-      state: latest
-    become: yes
-    tags: ["diodon","packages"]
-
 # tmux plugin manager
   - name: Clone tpm repo
     git:
@@ -162,26 +148,6 @@
       accept_hostkey: yes
       update: yes
     tags: ["tmux","tpm"]
-
-# HAL for some native encrypted flash streaming support
-  - name: Add hal-flash ppa
-    shell: 'add-apt-repository -y ppa:flexiondotorg/hal-flash'
-    become: yes
-    tags: flash
-
-  - name: Install hal-flash
-    apt:
-      update_cache: yes
-      name: libhal1-flash
-      state: latest
-    become: yes
-    tags: ["flash","packages"]
-
-  - name: Clear Adobe access directories
-    shell: rm -rf NativeCache AssetCache APSPrivateData2
-    args:
-      chdir: "{{ current_user_home }}/.adobe/Flash_Player"
-    tags: flash
 
 # Weechat
   - name: Add gpg key for Weechat repo
@@ -248,30 +214,6 @@
       dest: "{{ current_user_home }}"
     tags: ["nvpy","config"]
 
-# Ant
-  - name: Download Ant
-    get_url:
-      url: http://www.webhostingjams.com/mirror/apache//ant/binaries/apache-ant-{{ ant_version }}-bin.tar.gz
-      dest: "{{ current_user_home }}/Downloads"
-    register: ant_archive
-    tags: ant
-
-  - name: Unarchive Ant
-    unarchive:
-      src: "{{ ant_archive.dest }}"
-      dest: /opt
-    become: yes
-    register: ant
-    tags: ant
-
-  - name: symlink apache-ant-version to apache-ant
-    file:
-      state: link
-      src: /opt/apache-ant-{{ ant_version }}
-      dest: /opt/apache-ant
-    become: yes
-    tags: ant
-
 # Beyond Compare
   - name: Download Beyond Compare 4
     get_url:
@@ -334,54 +276,3 @@
   - name: You're not done yet!
     debug: msg="Install fzf by running ~/.fzf/install"
     tags: fzf
-
-# albert launcher
-  - name: Add albert ppa
-    shell: 'add-apt-repository -y ppa:flexiondotorg/albert'
-    become: yes
-    tags: albert
-
-  - name: Install albert
-    apt:
-      update_cache: yes
-      name: albert
-      state: latest
-    become: yes
-    tags: ["albert","packages"]
-
-# plank dock
-  - name: Add plank ppa
-    shell: 'add-apt-repository -y ppa:docky-core/stable'
-    become: yes
-    tags: plank
-
-  - name: Install plank
-    apt:
-      #update_cache: yes
-      name: plank
-      state: latest
-    become: yes
-    tags: ["plank","packages"]
-
-# Eclipse
-  - name: download Eclipse EE
-    get_url:
-      dest: "{{ current_user_home }}/Downloads"
-      url: http://eclipse.mirror.rafal.ca/technology/epp/downloads/release/{{ eclipse_release_name }}/{{ eclipse_minor_version }}/eclipse-jee-{{ eclipse_release_name }}-{{ eclipse_minor_version }}-linux-gtk-x86_64.tar.gz
-      validate_certs: no
-    register: eclipse_archive
-    tags: eclipse
-
-  - name: Unarchive Eclipse
-    unarchive:
-      dest: /opt
-      src: "{{ eclipse_archive.dest }}"
-    become: yes
-    tags: eclipse
-
-  - name: Copy Eclipse launcher shortcut
-    copy:
-      src: eclipse.desktop
-      dest: /usr/share/applications
-    become: yes
-    tags: eclipse
