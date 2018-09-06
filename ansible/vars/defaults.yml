@@ -73,6 +73,9 @@ extra_packages:
   - libinput-tools # helpful libinput commands like `libinput debug-events --device /dev/input/event8`
   - cifs-utils # for cifs mounts (e.g. samba)
   - vlc # for da videos
+  - exfat-fuse # exfat filesystem support (e.g. HiBy R3)
+  - exfat-utils # exfat filesystem support (e.g. HiBy R3)
+  - net-tools # useful network tools e.g. netstat
 
 snap_packages:
   - telegram-desktop
