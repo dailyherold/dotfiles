@@ -17,9 +17,12 @@
 - name: Select stable channel
   shell: 'echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list'
 
-- name: Install Sublime Text package
+- name: Install Sublime Text and Merge packages
   apt:
     state: latest
-    name: sublime-text
+    name: "{{ item }}"
     update_cache: yes
   become: yes
+  with_items:
+    - sublime-text
+    - sublime-merge
