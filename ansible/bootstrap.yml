@@ -36,7 +36,7 @@
       command: snap install {{ item }}
       loop: "{{ snap_packages|flatten(levels=1) }}"
       become: yes
-      tags: ["packages"]
+      tags: ["packages", "snap"]
 
     - name: Install Python packages
       pip:

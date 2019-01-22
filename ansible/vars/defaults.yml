@@ -71,8 +71,8 @@ extra_packages:
 
 snap_packages:
   - telegram-desktop # people chat
-  - slack # work chat and communities
-  - helm # Kubernetes package manager
+  - slack --classic # work chat and communities
+  - helm --classic # Kubernetes package manager
 
 debian_packages:
   - man
