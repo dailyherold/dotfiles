@@ -70,8 +70,9 @@ extra_packages:
   - gtypist # handy cli tool for typing better
 
 snap_packages:
-  - telegram-desktop
-  - slack
+  - telegram-desktop # people chat
+  - slack # work chat and communities
+  - helm # Kubernetes package manager
 
 debian_packages:
   - man
