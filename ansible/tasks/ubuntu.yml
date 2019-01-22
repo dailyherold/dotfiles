@@ -6,22 +6,25 @@
       - packages
 
   - name: Install default packages
-    apt: name={{ item }} state=latest
-    with_items: "{{ packages }}"
+    apt:
+      name: "{{ packages }}"
+      state: latest
     become: yes
     tags:
       - packages
 
   - name: Install debian specific packages
-    apt: name={{ item }} state=latest
-    with_items: "{{ debian_packages }}"
+    apt:
+      name: "{{ debian_packages }}"
+      state: latest
     become: yes
     tags:
       - packages
 
   - name: Install utility packages
-    apt: name={{ item }} state=latest
-    with_items: "{{ extra_packages }}"
+    apt:
+      name: "{{ extra_packages }}"
+      state: latest
     become: yes
     tags:
       - packages

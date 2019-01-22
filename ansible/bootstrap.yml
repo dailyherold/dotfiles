@@ -34,13 +34,15 @@
 
     - name: Install snap packages
       command: snap install {{ item }}
-      with_items: "{{ snap_packages }}"
+      loop: "{{ snap_packages|flatten(levels=1) }}"
       become: yes
       tags: ["packages"]
 
     - name: Install Python packages
-      pip: name={{ item }} state=latest
-      with_items: "{{ pip_modules }}"
+      pip:
+        name: "{{ item }}"
+        state: latest
+      loop: "{{ pip_modules|flatten(levels=1) }}"
       become: yes
       tags: ["packages", "pip"]
 
@@ -52,7 +54,7 @@
       file:
         state: directory
         path: "{{ ansible_user_dir }}/repos/{{ item }}"
-      with_items:
+      loop:
         - git
         - svn
 
@@ -98,7 +100,7 @@
 
     - name: Ensure vim swp and backup directories
       file: state=directory path={{ item }}
-      with_items:
+      loop:
         - "{{ ansible_user_dir }}/.vim/backup"
         - "{{ ansible_user_dir }}/.vim/swp"
 
@@ -114,7 +116,7 @@
         dest: /etc/X11/xorg.conf.d/
         src: "{{ item }}"
         backup: yes
-      with_items:
+      loop:
         - files/30-pointers.conf
       become: yes
       when: custom_libinput == true

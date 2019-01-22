@@ -33,8 +33,7 @@
 
 - name: Register icons
   shell: xdg-icon-resource install --novendor --size "{{ item | regex_replace('x[0-9]+$','') }}" "/opt/sublime_text_3/Icon/{{ item }}/sublime-text.png" "sublime-text"
-  with_items:
-    - "{{ icon_dirs.stdout_lines }}"
+  loop: "{{ icon_dirs.stdout_lines|flatten(levels=1) }}"
 
 - name: Refresh icon cache
   shell: gtk-update-icon-cache -f -t /usr/share/icons/hicolor

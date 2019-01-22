@@ -13,10 +13,11 @@
 - name: Install TLP
   apt:
     update_cache: yes
-    name: "{{ item }}"
+    name: "{{ packages }}"
     state: latest
   become: yes
-  with_items:
+  vars:
+    packages:
     - tlp
     - tlp-rdw
     - tp-smapi-dkms

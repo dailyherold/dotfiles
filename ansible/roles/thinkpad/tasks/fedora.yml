@@ -2,10 +2,11 @@
 
 - name: Install tlp dependencies
   dnf:
-    name: "{{ item }}"
+    name: "{{ packages }}"
     state: latest
   become: yes
-  with_items:
+  vars:
+    packages:
     - tlp # power saving
     - tlp-rdw # optional, Radio Device Wizard
     - kernel-devel # optional, needed for the akmod packages below
@@ -23,9 +24,10 @@
 
 - name: Install additional tlp thinkpad-specific packages
   dnf:
-    name: "{{ item }}"
+    name: "{{ packages }}"
     state: latest
   become: yes
-  with_items:
+  vars:
+    packages:
     - akmod-tp_smapi # optional, tp-smapi is needed for battery charge thresholds, recalibration and specific status output of tlp-stat
     - akmod-acpi_call # optional, acpi-call is needed for battery charge thresholds and recalibration on Sandy Bridge and newer models (X220/T420, X230/T430 et al.)

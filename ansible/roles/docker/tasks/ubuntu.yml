@@ -4,9 +4,10 @@
 - name: Install required packages
   apt:
     state: latest
-    name: "{{ item }}"
+    name: "{{ packages }}"
   become: yes
-  with_items:
+  vars:
+    packages:
     - apt-transport-https
     - ca-certificates
     - curl

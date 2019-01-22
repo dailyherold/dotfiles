@@ -4,19 +4,22 @@
   become: yes
 
 - name: Install standard packages
-  dnf: name={{ item }} state=latest
+  dnf:
+    name: "{{ packages }}"
+    state: latest
   become: yes
-  with_items: "{{ packages }}"
 
 - name: Install extra packages
-  dnf: name={{ item }} state=latest
+  dnf:
+    name: "{{ extra_packages }}"
+    state: latest
   become: yes
-  with_items: "{{ extra_packages }}"
 
 - name: Install redhat family packages
-  dnf: name={{ item }} state=latest
+  dnf:
+    name: "{{ redhat_packages }}"
+    state: latest
   become: yes
-  with_items: "{{ redhat_packages }}"
 
 # https://docs.snapcraft.io/core/install-fedora
 - name: Support snap packages with classic confinement

@@ -1,11 +1,12 @@
 ---
-
+# https://github.com/alols/xcape
 - name: (Fedora) Install packages
   dnf:
-    name: "{{ item }}"
+    name: "{{ packages }}"
     state: latest
   become: yes
-  with_items:
+  vars:
+    packages:
     - git
     - gcc
     - make

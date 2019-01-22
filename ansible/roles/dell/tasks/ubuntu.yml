@@ -18,8 +18,9 @@
 - name: Install TLP
   apt:
     state: latest
-    name: "{{ item }}"
-  with_items:
+    name: "{{ packages }}"
+  vars:
+    packages:
     - tlp
     - tlp-rdw
   become: yes
@@ -34,8 +35,9 @@
 - name: Install nvidia packages
   apt:
     state: present
-    name: "{{ item }}"
-  with_items:
+    name: "{{ packages }}"
+  vars:
+    packages:
     - nvidia-{{ nvidia_version }}
     - nvidia-settings
     - nvidia-prime

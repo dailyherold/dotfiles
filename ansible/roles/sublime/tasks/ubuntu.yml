@@ -20,9 +20,10 @@
 - name: Install Sublime Text and Merge packages
   apt:
     state: latest
-    name: "{{ item }}"
+    name: "{{ packages }}"
     update_cache: yes
   become: yes
-  with_items:
+  vars:
+    packages:
     - sublime-text
     - sublime-merge
