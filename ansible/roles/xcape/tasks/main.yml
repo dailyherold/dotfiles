@@ -1,12 +1,12 @@
 ---
 # tasks file for xcape
-- name: Ensure Fedora/Korora package dependencies
+- name: Ensure Fedora package dependencies
   include: fedora.yml
-  when: ( ansible_distribution == 'Korora') or ( ansible_distribution == 'Fedora' )
+  when: ansible_facts['distribution'] == 'Fedora'
 
 - name: Ensure Ubuntu package dependencies
   include: ubuntu.yml
-  when: ( ansible_distribution == 'Ubuntu') or ( ansible_distribution == 'Debian' )
+  when: ansible_facts['distribution'] == 'Ubuntu'
 
 - name: Ensure install dir
   file:

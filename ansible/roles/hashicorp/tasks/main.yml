@@ -5,13 +5,13 @@
 - name: Ensure system architecture
   set_fact:
     hashicorp_arch: "amd64"
-  when: ansible_architecture == "x86_64"
+  when: ansible_facts['ansible_architecture'] == "x86_64"
 
 # Packer
 - name: Download Packer
   get_url:
     url: https://releases.hashicorp.com/packer/{{ packer_version }}/packer_{{ packer_version }}_linux_{{ hashicorp_arch }}.zip
-    dest: "{{ ansible_user_dir }}/Downloads"
+    dest: "{{ ansible_facts['ansible_user_dir'] }}/Downloads"
   register: packer_archive
   tags: packer
 
@@ -34,7 +34,7 @@
 - name: Download Terraform
   get_url:
     url: https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_linux_{{ hashicorp_arch }}.zip
-    dest: "{{ ansible_user_dir }}/Downloads"
+    dest: "{{ ansible_facts['ansible_user_dir'] }}/Downloads"
   register: terraform_archive
   tags: terraform
 
@@ -56,16 +56,16 @@
 # Vagrant
 - name: Download and install Vagrant (Fedora)
   dnf:
-    name: https://releases.hashicorp.com/vagrant/{{ vagrant_version }}/vagrant_{{ vagrant_version }}_{{ ansible_architecture }}.rpm
+    name: https://releases.hashicorp.com/vagrant/{{ vagrant_version }}/vagrant_{{ vagrant_version }}_{{ ansible_facts['ansible_architecture'] }}.rpm
     state: present
   become: yes
-  when: ( ansible_distribution == 'Korora') or ( ansible_distribution == 'Fedora' )
+  when: ansible_facts['distribution'] == 'Fedora'
   tags: vagrant
 
 - name: Download and install Vagrant (Ubuntu)
   apt:
-    deb: https://releases.hashicorp.com/vagrant/{{ vagrant_version }}/vagrant_{{ vagrant_version }}_{{ ansible_architecture }}.deb
+    deb: https://releases.hashicorp.com/vagrant/{{ vagrant_version }}/vagrant_{{ vagrant_version }}_{{ ansible_facts['ansible_architecture'] }}.deb
     state: present
   become: yes
-  when: ( ansible_distribution == 'Ubuntu') or ( ansible_distribution == 'Debian' )
+  when: ansible_facts['distribution'] == 'Ubuntu'
   tags: vagrant

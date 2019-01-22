@@ -3,7 +3,7 @@
 - name: Download and install docker-compose
   get_url:
     dest: "/usr/local/bin/docker-compose"
-    url: "https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-{{ ansible_system }}-{{ ansible_machine }}"
+    url: "https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-{{ ansible_facts['ansible_system'] }}-{{ ansible_facts['ansible_machine'] }}"
     mode: "u+x,g+rx,o+rx"
     force: yes
   become: yes

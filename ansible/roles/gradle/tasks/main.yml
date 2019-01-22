@@ -4,7 +4,7 @@
 - name: Download Gradle
   get_url:
     url: https://services.gradle.org/distributions/gradle-{{ gradle_version }}-all.zip
-    dest: "{{ ansible_user_dir }}/Downloads"
+    dest: "{{ ansible_facts['ansible_user_dir'] }}/Downloads"
   register: gradle_archive
 
 - name: Unarchive Gradle
@@ -24,10 +24,10 @@
 - name: Ensure .gradle directory
   file:
     state: directory
-    path: "{{ ansible_user_dir }}/.gradle"
+    path: "{{ ansible_facts['ansible_user_dir'] }}/.gradle"
 
 - name: Set gradle.settings file
   template:
     src: gradle.properties.j2
-    dest: "{{ ansible_user_dir }}/.gradle/gradle.properties"
+    dest: "{{ ansible_facts['ansible_user_dir'] }}/.gradle/gradle.properties"
 

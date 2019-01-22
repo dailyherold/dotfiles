@@ -5,12 +5,12 @@
 - name: Ensure .nvm directory
   file:
     state: directory
-    path: "{{ ansible_user_dir }}/.nvm"
+    path: "{{ ansible_facts['ansible_user_dir'] }}/.nvm"
 
 - name: Checkout nvm git repo
   git:
     repo: https://github.com/creationix/nvm.git
-    dest: "{{ ansible_user_dir }}/.nvm"
+    dest: "{{ ansible_facts['ansible_user_dir'] }}/.nvm"
     accept_hostkey: yes
     version: "{{ nvm_git_tag }}" # checks out specific tag version
     update: yes

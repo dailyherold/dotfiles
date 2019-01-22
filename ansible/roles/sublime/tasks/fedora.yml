@@ -6,7 +6,7 @@
 - name: Ensure system architecture
   set_fact:
     sublime_arch: "x64"
-  when: ansible_architecture == "x86_64"
+  when: ansible_facts['ansible_architecture'] == "x86_64"
 
 # Change the build number by overriding the default var or changing the default var
 - name: Download Sublime

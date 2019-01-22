@@ -24,13 +24,13 @@
       when: usr_vars.stat.exists
 
     ## Distro specific tasks
-    - name: Fedora/Korora tasks
+    - name: Fedora tasks
       include: tasks/fedora.yml
-      when: ( ansible_distribution == 'Korora') or ( ansible_distribution == 'Fedora' )
+      when: ansible_facts['distribution'] == 'Fedora'
 
     - name: Ubuntu tasks
       include: tasks/ubuntu.yml
-      when: ( ansible_distribution == 'Ubuntu') or ( ansible_distribution == 'Debian' )
+      when: ansible_facts['distribution'] == 'Ubuntu'
 
     - name: Install snap packages
       command: snap install {{ item }}
@@ -53,7 +53,7 @@
     - name: Ensure home repos folder
       file:
         state: directory
-        path: "{{ ansible_user_dir }}/repos/{{ item }}"
+        path: "{{ ansible_facts['ansible_user_dir'] }}/repos/{{ item }}"
       loop:
         - git
         - svn
@@ -62,7 +62,7 @@
     - { role: ssh, tags: [ 'ssh' ] }
     - { role: sublime, tags: [ 'sublime' ] }
     - { role: java, tags: [ 'java' ] }
-    - { role: xcape, xcape_install_dir: "{{ ansible_user_dir }}/repos/git", tags: [ 'xcape' ] }
+    - { role: xcape, xcape_install_dir: "{{ ansible_facts['ansible_user_dir'] }}/repos/git", tags: [ 'xcape' ] }
     - { role: spideroak, tags: [ 'spideroak' ] }
     - { role: thinkpad, tags: [ 'thinkpad' ], when: thinkpad_workstation == true }
     - { role: dell, tags: [ 'dell' ], when: dell_workstation == true }
@@ -78,12 +78,12 @@
   post_tasks:
     - name: Setup git config
       template:
-        dest: "{{ ansible_user_dir }}/.gitconfig"
+        dest: "{{ ansible_facts['ansible_user_dir'] }}/.gitconfig"
         src: ../templates/.gitconfig.j2
 
     - name: Set default git commit template
       copy:
-        dest: "{{ ansible_user_dir }}/.gitcommit.txt"
+        dest: "{{ ansible_facts['ansible_user_dir'] }}/.gitcommit.txt"
         src: ../files/.gitcommit.txt
 
     - name: Ensure dev directory
@@ -92,17 +92,17 @@
         path: "{{ dev_home }}"
 
     - name: Symlink dotfiles
-      command: bin/dfm install chdir={{ ansible_user_dir }}/.dotfiles
+      command: bin/dfm install chdir={{ ansible_facts['ansible_user_dir'] }}/.dotfiles
 
     # Refresh fonts after .fonts was symlinked from dotfiles repo
     - name: Refresh font cache
-      command: /usr/bin/fc-cache -vf {{ ansible_user_dir }}/.fonts
+      command: /usr/bin/fc-cache -vf {{ ansible_facts['ansible_user_dir'] }}/.fonts
 
     - name: Ensure vim swp and backup directories
       file: state=directory path={{ item }}
       loop:
-        - "{{ ansible_user_dir }}/.vim/backup"
-        - "{{ ansible_user_dir }}/.vim/swp"
+        - "{{ ansible_facts['ansible_user_dir'] }}/.vim/backup"
+        - "{{ ansible_facts['ansible_user_dir'] }}/.vim/swp"
 
     # TODO: this won't work because on start up vim complains about certain functions not
     # being available and asking to press enter to continue. The plugin install command

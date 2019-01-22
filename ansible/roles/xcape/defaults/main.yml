@@ -1,4 +1,4 @@
 ---
 # defaults file for xcape
 
-xcape_install_dir: "{{ ansible_user_dir }}"
+xcape_install_dir: "{{ ansible_facts['ansible_user_dir'] }}"
