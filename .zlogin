@@ -15,7 +15,7 @@
 } &!
 
 # Print a random, hopefully interesting, adage.
-if (( $+commands[fortune] )); then
+if (( $+commands[verse] )); then
 #  fortune bible
   verse 
   print

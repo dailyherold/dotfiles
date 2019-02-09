@@ -102,4 +102,4 @@ export NVM_DIR="$HOME/.nvm"
 export GSM_SKIP_SSH_AGENT_WORKAROUND=1
 
 # Start Keychain
-eval `keychain --eval --agents ssh --inherit any jpherold`
+eval `keychain --eval --agents ssh --inherit any jpherold.pem`
