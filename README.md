@@ -25,6 +25,10 @@ Check out `dfm` though if you are curious about it's role, as I think it is a sw
 - Start tmux: `tmux`.
 - Install tmux plugins: tmux `prefix` + `I`.
 
+## Common commands
+
+- `ansible-playbook bootstrap.yml -v --ask-become-pass --step -e 'ansible_python_interpreter=/usr/bin/python3' -e "@vars/jpherold.yml" --tags "packages"`
+
 ## Todo
 - (IN PROGRESS) Break up monolithic Ansible playbook into roles.
 - Abstract some of those roles as separate repos and add to Ansible Galaxy. Then include those "remote" roles in playbook.
