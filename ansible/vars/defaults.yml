@@ -69,6 +69,7 @@ extra_packages:
   - pylint # python linter
   - gtypist # handy cli tool for typing better
   - chrome-gnome-shell # needed for gnome extension installs via browser
+  - gnome-tweak-tool # Graphical interface for advanced GNOME 3 settings
 
 snap_packages:
   - telegram-desktop # people chat
