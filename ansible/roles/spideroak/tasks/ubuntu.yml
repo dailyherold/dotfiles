@@ -2,7 +2,7 @@
 
 - name: Download SpiderOak package
   get_url:
-    url: https://spideroak.com/getbuild?platform=ubuntu&arch={{ ansible_facts['ansible_architecture'] }}
+    url: https://spideroak.com/release/spideroak/deb_{{ spideroak_arch }}
     dest: "{{ current_user_home }}/Downloads"
   register: spideroak_download
 
