@@ -4,7 +4,7 @@
 
 This repo is my attempt at backing up my terminal life. It contains a utility ([dfm](https://github.com/justone/dfm)) to help with managing and updating my  dotfiles.
 
-It also contains a massive Ansible bootstrap playbook (pending further role organization and flavor-agnostic optimiztion) for getting a fresh install of a 14.04 based distro setup just how I like it.
+It also contains a massive Ansible bootstrap playbook (pending further role organization and flavor-agnostic optimization) for getting a fresh install of a 14.04 based distro setup just how I like it.
 
 You'll also find some scattered scripts and nuggets here and there that might not make much sense. 
 
@@ -17,6 +17,7 @@ Check out `dfm` though if you are curious about it's role, as I think it is a sw
 - Clone repo: `cd $HOME && git clone https://github.com/dailyherold/dotfiles.git .dotfiles`.
 - Pull submodules: `cd .dotfiles && git submodule update --init --recursive`.
 - Bootstrap: `./bootstrap`.
+- If you want to override any default vars, create vars file named after your $USER in `ansible/vars/`.
 - Run ansible playbook (use python3): `cd ansible && ansible-playbook bootstrap.yml -v --ask-become-pass -e 'ansible_python_interpreter=/usr/bin/python3'`.
 - Open up vim and run `:PluginInstall`.
 - Pull submodules for YouCompleteMe vim plugin: `cd ~/.vim/bundle/YouCompleteMe && git submodule update --init --recursive`
