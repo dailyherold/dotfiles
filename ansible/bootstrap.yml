@@ -4,24 +4,20 @@
   remote_user: "{{ lookup('env','USER') }}"
   become_method: sudo
 
-  vars:
-    current_user: "{{ lookup('env','USER') }}"
-    current_user_home: "{{ lookup('env','HOME') }}"
-
   vars_files:
     - vars/defaults.yml
 
   pre_tasks:
     ## DEBUG
     #- debug: var=hostvars[inventory_hostname]
-    - debug: var=ansible_facts
+    #- debug: var=ansible_facts
 
     ## Include user var file if it exists
     - name: Look for user var file
-      stat: path=vars/{{ current_user }}.yml
+      stat: path=vars/{{ ansible_facts['user_id'] }}.yml
       register: usr_vars
     - name: Include user var file if it exists
-      include_vars: vars/{{ current_user }}.yml
+      include_vars: vars/{{ ansible_facts['user_id'] }}.yml
       when: usr_vars.stat.exists
 
     ## Distro specific tasks
@@ -47,10 +43,7 @@
       become: yes
       tags: ["packages", "pip"]
 
-    # TODO: finish out the rest of this archive download and install
-    #- name: Install Postman
-    #  get_url: https://app.getpostman.com/app/download/linux64
-
+    # Repos folders used by some roles
     - name: Ensure home repos folder
       file:
         state: directory
@@ -143,7 +136,7 @@
 
     - name: Set zsh as default shell
       user:
-        name: "{{ current_user }}"
+        name: "{{ ansible_facts['user_id'] }}"
         shell: /bin/zsh
         state: present
       become: yes

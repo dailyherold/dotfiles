@@ -12,7 +12,7 @@
 - name: Download Sublime
   get_url:
     url: "{{ sublime_url }}"
-    dest: "{{ current_user_home }}/Downloads"
+    dest: "{{ ansible_facts['user_dir'] }}/Downloads"
   register: sublime_download
 
 - name: Ensure /opt/sublime_text_3 dir
