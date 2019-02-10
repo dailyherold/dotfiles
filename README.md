@@ -21,7 +21,6 @@ Check out `dfm` though if you are curious about it's role, as I think it is a sw
 - Open up vim and run `:PluginInstall`.
 - Pull submodules for YouCompleteMe vim plugin: `cd ~/.vim/bundle/YouCompleteMe && git submodule update --init --recursive`
 - Compile YouCompleteMe's component: `cd ~/.vim/bundle/YouCompleteMe && ./install.py`. See README.md in YCM directory for mroe info.
-- Clone tmux plugin manager: `git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm`.
 - Start tmux: `tmux`.
 - Install tmux plugins: tmux `prefix` + `I`.
 

@@ -148,3 +148,29 @@
         state: present
       become: yes
       when: usr_shell == 'zsh'
+
+    # fzf
+    - name: Git clone fzf
+      git:
+        repo: https://github.com/junegunn/fzf.git
+        dest: "{{ ansible_facts['user_dir'] }}/.fzf"
+        depth: 1
+        update: yes
+      tags: fzf
+
+    - name: You're not done yet!
+      debug: msg="Install fzf by running ~/.fzf/install"
+      tags: fzf
+
+    # tmux plugin manager
+    - name: Git clone tmux plugin manager (tpm) repo
+      git:
+        repo: https://github.com/tmux-plugins/tpm
+        dest: "{{ ansible_facts['user_dir'] }}/.tmux/plugins/tpm"
+        accept_hostkey: yes
+        update: yes
+      tags: ["tmux","tpm"]
+
+    - name: You're not done yet!
+      debug: msg="Install tmux plugins by executing the following in a tmux session: prefix + I"
+      tags: ["tmux","tpm"]
