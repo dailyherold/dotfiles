@@ -136,6 +136,11 @@
     - name: Change .dotfiles repo from https to ssh
       shell: "git remote set-url origin git@github.com:dailyherold/dotfiles.git"
 
+    - name: Change prezto repo fork from https to ssh
+      shell: "git remote set-url origin git@github.com:dailyherold/prezto.git"
+      args:
+        chdir: .zprezto/
+
     - name: Set zsh as default shell
       user:
         name: "{{ current_user }}"
