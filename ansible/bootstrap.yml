@@ -61,8 +61,7 @@
   roles:
     - { role: ssh, tags: [ 'ssh' ] }
     - { role: sublime, tags: [ 'sublime' ] }
-    - { role: java, tags: [ 'java' ] }
-    - { role: xcape, xcape_install_dir: "{{ ansible_facts['ansible_user_dir'] }}/repos/git", tags: [ 'xcape' ] }
+    - { role: xcape, xcape_install_dir: "{{ ansible_facts['user_dir'] }}/repos/git", tags: [ 'xcape' ] }
     - { role: spideroak, tags: [ 'spideroak' ] }
     - { role: thinkpad, tags: [ 'thinkpad' ], when: thinkpad_workstation == true }
     - { role: dell, tags: [ 'dell' ], when: dell_workstation == true }
