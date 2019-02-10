@@ -68,12 +68,12 @@
     - name: Setup git config
       template:
         dest: "{{ ansible_facts['user_dir'] }}/.gitconfig"
-        src: ../templates/.gitconfig.j2
+        src: templates/.gitconfig.j2
 
     - name: Set default git commit template
       copy:
         dest: "{{ ansible_facts['user_dir'] }}/.gitcommit.txt"
-        src: ../files/.gitcommit.txt
+        src: files/.gitcommit.txt
 
     - name: Ensure dev directory
       file:
@@ -133,7 +133,7 @@
     - name: Change prezto repo fork from https to ssh
       shell: "git remote set-url origin git@github.com:dailyherold/prezto.git"
       args:
-        chdir: .zprezto/
+        chdir: ../.zprezto/
       when: ansible_facts['user_id'] == 'jpherold'
 
     - name: Set zsh as default shell
