@@ -68,6 +68,7 @@ extra_packages:
   - net-tools # useful network tools e.g. netstat
   - pylint # python linter
   - gtypist # handy cli tool for typing better
+  - chrome-gnome-shell # needed for gnome extension installs via browser
 
 snap_packages:
   - telegram-desktop # people chat
@@ -110,7 +111,6 @@ redhat_packages:
   - the_silver_searcher
   - wireshark-gtk
   - lm_sensors # hardware sensors for temperature/RPM
-  - chrome-gnome-shell # needed for gnome extension installs via browser
   - dropbox
   - gpaste-ui # ui for gpaste
 
