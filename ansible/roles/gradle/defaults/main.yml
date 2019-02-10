@@ -1,7 +1,0 @@
----
-# defaults file for gradle
-
-gradle_version: "3.3"
-
-# gradle.properties
-gradle_daemon: false

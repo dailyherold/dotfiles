@@ -1,9 +1,0 @@
----
-# tasks file for virtualbox
-- name: Fedora tasks
-  include: fedora.yml
-  when: ansible_facts['distribution'] == 'Fedora'
- 
-- name: Ubuntu tasks
-  include: ubuntu.yml
-  when: ansible_facts['distribution'] == 'Ubuntu'
