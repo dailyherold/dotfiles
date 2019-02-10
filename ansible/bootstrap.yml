@@ -66,7 +66,6 @@
     - { role: spideroak, tags: [ 'spideroak' ] }
     - { role: thinkpad, tags: [ 'thinkpad' ], when: thinkpad_workstation == true }
     - { role: dell, tags: [ 'dell' ], when: dell_workstation == true }
-    - { role: jetbrains, tags: [ 'jetbrains' ] }
     - { role: hashicorp, tags: [ 'hashicorp' ] }
     - { role: virtualbox, tags: [ 'virtualbox' ] }
     - { role: docker, install_docker_compose: true, tags: [ 'docker' ] }
@@ -110,6 +109,14 @@
     #
     #- name: Install vim plugins
     #  command: /usr/bin/vim +PluginInstall +qall
+
+    # Useful for IDEs
+    # https://confluence.jetbrains.com/display/IDEADEV/Inotify+Watches+Limit
+    - name: Increase default inotify watches limit
+      copy:
+        dest: /etc/sysctl.d/60-inotify.conf
+        src: files/60-inotify.conf
+      become: yes
 
     - name: Set custom libinput device settings
       copy:

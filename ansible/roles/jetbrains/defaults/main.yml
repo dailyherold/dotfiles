@@ -1,7 +1,0 @@
----
-# defaults file for jetbrains
-
-jetbrains_download_base_url: "https://download-cf.jetbrains.com"
-
-datagrip_version: "1.0.3"
-intellij_version: "2018.2.2"

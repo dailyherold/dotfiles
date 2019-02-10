@@ -73,6 +73,8 @@ snap_packages:
   - telegram-desktop # people chat
   - slack --classic # work chat and communities
   - helm --classic # Kubernetes package manager
+  - intellij-idea-community --classic # JetBrains IntelliJ Community Edition
+  - datagrip --classic # JetBrains DataGrip
 
 debian_packages:
   - man
