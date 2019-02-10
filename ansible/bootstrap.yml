@@ -128,11 +128,13 @@
 
     - name: Change .dotfiles repo from https to ssh
       shell: "git remote set-url origin git@github.com:dailyherold/dotfiles.git"
+      when: ansible_facts['user_id'] == 'jpherold'
 
     - name: Change prezto repo fork from https to ssh
       shell: "git remote set-url origin git@github.com:dailyherold/prezto.git"
       args:
         chdir: .zprezto/
+      when: ansible_facts['user_id'] == 'jpherold'
 
     - name: Set zsh as default shell
       user:
