@@ -172,5 +172,5 @@
       tags: ["tmux","tpm"]
 
     - name: You're not done yet!
-      debug: msg="Install tmux plugins by executing the following in a tmux session: prefix + I"
+      debug: msg="Install tmux plugins by executing prefix + I in a tmux session"
       tags: ["tmux","tpm"]
