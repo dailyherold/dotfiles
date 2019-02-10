@@ -9,9 +9,10 @@
   include: ubuntu.yml
   when: ansible_facts['distribution'] == 'Ubuntu'
 
-- name: Download Heptio AWS authenticator
+# https://github.com/kubernetes-sigs/aws-iam-authenticator
+- name: Download AWS IAM authenticator
   get_url:
-    url: "{{ heptio_url }}"
+    url: "{{ iam_authenticator_url }}"
     dest: /usr/local/bin
     mode: u=rwx,g=rx,o=rx
     validate_certs: false
