@@ -14,6 +14,7 @@
   pre_tasks:
     ## DEBUG
     #- debug: var=hostvars[inventory_hostname]
+    - debug: var=ansible_facts
 
     ## Include user var file if it exists
     - name: Look for user var file
@@ -53,7 +54,7 @@
     - name: Ensure home repos folder
       file:
         state: directory
-        path: "{{ ansible_facts['ansible_user_dir'] }}/repos/{{ item }}"
+        path: "{{ ansible_facts['user_dir'] }}/repos/{{ item }}"
       loop:
         - git
         - svn
@@ -77,12 +78,12 @@
   post_tasks:
     - name: Setup git config
       template:
-        dest: "{{ ansible_facts['ansible_user_dir'] }}/.gitconfig"
+        dest: "{{ ansible_facts['user_dir'] }}/.gitconfig"
         src: ../templates/.gitconfig.j2
 
     - name: Set default git commit template
       copy:
-        dest: "{{ ansible_facts['ansible_user_dir'] }}/.gitcommit.txt"
+        dest: "{{ ansible_facts['user_dir'] }}/.gitcommit.txt"
         src: ../files/.gitcommit.txt
 
     - name: Ensure dev directory
@@ -91,17 +92,17 @@
         path: "{{ dev_home }}"
 
     - name: Symlink dotfiles
-      command: bin/dfm install chdir={{ ansible_facts['ansible_user_dir'] }}/.dotfiles
+      command: bin/dfm install chdir={{ ansible_facts['user_dir'] }}/.dotfiles
 
     # Refresh fonts after .fonts was symlinked from dotfiles repo
     - name: Refresh font cache
-      command: /usr/bin/fc-cache -vf {{ ansible_facts['ansible_user_dir'] }}/.fonts
+      command: /usr/bin/fc-cache -vf {{ ansible_facts['user_dir'] }}/.fonts
 
     - name: Ensure vim swp and backup directories
       file: state=directory path={{ item }}
       loop:
-        - "{{ ansible_facts['ansible_user_dir'] }}/.vim/backup"
-        - "{{ ansible_facts['ansible_user_dir'] }}/.vim/swp"
+        - "{{ ansible_facts['user_dir'] }}/.vim/backup"
+        - "{{ ansible_facts['user_dir'] }}/.vim/swp"
 
     # TODO: this won't work because on start up vim complains about certain functions not
     # being available and asking to press enter to continue. The plugin install command
