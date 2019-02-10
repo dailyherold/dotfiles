@@ -1,13 +1,7 @@
 ---
 
-- name: Download SpiderOak package
-  get_url:
-    url: https://spideroak.com/release/spideroak/rpm_{{ spideroak_arch }}
-    dest: "{{ current_user_home }}/Downloads"
-  register: spideroak_download
-
 - name: Install SpiderOak
   dnf:
-    name: "{{ spideroak_download.dest }}"
+    name: https://spideroak.com/release/spideroak/rpm_{{ spideroak_arch }}
     state: present
   become: yes

@@ -1,13 +1,7 @@
 ---
 
-- name: Download SpiderOak package
-  get_url:
-    url: https://spideroak.com/release/spideroak/deb_{{ spideroak_arch }}
-    dest: "{{ current_user_home }}/Downloads"
-  register: spideroak_download
-
 - name: Install SpiderOak
   apt:
-    deb: "{{ spideroak_download.dest }}"
+    deb: https://spideroak.com/release/spideroak/deb_{{ spideroak_arch }}
     state: present
   become: yes
