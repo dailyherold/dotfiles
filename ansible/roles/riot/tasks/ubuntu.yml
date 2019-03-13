@@ -1,0 +1,21 @@
+---
+## Riot.im
+## https://riot.im/desktop.html
+- name: Add Riot GPG key
+  apt_key:
+    state: present
+    url: https://riot.im/packages/debian/repo-key.asc
+    validate_certs: no
+  become: yes
+
+- name: Add Riot repo to sources list
+  shell: 'echo "deb https://riot.im/packages/debian/ bionic main" | sudo tee /etc/apt/sources.list.d/matrix-riot-im.list'
+
+- name: Install Riot package
+  apt:
+    state: latest
+    name: riot-web
+    update_cache: yes
+  become: yes
+
+## Placeholder for weechat and others

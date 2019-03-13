@@ -63,6 +63,7 @@
     - { role: docker, install_docker_compose: true, tags: [ 'docker' ] }
     - { role: node, tags: [ 'node' ] }
     - { role: kubernetes, tags: [ 'kubernetes' ] }
+    - { role: riot, tags: [ 'riot' ] }
 
   post_tasks:
     - name: Setup git config
