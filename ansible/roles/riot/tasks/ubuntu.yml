@@ -17,5 +17,3 @@
     name: riot-web
     update_cache: yes
   become: yes
-
-## Placeholder for weechat and others
