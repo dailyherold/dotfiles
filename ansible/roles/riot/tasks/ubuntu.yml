@@ -9,7 +9,10 @@
   become: yes
 
 - name: Add Riot repo to sources list
-  shell: 'echo "deb https://riot.im/packages/debian/ bionic main" | sudo tee /etc/apt/sources.list.d/matrix-riot-im.list'
+  apt_repository:
+    repo: deb https://riot.im/packages/debian {{ ansible_facts['distribution_release'] }} main
+    filename: matrix-riot-im
+  become: yes
 
 - name: Install Riot package
   apt:
