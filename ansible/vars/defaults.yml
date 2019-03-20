@@ -57,6 +57,7 @@ extra_packages:
   - stress # basic stress test terminal app
   - gawk # used by tmux-fingers plugin
   - openconnect # SWA vpn
+  - openvpn # vpn
   - qemu # qemu virtualization
   - qemu-kvm # qemu virtualization
   - snapd # snap package daemon
@@ -70,6 +71,7 @@ extra_packages:
   - gtypist # handy cli tool for typing better
   - chrome-gnome-shell # needed for gnome extension installs via browser
   - gnome-tweak-tool # Graphical interface for advanced GNOME 3 settings
+  - iperf3 # network throughput tester
 
 snap_packages:
   - telegram-desktop # people chat
