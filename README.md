@@ -18,7 +18,7 @@ Check out `dfm` though if you are curious about it's role, as I think it is a sw
 - Pull submodules: `cd .dotfiles && git submodule update --init --recursive`.
 - Bootstrap: `./bootstrap`.
 - If you want to override any default vars, create vars file named after your $USER in `ansible/vars/`.
-- Run ansible playbook (use python3): `cd ansible && ansible-playbook bootstrap.yml -v --ask-become-pass -e 'ansible_python_interpreter=/usr/bin/python3'`.
+- Run ansible playbook: `cd ansible && ansible-playbook bootstrap.yml -i inventory --ask-become-pass`.
 - Open up vim and run `:PluginInstall`.
 - Pull submodules for YouCompleteMe vim plugin: `cd ~/.vim/bundle/YouCompleteMe && git submodule update --init --recursive`
 - Compile YouCompleteMe's component: `cd ~/.vim/bundle/YouCompleteMe && ./install.py`. See README.md in YCM directory for mroe info.
@@ -27,7 +27,7 @@ Check out `dfm` though if you are curious about it's role, as I think it is a sw
 
 ## Common commands
 
-- `ansible-playbook bootstrap.yml -v --ask-become-pass --step -e 'ansible_python_interpreter=/usr/bin/python3' -e "@vars/jpherold.yml" --tags "packages"`
+- `ansible-playbook bootstrap.yml -i inventory --ask-become-pass --step -e "@vars/jpherold.yml" --tags "packages"`
 
 ## Todo
 - (IN PROGRESS) Break up monolithic Ansible playbook into roles.
