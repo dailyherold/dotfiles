@@ -68,6 +68,8 @@ extra_packages:
   - gtypist # handy cli tool for typing better
   - gnome-tweak-tool # Graphical interface for advanced GNOME 3 settings
   - iperf3 # network throughput tester
+  - ncdu # disk usage analyzer with ncurses interface
+  - pv # tool for monitoring the progress of data through a pipeline
 
 snap_packages:
   - slack --classic # work chat and communities
