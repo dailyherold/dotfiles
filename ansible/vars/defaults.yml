@@ -51,12 +51,9 @@ extra_packages:
   - awscli
   - zeal # offline documentation browser
   - guake # drop down terminal
-  - shutter # awesome screenshots
   - gpaste # clipboard manager
-  - i3lock # simple screen lock that doesn't do stupid gnome power management turn off screen stuff (despite me telling it not to)
   - stress # basic stress test terminal app
   - gawk # used by tmux-fingers plugin
-  - openconnect # SWA vpn
   - openvpn # vpn
   - qemu # qemu virtualization
   - qemu-kvm # qemu virtualization
@@ -69,12 +66,10 @@ extra_packages:
   - net-tools # useful network tools e.g. netstat
   - pylint # python linter
   - gtypist # handy cli tool for typing better
-  - chrome-gnome-shell # needed for gnome extension installs via browser
   - gnome-tweak-tool # Graphical interface for advanced GNOME 3 settings
   - iperf3 # network throughput tester
 
 snap_packages:
-  - telegram-desktop # people chat
   - slack --classic # work chat and communities
   - helm --classic # Kubernetes package manager
   - intellij-idea-community --classic # JetBrains IntelliJ Community Edition
