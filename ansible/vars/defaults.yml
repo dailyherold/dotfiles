@@ -72,10 +72,13 @@ extra_packages:
   - pv # tool for monitoring the progress of data through a pipeline
 
 snap_packages:
-  - slack --classic # work chat and communities
-  - helm --classic # Kubernetes package manager
-  - intellij-idea-community --classic # JetBrains IntelliJ Community Edition
-  - datagrip --classic # JetBrains DataGrip
+  - install slack --classic # work chat and communities
+  #- install helm --classic # Kubernetes package manager
+  - install intellij-idea-community --classic # JetBrains IntelliJ Community Edition
+  - install datagrip --classic # JetBrains DataGrip
+  - install bcc # tools for BPF-based Linux IO analysis, networking, monitoring, and more
+  - install bpftrace # high-level tracing language for eBPF
+  - connect bpftrace:system-trace # connect bpftrace per documentation
 
 debian_packages:
   - man

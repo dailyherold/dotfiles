@@ -27,8 +27,8 @@
       include: tasks/ubuntu.yml
       when: ansible_facts['distribution'] == 'Ubuntu'
 
-    - name: Install snap packages
-      command: snap install {{ item }}
+    - name: Install/configure snap packages
+      command: snap {{ item }}
       loop: "{{ snap_packages|flatten(levels=1) }}"
       become: yes
       tags: ["packages", "snap"]
