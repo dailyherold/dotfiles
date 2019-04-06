@@ -18,5 +18,4 @@
   apt:
     state: latest
     name: riot-web
-    update_cache: yes
   become: yes

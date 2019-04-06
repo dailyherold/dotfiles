@@ -65,6 +65,7 @@
     - { role: kubernetes, tags: [ 'kubernetes' ] }
     - { role: riot, tags: [ 'riot' ] }
     - { role: weechat, tags: [ 'weechat' ] }
+    - { role: mailpile, tags: [ 'mailpile' ] }
 
   post_tasks:
     - name: Setup git config
