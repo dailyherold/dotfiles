@@ -14,4 +14,5 @@
 	st = status
 	lg = log --all --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit
 	hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
-
+[includeIf "gitdir:~/dev/work/swa/"]
+        path = ~/dev/work/swa/.gitconfig

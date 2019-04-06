@@ -1,8 +1,6 @@
 ---
-- hosts: 127.0.0.1
-  connection: local
+- hosts: localhost
   remote_user: "{{ lookup('env','USER') }}"
-  become_method: sudo
 
   vars_files:
     - vars/defaults.yml
@@ -29,8 +27,8 @@
       include: tasks/ubuntu.yml
       when: ansible_facts['distribution'] == 'Ubuntu'
 
-    - name: Install snap packages
-      command: snap install {{ item }}
+    - name: Install/configure snap packages
+      command: snap {{ item }}
       loop: "{{ snap_packages|flatten(levels=1) }}"
       become: yes
       tags: ["packages", "snap"]
@@ -72,11 +70,13 @@
       template:
         dest: "{{ ansible_facts['user_dir'] }}/.gitconfig"
         src: templates/.gitconfig.j2
+      tags: ["git"]
 
     - name: Set default git commit template
       copy:
         dest: "{{ ansible_facts['user_dir'] }}/.gitcommit.txt"
         src: files/.gitcommit.txt
+      tags: ["git"]
 
     - name: Ensure dev directory
       file:
@@ -172,3 +172,12 @@
     - name: You're not done yet!
       debug: msg="Install tmux plugins by executing prefix + I in a tmux session"
       tags: ["tmux","tpm"]
+
+    # youtube-dl
+    - name: Download youtube-dl
+      get_url:
+        url: https://yt-dl.org/downloads/latest/youtube-dl
+        dest: /usr/local/bin/youtube-dl
+        mode: a+rx
+      become: yes
+      tags: ["youtube-dl"]
