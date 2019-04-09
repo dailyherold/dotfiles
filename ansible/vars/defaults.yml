@@ -11,6 +11,9 @@ dell_workstation: false
 
 beyondcompare_version: "4.2.6.23150"
 
+ppa_repos:
+  - 'ppa:jonathonf/vim'
+
 packages:
   - git
   - subversion

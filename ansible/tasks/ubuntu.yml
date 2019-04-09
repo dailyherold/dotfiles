@@ -1,4 +1,12 @@
 ---
+  - name: Add PPA repos
+    apt_repository:
+      repo: "{{ item }}"
+    become: yes
+    with_items: "{{ ppa_repos }}"
+    tags:
+      - repos
+
   - name: Update packages
     apt: upgrade=yes update_cache=yes
     become: yes
