@@ -4,13 +4,13 @@
 - name: Add Riot GPG key
   apt_key:
     state: present
-    url: https://riot.im/packages/debian/repo-key.asc
+    url: https://packages.riot.im/debian/repo-key.asc
     validate_certs: no
   become: yes
 
 - name: Add Riot repo to sources list
   apt_repository:
-    repo: deb https://riot.im/packages/debian {{ ansible_facts['distribution_release'] }} main
+    repo: deb https://packages.riot.im/debian/ {{ ansible_facts['distribution_release'] }} main
     filename: matrix-riot-im
   become: yes
 
