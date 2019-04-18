@@ -1,0 +1,21 @@
+---
+## MellowPlayer
+## https://mellowplayer.readthedocs.io/en/latest/users/install.html#ubuntu-18-04
+- name: Add MellowPlayer GPG key
+  apt_key:
+    state: present
+    url: https://download.opensuse.org/repositories/home:ColinDuquesnoy/xUbuntu_{{ ansible_facts['distribution_version'] }}/Release.key
+    validate_certs: no
+  become: yes
+
+- name: Add MellowPlayer repo to sources list
+  apt_repository:
+    repo: deb http://download.opensuse.org/repositories/home:/ColinDuquesnoy/xUbuntu_{{ ansible_facts['distribution_version'] }}/ /
+    filename: mellowplayer
+  become: yes
+
+- name: Install MellowPlayer package
+  apt:
+    state: latest
+    name: mellowplayer
+  become: yes
