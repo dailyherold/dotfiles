@@ -6,5 +6,6 @@
   become: yes
 
 - name: systemd-reload
-  command: /bin/systmctl daemon-reload
+  systemd:
+    daemon_reload: yes
   become: yes
