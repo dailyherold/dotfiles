@@ -52,6 +52,7 @@ extra_packages:
   - remmina
   - xclip
   - awscli
+  - gimp # GNU image manipulation program
   - zeal # offline documentation browser
   - guake # drop down terminal
   - gpaste # clipboard manager
@@ -99,8 +100,8 @@ debian_packages:
   - silversearcher-ag
   - tshark
   - lm-sensors # hardware sensors for temperature/RPM
-  #- nautilus-dropbox # TODO add role for dropbox (or storage in general)
-  - libvirt-bin # qemu virtualization
+  - libvirt-daemon-system # qemu virtualization
+  - libvirt-clients # qemu virtualization
   - verse # bible verse package
 
 redhat_packages:
@@ -118,8 +119,8 @@ redhat_packages:
   - the_silver_searcher
   - wireshark-gtk
   - lm_sensors # hardware sensors for temperature/RPM
-  - dropbox
   - gpaste-ui # ui for gpaste
+  - libvirt
 
 pip_modules:
   - boto3
