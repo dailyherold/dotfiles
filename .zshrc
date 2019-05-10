@@ -44,6 +44,9 @@ alias gw='./gradlew'
 # TMUX
 alias tnew='tmux new-session -s'
 
+# SWA K8s
+alias k='kubectl "--context=${KUBECTL_CONTEXT:-$(kubectl config current-context)}" ${KUBECTL_NAMESPACE/[[:alnum:]-]*/--namespace=${KUBECTL_NAMESPACE}}'
+
 # Solarize ls colors
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/repos/git/dircolors-solarized/dircolors.256dark && eval "$(dircolors -b ~/repos/git/dircolors-solarized/dircolors.256dark)" || eval "$(dircolors -b)"
