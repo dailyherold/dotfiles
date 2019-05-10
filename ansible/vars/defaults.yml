@@ -73,6 +73,7 @@ extra_packages:
   - iperf3 # network throughput tester
   - ncdu # disk usage analyzer with ncurses interface
   - pv # tool for monitoring the progress of data through a pipeline
+  - direnv # environment switcher for the shell
 
 snap_packages:
   - install slack --classic # work chat and communities
