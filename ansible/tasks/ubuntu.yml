@@ -6,6 +6,7 @@
     with_items: "{{ ppa_repos }}"
     tags:
       - repos
+      - packages
 
   - name: Update packages
     apt: upgrade=yes update_cache=yes

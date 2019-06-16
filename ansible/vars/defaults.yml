@@ -13,6 +13,7 @@ beyondcompare_version: "4.2.6.23150"
 
 ppa_repos:
   - 'ppa:jonathonf/vim'
+  - 'ppa:pmjdebruijn/darktable-release'
 
 packages:
   - git
@@ -75,6 +76,7 @@ extra_packages:
   - ncdu # disk usage analyzer with ncurses interface
   - pv # tool for monitoring the progress of data through a pipeline
   - direnv # environment switcher for the shell
+  - darktable # open source photography workflow application and raw developer
 
 snap_packages:
   - install slack --classic # work chat and communities
