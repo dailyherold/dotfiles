@@ -126,7 +126,7 @@
     - name: Ensure OnlyKey firmware support (both flashing and use)
       copy:
         dest: /etc/udev/rules.d
-        src: files/49-teensy.rules
+        src: files/49-onlykey.rules
       become: yes
       when: onlykey_support == true
 
