@@ -130,6 +130,11 @@
       become: yes
       when: onlykey_support == true
 
+    - name: Update UDEV rules
+      shell: "udevadm control --reload"
+      become: yes
+      when: onlykey_support == true
+
     - name: Change .dotfiles repo from https to ssh
       shell: "git remote set-url origin git@github.com:dailyherold/dotfiles.git"
       when: ansible_facts['user_id'] == 'jpherold'
