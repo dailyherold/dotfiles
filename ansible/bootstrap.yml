@@ -129,11 +129,13 @@
         src: files/49-onlykey.rules
       become: yes
       when: onlykey_support == true
+      tags: ["onlykey"]
 
     - name: Update UDEV rules
       shell: "udevadm control --reload"
       become: yes
       when: onlykey_support == true
+      tags: ["onlykey"]
 
     - name: Change .dotfiles repo from https to ssh
       shell: "git remote set-url origin git@github.com:dailyherold/dotfiles.git"
