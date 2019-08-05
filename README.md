@@ -2,28 +2,29 @@
 
 ## Overview
 
-This repo is my attempt at backing up my terminal life. It contains a utility ([dfm](https://github.com/justone/dfm)) to help with managing and updating my  dotfiles.
+This repo is my attempt at backing up my terminal life. It contains a utility ([dfm](https://github.com/justone/dfm)) to help with managing and updating my dotfiles.
 
-It also contains a massive Ansible bootstrap playbook (pending further role organization and flavor-agnostic optimization) for getting a fresh install of a 14.04 based distro setup just how I like it.
+It also an Ansible bootstrap playbook for getting a fresh install of a 18.04+ based distro setup just how I like it. I used to run Fedora, so there are remmnants of Fedora logic (e.g. yum vs apt module) in the roles, but it is illadvised to run this against a Fedora machine and expect everything to work.
 
 You'll also find some scattered scripts and nuggets here and there that might not make much sense. 
 
 ## Using this repo
 
-First, read all the codes. Hopefully I'll inspire you with things here and there. In my opinion the repo is too opinionated to be forked, or expected to work upon clone. ha. 
+First, read all the codes. In my opinion the repo is too opinionated to be forked, but take from it what you what. 
 
-Check out `dfm` though if you are curious about it's role, as I think it is a sweet little utility. The repo itself was also built from justone's dotfiles skeleton. For more information, check out his [wiki](http://github.com/justone/dotfiles/wiki).
+Check out `dfm` if you are curious about it's role. The repo itself was also built from justone's dotfiles skeleton. For more information, check out his [wiki](http://github.com/justone/dotfiles/wiki).
 
-- Clone repo: `cd $HOME && git clone https://github.com/dailyherold/dotfiles.git .dotfiles`.
-- Pull submodules: `cd .dotfiles && git submodule update --init --recursive`.
-- Bootstrap: `./bootstrap`.
-- If you want to override any default vars, create vars file named after your $USER in `ansible/vars/`.
-- Run ansible playbook: `cd ansible && ansible-playbook bootstrap.yml -i inventory --ask-become-pass`.
-- Open up vim and run `:PluginInstall`.
+- Clone repo: `cd $HOME && git clone https://github.com/dailyherold/dotfiles.git .dotfiles`
+- Pull submodules: `cd .dotfiles && git submodule update --init --recursive`
+- Bootstrap: `./bootstrap`
+- If you want to override any default vars, create vars file named after your $USER in `ansible/vars/`
+- Run ansible playbook: `cd ansible && ansible-playbook bootstrap.yml -i inventory --ask-become-pass`
+- Open up vim and run `:PluginInstall`
 - Pull submodules for YouCompleteMe vim plugin: `cd ~/.vim/bundle/YouCompleteMe && git submodule update --init --recursive`
-- Compile YouCompleteMe's component: `cd ~/.vim/bundle/YouCompleteMe && ./install.py`. See README.md in YCM directory for mroe info.
-- Start tmux: `tmux`.
-- Install tmux plugins: tmux `prefix` + `I`.
+- Compile YouCompleteMe's component: `cd ~/.vim/bundle/YouCompleteMe && ./install.py` . See README.md in YCM directory for mroe info.
+- Start tmux: `tmux`
+- Install tmux plugins: tmux `prefix` + `I`
+- Logout and back in.
 
 ## Common commands
 
