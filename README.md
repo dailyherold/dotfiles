@@ -21,7 +21,7 @@ Check out `dfm` if you are curious about it's role. The repo itself was also bui
 - Run ansible playbook: `cd ansible && ansible-playbook bootstrap.yml -i inventory --ask-become-pass`
 - Open up vim and run `:PluginInstall`
 - Pull submodules for YouCompleteMe vim plugin: `cd ~/.vim/bundle/YouCompleteMe && git submodule update --init --recursive`
-- Compile YouCompleteMe's component: `cd ~/.vim/bundle/YouCompleteMe && ./install.py` . See README.md in YCM directory for mroe info.
+- Compile YouCompleteMe's component: `cd ~/.vim/bundle/YouCompleteMe && ./install.py` . See README.md in YCM directory for more info.
 - Start tmux: `tmux`
 - Install tmux plugins: tmux `prefix` + `I`
 - Logout and back in.

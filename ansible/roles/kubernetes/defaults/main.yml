@@ -1,5 +1,5 @@
 ---
 # defaults file for kubernetes
 
-iam_authenticator_version: 0.3.0
-iam_authenticator_url: https://github.com/kubernetes-sigs/aws-iam-authenticator/releases/download/v{{ iam_authenticator_version }}/heptio-authenticator-aws_{{ iam_authenticator_version }}_linux_amd64
+iam_authenticator_version: 0.4.0
+iam_authenticator_url: https://github.com/kubernetes-sigs/aws-iam-authenticator/releases/download/v{{ iam_authenticator_version }}/aws-iam-authenticator_{{ iam_authenticator_version }}_linux_amd64
