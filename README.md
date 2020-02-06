@@ -36,6 +36,7 @@ Check out `dfm` if you are curious about it's role. The repo itself was also bui
 - Consider one "barebones" playbook for setting up all the terminal goodies along with dependencies, and another playbook for rest of my system packages and tweaks. This would be good for those that want to try out my terminal config without getting the rest of the enchiladas.
 - Update all poorly written scripts.
 - Consider dfm's role and if I would just want to use Ansible for similar tasks.
+- Clean up bin directory
 
 ## Updating submodules
 
@@ -45,7 +46,8 @@ To update `.zprezto` follow these steps (`pwd` should be `.zprezto`):
 
 - Run `git remote -v` and check if there is an upstream remote for the original repo. If not run `git remote add upstream https://github.com/sorin-ionescu/prezto.git`.
 - Ensure you are on `master`, and run `git fetch upstream` followed by `git merge upstream/master` if you are okay with the changes. `git pull` also an option but doesn't give you a break to assess what you are about to merge.
-- After merging, we need to update zprezto's submodules as well: `git submodule update --init --recursive`.
+  - Sometimes there may be conflicts which need to be resolved. Usually I will keep a separate clone of prezto upstream and run `git submodule status. Then I'll go through the submodules and `git checkout` the version upstream master is pointing to, add all changes to my merge commit, and commit it. I will have to resolve explicitly if I made changes to submodules themselves, however that is rare, and typically I'm just trying to get stuff up to date.
+- After merging, we need to rerun `git submodule update --init --recursive` in case new submodules were brought in but not yet initialized.
 - Commit and push the changes to origin to ensure the forked prezto repo is up to date.
 
 To update `.zprezto` and `.vim/bundle/Vundle.vim` submodules (`pwd` should be root of this dotfile repo):
