@@ -1,0 +1,10 @@
+---
+# OnlyKey Ubuntu install tasks
+
+- name: Install OnlyKey desktop app
+  apt:
+    state: present
+    deb: https://github.com/trustcrypto/OnlyKey-App/releases/download/v{{ onlykey_app_version }}/OnlyKey_{{ onlykey_app_version }}_amd64.deb
+  become: yes
+  when: onlykey_support == true
+  tags: ["onlykey"]

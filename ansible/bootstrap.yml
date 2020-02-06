@@ -63,6 +63,10 @@
     - { role: kubernetes, tags: [ 'kubernetes' ] }
     - { role: riot, tags: [ 'riot' ] }
     - { role: weechat, tags: [ 'weechat' ] }
+    - role: onlykey
+      vars:
+        onlykey_app_version: 5.2.0
+      tags: onlykey
     - { role: mailpile, tags: [ 'mailpile' ] }
     - { role: mellowplayer, tags: [ 'mellowplayer' ] }
 

@@ -1,0 +1,26 @@
+---
+# tasks file for onlykey
+
+- name: Fedora tasks
+  include: fedora.yml
+  when: ansible_facts['distribution'] == 'Fedora'
+
+- name: Ubuntu tasks
+  include: ubuntu.yml
+  when: ansible_facts['distribution'] == 'Ubuntu'
+
+- name: Ensure OnlyKey firmware support (both flashing and use)
+  copy:
+    dest: /etc/udev/rules.d
+    src: files/49-onlykey.rules
+  register: onlykey_udev
+  become: yes
+  when: onlykey_support == true
+  tags: ["onlykey"]
+
+- name: Update UDEV rules
+  shell: "udevadm control --reload"
+  become: yes
+  when: onlykey_support == true and onlykey_udev.changed
+  tags: ["onlykey"]
+
