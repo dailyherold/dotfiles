@@ -17,6 +17,12 @@
 - name: Add kubernetes repo to sources list
   shell: 'echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list'
 
+- name: Add Kubernetes repo
+  apt_repository:
+    state: present
+    repo: deb https://apt.kubernetes.io/ kubernetes-xenial main
+  become: yes
+
 - name: Install kubectl package
   apt:
     state: latest

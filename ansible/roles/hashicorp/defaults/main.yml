@@ -3,6 +3,6 @@
 
 hashicorp_arch: "386"
 
-packer_version: "1.4.2"
-terraform_version: "0.12.5"
-vagrant_version: "2.2.5"
+packer_version: "1.5.1"
+terraform_version: "0.12.20"
+vagrant_version: "2.2.7"

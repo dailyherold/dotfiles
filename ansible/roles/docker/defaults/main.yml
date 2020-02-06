@@ -1,7 +1,6 @@
 ---
 # defaults file for docker
 
-docker_compose_version: 1.22.0
+docker_compose_version: 1.25.3
 install_docker_compose: false
 
-ubuntu_version: ubuntu-xenial #16.04
