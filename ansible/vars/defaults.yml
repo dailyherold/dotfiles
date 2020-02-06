@@ -77,6 +77,7 @@ extra_packages:
   - pv # tool for monitoring the progress of data through a pipeline
   - direnv # environment switcher for the shell
   - darktable # open source photography workflow application and raw developer
+  - chrome-gnome-shell # gnome shell integration for extension installs via browser
 
 snap_packages:
   - install slack --classic # work chat and communities
