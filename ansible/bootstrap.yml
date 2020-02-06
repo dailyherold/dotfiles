@@ -127,29 +127,6 @@
       when: custom_libinput == true
       tags: ["libinput"]
 
-    - name: Ensure OnlyKey firmware support (both flashing and use)
-      copy:
-        dest: /etc/udev/rules.d
-        src: files/49-onlykey.rules
-      register: onlykey_udev
-      become: yes
-      when: onlykey_support == true
-      tags: ["onlykey"]
-
-    - name: Update UDEV rules
-      shell: "udevadm control --reload"
-      become: yes
-      when: onlykey_support == true and onlykey_udev.changed
-      tags: ["onlykey"]
-
-    - name: Install OnlyKey desktop app
-      apt:
-        state: present
-        deb: https://github.com/trustcrypto/OnlyKey-App/releases/download/v5.1.0/OnlyKey_5.1.0_amd64.deb
-      become: yes
-      when: onlykey_support == true
-      tags: ["onlykey"]
-
     - name: Change .dotfiles repo from https to ssh
       shell: "git remote set-url origin git@github.com:dailyherold/dotfiles.git"
       when: ansible_facts['user_id'] == 'jpherold'
