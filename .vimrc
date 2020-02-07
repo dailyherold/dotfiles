@@ -13,7 +13,7 @@ call vundle#begin()
 " let Vundle manage Vundle
 Plugin 'gmarik/Vundle.vim'
 
-Plugin 'altercation/vim-colors-solarized'
+Plugin 'lifepillar/vim-solarized8'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'scrooloose/nerdtree'
@@ -62,12 +62,19 @@ map <leader>n :NERDTreeToggle<CR>
 nmap <leader>j :NERDTreeFind<CR>
 let NERDTreeShowHidden=1
 
-"solarized
-call togglebg#map("<F5>")
-let g:solarized_bold=0
-"let g:solarized_termcolors=256
+"truecolor
+if (has("termguicolors"))
+    set termguicolors
+endif
+
+"Sometimes setting 'termguicolors' is not enough and one has to set the t_8f and t_8b options explicitly
+":h xterm-true-color
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+
+"solarized8
 set background=dark
-colorscheme solarized
+colorscheme solarized8_flat
 
 "transparent bg
 hi Normal ctermbg=none
@@ -120,4 +127,3 @@ if ! has('gui_running')
         au InsertLeave * set timeoutlen=1000
     augroup END
 endif
-
