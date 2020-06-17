@@ -14,9 +14,12 @@
     - name: Look for user var file
       stat: path=vars/{{ ansible_facts['user_id'] }}.yml
       register: usr_vars
+      tags: always
+
     - name: Include user var file if it exists
       include_vars: vars/{{ ansible_facts['user_id'] }}.yml
       when: usr_vars.stat.exists
+      tags: always
 
     ## Distro specific tasks
     - name: Add Debian family distros to debian family group
@@ -37,11 +40,11 @@
         msg: "Provisioning based on the following groups: {{ group_names }}"
       tags: always
 
-    - name: Fedora tasks
+    - name: RedHat family tasks
       include: tasks/fedora.yml
       when: "'redhat_family' in group_names"
 
-    - name: Ubuntu tasks
+    - name: Debian family tasks
       include: tasks/ubuntu.yml
       when: "'debian_family' in group_names"
 
