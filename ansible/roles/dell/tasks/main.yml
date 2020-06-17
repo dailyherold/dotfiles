@@ -3,9 +3,9 @@
 
 - name: Fedora tasks
   include: fedora.yml
-  when: ansible_facts['distribution'] == 'Fedora'
+  when: "'redhat_family' in group_names"
 
 - name: Ubuntu tasks
   include: ubuntu.yml
-  when: ansible_facts['distribution'] == 'Ubuntu'
+  when: "'debian_family' in group_names"
 

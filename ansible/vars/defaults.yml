@@ -9,6 +9,11 @@ onlykey_support: false
 thinkpad_workstation: false
 dell_workstation: false
 
+# Alternate distros where ansible_facts['os_family'] != Debian or RedHat
+debian_other_distros:
+  - Pop!_OS
+#redhat_other_distros:
+
 beyondcompare_version: "4.2.6.23150"
 
 ppa_repos:

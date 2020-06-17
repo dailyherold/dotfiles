@@ -25,5 +25,6 @@ lsb_dist=$( get_distribution )
 
 case "$lsb_dist" in
   ubuntu) ubuntu_packages;;
+  pop) ubuntu_packages;;
   *) echo "$lsb_dist not yet supported";;
 esac

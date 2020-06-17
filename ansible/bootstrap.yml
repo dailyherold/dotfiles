@@ -19,13 +19,31 @@
       when: usr_vars.stat.exists
 
     ## Distro specific tasks
+    - name: Add Debian family distros to debian family group
+      add_host:
+        name: localhost
+        group: debian_family
+      when: (debian_other_distros is defined and ansible_facts['distribution'] in debian_other_distros) or ansible_facts['os_family'] == "Debian"
+      tags: always
+
+    - name: Add RedHat family distros to redhat family group
+      add_host:
+        name: localhost
+        group: redhat_family
+      when: (redhat_other_distros is defined and ansible_facts['distribution'] in redhat_other_distros) or ansible_facts['os_family'] == "RedHat"
+      tags: always
+
+    - debug:
+        msg: "Provisioning based on the following groups: {{ group_names }}"
+      tags: always
+
     - name: Fedora tasks
       include: tasks/fedora.yml
-      when: ansible_facts['distribution'] == 'Fedora'
+      when: "'redhat_family' in group_names"
 
     - name: Ubuntu tasks
       include: tasks/ubuntu.yml
-      when: ansible_facts['distribution'] == 'Ubuntu'
+      when: "'debian_family' in group_names"
 
     - name: Install/configure snap packages
       command: snap {{ item }}
