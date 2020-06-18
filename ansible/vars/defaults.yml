@@ -9,7 +9,7 @@ onlykey_support: false
 thinkpad_workstation: false
 dell_workstation: false
 
-# Alternate distros where ansible_facts['os_family'] != Debian or RedHat
+# Alternate distros of the Debian or RedHat family where ansible_facts['os_family'] != Debian or RedHat
 debian_other_distros:
   - Pop!_OS
 #redhat_other_distros:

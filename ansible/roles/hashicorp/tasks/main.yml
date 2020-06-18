@@ -54,18 +54,18 @@
   tags: terraform
 
 # Vagrant
-- name: Download and install Vagrant (Fedora)
+- name: Download and install Vagrant (RedHat)
   dnf:
     name: https://releases.hashicorp.com/vagrant/{{ vagrant_version }}/vagrant_{{ vagrant_version }}_{{ ansible_facts['architecture'] }}.rpm
     state: present
   become: yes
-  when: ansible_facts['distribution'] == 'Fedora'
+  when: "'redhat_family' in group_names"
   tags: vagrant
 
-- name: Download and install Vagrant (Ubuntu)
+- name: Download and install Vagrant (Debian)
   apt:
     deb: https://releases.hashicorp.com/vagrant/{{ vagrant_version }}/vagrant_{{ vagrant_version }}_{{ ansible_facts['architecture'] }}.deb
     state: present
   become: yes
-  when: ansible_facts['distribution'] == 'Ubuntu'
+  when: "'debian_family' in group_names"
   tags: vagrant

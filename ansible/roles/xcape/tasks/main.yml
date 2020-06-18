@@ -1,12 +1,12 @@
 ---
 # tasks file for xcape
-- name: Ensure Fedora package dependencies
-  include: fedora.yml
-  when: ansible_facts['distribution'] == 'Fedora'
+- name: Ensure RedHat package dependencies
+  include: redhat.yml
+  when: "'redhat_family' in group_names"
 
-- name: Ensure Ubuntu package dependencies
-  include: ubuntu.yml
-  when: ansible_facts['distribution'] == 'Ubuntu'
+- name: Ensure Debian package dependencies
+  include: debian.yml
+  when: "'debian_family' in group_names"
 
 - name: Ensure install dir
   file:

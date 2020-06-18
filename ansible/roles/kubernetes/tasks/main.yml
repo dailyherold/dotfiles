@@ -1,13 +1,13 @@
 ---
 # tasks file for kubernetes
 #
-- name: Fedora tasks
-  include: fedora.yml
-  when: ansible_facts['distribution'] == 'Fedora'
+- name: RedHat tasks
+  include: redhat.yml
+  when: "'redhat_family' in group_names"
 
-- name: Ubuntu tasks
-  include: ubuntu.yml
-  when: ansible_facts['distribution'] == 'Ubuntu'
+- name: Debian tasks
+  include: debian.yml
+  when: "'debian_family' in group_names"
 
 # https://github.com/kubernetes-sigs/aws-iam-authenticator
 - name: Download AWS IAM authenticator

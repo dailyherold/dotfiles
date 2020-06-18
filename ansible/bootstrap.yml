@@ -41,11 +41,11 @@
       tags: always
 
     - name: RedHat family tasks
-      include: tasks/fedora.yml
+      include: tasks/redhat.yml
       when: "'redhat_family' in group_names"
 
     - name: Debian family tasks
-      include: tasks/ubuntu.yml
+      include: tasks/debian.yml
       when: "'debian_family' in group_names"
 
     - name: Install/configure snap packages
