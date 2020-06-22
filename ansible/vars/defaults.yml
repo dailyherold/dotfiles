@@ -3,7 +3,8 @@ fullname: Steven Gerrard
 nickname: stevieg
 company: LiverpoolFC
 
-dev_home: "/home/{{ ansible_facts['user_id'] }}/dev"
+dev_home: "{{ ansible_facts['user_dir'] }}/dev"
+repo_home: "{{ ansible_facts['user_dir'] }}/repos"
 custom_libinput: false
 onlykey_support: false
 thinkpad_workstation: false
