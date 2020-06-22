@@ -14,3 +14,4 @@
     - libx11-dev
     - libxtst-dev
     - libxi-dev
+    - xorg-dev
