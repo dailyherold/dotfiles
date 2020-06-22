@@ -42,9 +42,7 @@ Check out `dfm` if you are curious about it's role. The repo itself was also bui
 - Add docker images that I should always have latest pulled locally (different OSs for testing packages, various utility tools), maybe make a list in default var file for these
 - Consolidate or delete a bunch of the user var files
 - Add group vars for debian_family and redhat_family groups, possibly where to put the distro specific packages and then rename/clean up the defaults var file (packages + extra_packages -> base_packages, then common distro_packages for specific stuff)
-- Remove all snaps?
-- Darktable is debian specific (because of ppa install), so either make specific to debian or figure out fedora too and turn into a role
-- Still need vim ppa?
+- Create role for bcc and bpftrace (no longer in snaps)
 
 ## Updating submodules
 

@@ -82,13 +82,8 @@ extra_packages:
   - chrome-gnome-shell # gnome shell integration for extension installs via browser
 
 snap_packages:
-  - install slack --classic # work chat and communities
-  #- install helm --classic # Kubernetes package manager
   - install intellij-idea-community --classic # JetBrains IntelliJ Community Edition
   - install datagrip --classic # JetBrains DataGrip
-  - install bcc # tools for BPF-based Linux IO analysis, networking, monitoring, and more
-  - install bpftrace # high-level tracing language for eBPF
-  - connect bpftrace:system-trace # connect bpftrace per documentation
 
 debian_packages:
   - man
