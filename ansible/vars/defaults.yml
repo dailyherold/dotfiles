@@ -23,7 +23,6 @@ ppa_repos:
 packages:
   - git
   - subversion
-  - python-pip
   - python3-pip
   - wget
   - bzip2

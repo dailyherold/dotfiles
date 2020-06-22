@@ -75,7 +75,6 @@
     - { role: ssh, tags: [ 'ssh' ] }
     - { role: sublime, tags: [ 'sublime' ] }
     - { role: xcape, xcape_install_dir: "{{ ansible_facts['user_dir'] }}/repos/git", tags: [ 'xcape' ] }
-    - { role: spideroak, tags: [ 'spideroak' ] }
     - { role: thinkpad, tags: [ 'thinkpad' ], when: thinkpad_workstation == true }
     - { role: dell, tags: [ 'dell' ], when: dell_workstation == true }
     - { role: hashicorp, tags: [ 'hashicorp' ] }
@@ -83,13 +82,14 @@
     - { role: node, tags: [ 'node' ] }
     - { role: kubernetes, tags: [ 'kubernetes' ] }
     - { role: riot, tags: [ 'riot' ] }
-    - { role: weechat, tags: [ 'weechat' ] }
     - role: onlykey
       vars:
         onlykey_app_version: 5.2.0
       tags: onlykey
-    - { role: mailpile, tags: [ 'mailpile' ] }
-    - { role: mellowplayer, tags: [ 'mellowplayer' ] }
+    #- { role: mailpile, tags: [ 'mailpile' ] }
+    #- { role: spideroak, tags: [ 'spideroak' ] }
+    #- { role: weechat, tags: [ 'weechat' ] }
+    #- { role: mellowplayer, tags: [ 'mellowplayer' ] }
 
   post_tasks:
     - name: Setup git config

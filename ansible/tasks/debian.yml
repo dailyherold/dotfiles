@@ -40,13 +40,6 @@
       - packages
       - utilities
 
-# Git repos dir
-#  - name: Create git repos dir
-#    file:
-#      dest: "{{ current_user_home }}/repos/git"
-#      state: directory
-#    tags: dir
-
 # Yubikey
 #  - name: Install Yubikey ppa using apt_repository module (not working with Mint right now)
 #    apt_repository:
@@ -152,34 +145,6 @@
 #      state: latest
 #    become: yes
 #    tags: ["sensors", "packages"]
-
-# Weechat
-#  - name: Add gpg key for Weechat repo
-#    apt_key:
-#      keyserver: keys.gnupg.net
-#      id: 11E9DE8848F2B65222AA75B8D1820DB22A11534E
-#      state: present
-#    become: yes
-#    tags: weechat
-#
-#  - name: Add Weechat repo
-#    apt_repository:
-#      repo: deb https://weechat.org/ubuntu trusty main
-#      state: present
-#    become: yes
-#    tags: weechat
-#
-#  - name: Install Weechat
-#    apt:
-#      update_cache: yes
-#      name: "{{ item }}"
-#      state: latest
-#    with_items:
-#      - weechat-curses
-#      - weechat-plugins
-#      - weechat-doc
-#    become: yes
-#    tags: ["weechat","packages"]
 
 # Dropbox
 #  - name: Install Dropbox
