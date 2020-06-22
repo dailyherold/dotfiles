@@ -43,6 +43,7 @@ Check out `dfm` if you are curious about it's role. The repo itself was also bui
 - Consolidate or delete a bunch of the user var files
 - Add group vars for debian_family and redhat_family groups, possibly where to put the distro specific packages and then rename/clean up the defaults var file (packages + extra_packages -> base_packages, then common distro_packages for specific stuff)
 - Create role for bcc and bpftrace (no longer in snaps)
+- Ensure all tasks are idempotent, first run after successful playbook shouldn't have any changed tasks
 
 ## Updating submodules
 
