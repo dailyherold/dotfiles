@@ -10,7 +10,7 @@
 
 - name: Add Riot repo to sources list
   apt_repository:
-    repo: deb https://packages.riot.im/debian/ {{ ansible_facts['distribution_release'] }} main
+    repo: deb https://packages.riot.im/debian/ default main
     filename: matrix-riot-im
   become: yes
 
