@@ -4,6 +4,7 @@
       repo: "{{ item }}"
     become: yes
     with_items: "{{ ppa_repos }}"
+    when: ppa_repos is defined
     tags:
       - repos
       - packages
