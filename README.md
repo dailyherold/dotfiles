@@ -18,7 +18,7 @@ Check out `dfm` if you are curious about it's role. The repo itself was also bui
 - Pull submodules: `cd .dotfiles && git submodule update --init --recursive`
 - Bootstrap: `./bootstrap`
 - If you want to override any default vars, create vars file named after your $USER in `ansible/vars/`
-- Run ansible playbook: `cd ansible && ansible-playbook bootstrap.yml -i inventory --ask-become-pass`
+- Run ansible playbook: `cd ansible && ansible-playbook bootstrap.yml -i inventory.yml --ask-become-pass`
 - Open up vim and run `:PluginInstall`
 - Pull submodules for YouCompleteMe vim plugin: `cd ~/.vim/bundle/YouCompleteMe && git submodule update --init --recursive`
 - Compile YouCompleteMe's component: `cd ~/.vim/bundle/YouCompleteMe && ./install.py` . See README.md in YCM directory for more info.
@@ -28,7 +28,7 @@ Check out `dfm` if you are curious about it's role. The repo itself was also bui
 
 ## Common commands
 
-- `ansible-playbook bootstrap.yml -i inventory --ask-become-pass --step -e "@vars/jpherold.yml" --tags "packages"`
+- `ansible-playbook bootstrap.yml -i inventory.yml --ask-become-pass --step --tags "packages"`
 
 ## Todo
 - (IN PROGRESS) Break up monolithic Ansible playbook into roles.
@@ -37,6 +37,14 @@ Check out `dfm` if you are curious about it's role. The repo itself was also bui
 - Update all poorly written scripts.
 - Consider dfm's role and if I would just want to use Ansible for similar tasks.
 - Clean up bin directory
+- Bring beyond compare back from the dead
+- Add additional task files to kubernetes for kind, k3s, microk8s, any other handy things to have for k8s (helm? handy docker images to have local?)
+- Add docker images that I should always have latest pulled locally (different OSs for testing packages, various utility tools), maybe make a list in default var file for these
+- Consolidate or delete a bunch of the user var files
+- Add group vars for debian_family and redhat_family groups, possibly where to put the distro specific packages and then rename/clean up the defaults var file (packages + extra_packages -> base_packages, then common distro_packages for specific stuff)
+- Remove all snaps?
+- Darktable is debian specific (because of ppa install), so either make specific to debian or figure out fedora too and turn into a role
+- Still need vim ppa?
 
 ## Updating submodules
 
