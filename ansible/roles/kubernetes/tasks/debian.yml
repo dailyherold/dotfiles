@@ -14,12 +14,11 @@
     name: apt-transport-https
   become: yes
 
-- name: Add kubernetes repo to sources list
-  shell: 'echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list'
-
 - name: Add Kubernetes repo
   apt_repository:
     state: present
+    # Repo hardcoded according to install docs
+    # https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl
     repo: deb https://apt.kubernetes.io/ kubernetes-xenial main
   become: yes
 
