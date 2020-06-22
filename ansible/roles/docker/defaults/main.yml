@@ -1,6 +1,6 @@
 ---
 # defaults file for docker
 
-docker_compose_version: 1.25.3
+docker_compose_version: 1.26.0
 install_docker_compose: false
 

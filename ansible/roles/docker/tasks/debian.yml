@@ -36,7 +36,7 @@
 
 - name: Add Docker repo
   apt_repository:
-    repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ 'cosmic' if ansible_facts['distribution_release'] == 'eoan' else ansible_facts['distribution_release'] }} {{ 'nightly' if ansible_facts['distribution_release'] == 'eoan' else 'stable' }}
+    repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_facts['distribution_release'] }} stable
     state: present
   become: yes
 
