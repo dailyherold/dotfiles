@@ -8,7 +8,9 @@
   pre_tasks:
     ## DEBUG
     #- debug: var=hostvars[inventory_hostname]
+    #  tags: always
     #- debug: var=ansible_facts
+    #  tags: always
 
     ## Include user var file if it exists
     - name: Look for user var file
@@ -92,6 +94,8 @@
       vars:
         onlykey_app_version: 5.2.0
       tags: onlykey
+    - role: awscli-v2
+      tags: awscli
     #- { role: mailpile, tags: [ 'mailpile' ] }
     #- { role: spideroak, tags: [ 'spideroak' ] }
     #- { role: weechat, tags: [ 'weechat' ] }

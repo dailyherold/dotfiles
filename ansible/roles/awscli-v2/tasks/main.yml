@@ -1,0 +1,34 @@
+---
+# tasks file for awscli-v2
+
+# TODO
+# optional clean tasks by distro to remove system packages and pip module
+# Check and register var if aws command already exists
+# Import install task file if not existing
+# Import update task file if existing
+# Support update flag allowing role user to always update or not if aws command already exists
+# Add gpg key check for downloaded archive?
+
+- name: Get awscli v2 binary archive
+  get_url:
+    url: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
+    dest: "{{ ansible_facts.env.TMPDIR }}"
+    tmp_dest: ''
+  register: awscliv2_archive
+
+- debug: var=awscliv2_archive
+
+- name: Unarchive awscli v2
+  unarchive:
+    src: "{{ awscliv2_archive.dest }}"
+    remote_src: yes
+    dest: "{{ ansible_facts.env.TMPDIR }}"
+  register: awscliv2_dir
+
+- name: Install awscli v2
+  command: "{{ ansible_facts.env.TMPDIR }}/aws/install"
+  become: yes
+
+- command: aws --version
+  register: awscli_version
+- debug: var=awscli_version
