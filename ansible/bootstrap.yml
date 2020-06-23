@@ -81,7 +81,10 @@
     - { role: docker, install_docker_compose: true, tags: [ 'docker' ] }
     - { role: node, tags: [ 'node' ] }
     - { role: kubernetes, tags: [ 'kubernetes' ] }
-    - { role: riot, tags: [ 'riot' ] }
+    - role: riot
+      vars:
+        riot_package: riot-desktop
+      tags: riot
     - role: onlykey
       vars:
         onlykey_app_version: 5.2.0

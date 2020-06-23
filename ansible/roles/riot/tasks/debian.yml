@@ -2,20 +2,19 @@
 ## Riot.im
 ## https://riot.im/desktop.html
 - name: Add Riot GPG key
-  apt_key:
-    state: present
-    url: https://packages.riot.im/debian/repo-key.asc
-    validate_certs: no
+  get_url:
+    url: https://packages.riot.im/debian/riot-im-archive-keyring.gpg
+    dest: /usr/share/keyrings/riot-im-archive-keyring.gpg
   become: yes
 
 - name: Add Riot repo to sources list
   apt_repository:
-    repo: deb https://packages.riot.im/debian/ default main
-    filename: matrix-riot-im
+    repo: deb [signed-by=/usr/share/keyrings/riot-im-archive-keyring.gpg] https://packages.riot.im/debian/ default main
+    filename: riot-im
   become: yes
 
 - name: Install Riot package
   apt:
     state: latest
-    name: riot-web
+    name: "{{ riot_package }}"
   become: yes

@@ -2,9 +2,9 @@
 # tasks file for riot
 #
 - name: RedHat tasks
-  include: redhat.yml
+  import_tasks: redhat.yml
   when: "'redhat_family' in group_names"
 
 - name: Debian tasks
-  include: debian.yml
+  import_tasks: debian.yml
   when: "'debian_family' in group_names"
