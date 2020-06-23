@@ -79,12 +79,15 @@
     - { role: dell, tags: [ 'dell' ], when: dell_workstation == true }
     - { role: hashicorp, tags: [ 'hashicorp' ] }
     - { role: docker, install_docker_compose: true, tags: [ 'docker' ] }
-    - { role: node, tags: [ 'node' ] }
     - { role: kubernetes, tags: [ 'kubernetes' ] }
     - role: riot
       vars:
         riot_package: riot-desktop
       tags: riot
+    - role: node
+      vars:
+        nvm_git_tag: v0.35.3
+      tags: node
     - role: onlykey
       vars:
         onlykey_app_version: 5.2.0
