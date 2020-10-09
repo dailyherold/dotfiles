@@ -102,4 +102,8 @@ export NVM_DIR="$HOME/.nvm"
 export GSM_SKIP_SSH_AGENT_WORKAROUND=1
 
 # Start Keychain
-eval `keychain --eval --agents ssh --inherit any jpherold.pem`
+eval `keychain --eval --agents ssh,gpg --gpg2 --inherit any jpherold.pem 6C34FCD0FFF69C43`
+
+# SWA
+source ~/.swa/login-functions.sh
+

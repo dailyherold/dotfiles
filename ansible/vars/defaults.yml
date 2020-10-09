@@ -128,6 +128,7 @@ pip_modules:
   - boto3
   - awscli
   - virtualenv
+  - protonvpn-cli # Proton VPN client
   #- paramiko
   #- PyYAML
   #- Jinja2

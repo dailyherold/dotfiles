@@ -33,12 +33,14 @@ alias mv='mv -i'
 alias cp='cp -i'
 alias tmux='tmux -2'
 alias gw='./gradlew'
+alias watch='watch '
 
 # TMUX
 alias tnew='tmux new-session -s'
 
 # SWA K8s
 alias k='kubectl "--context=${KUBECTL_CONTEXT:-$(kubectl config current-context)}" ${KUBECTL_NAMESPACE/[[:alnum:]-]*/--namespace=${KUBECTL_NAMESPACE}}'
+alias wk='watch "kubectl "--context=${KUBECTL_CONTEXT:-$(kubectl config current-context)}" ${KUBECTL_NAMESPACE/[[:alnum:]-]*/--namespace=${KUBECTL_NAMESPACE}}"'
 
 # Solarize ls colors
 if [ -x /usr/bin/dircolors ]; then
@@ -61,3 +63,7 @@ export SDKMAN_DIR="/home/jpherold/.sdkman"
 eval "$(direnv hook zsh)"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# tabtab source for serverless package
+# uninstall by removing these lines or running `tabtab uninstall serverless`
+[[ -f /home/jpherold/dev/work/swa/src/platform-logging/runway/20-curator.sls/node_modules/tabtab/.completions/serverless.zsh ]] && . /home/jpherold/dev/work/swa/src/platform-logging/runway/20-curator.sls/node_modules/tabtab/.completions/serverless.zsh
