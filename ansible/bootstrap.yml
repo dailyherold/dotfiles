@@ -7,10 +7,10 @@
 
   pre_tasks:
     ## DEBUG
-    #- debug: var=hostvars[inventory_hostname]
-    #  tags: always
-    #- debug: var=ansible_facts
-    #  tags: always
+    - debug: var=hostvars[inventory_hostname]
+      tags: always
+    - debug: var=ansible_facts
+      tags: always
 
     ## Include user var file if it exists
     - name: Look for user var file
@@ -82,10 +82,10 @@
     - { role: hashicorp, tags: [ 'hashicorp' ] }
     - { role: docker, install_docker_compose: true, tags: [ 'docker' ] }
     - { role: kubernetes, tags: [ 'kubernetes' ] }
-    - role: riot
-      vars:
-        riot_package: riot-desktop
-      tags: riot
+    #- role: riot
+    #  vars:
+    #    riot_package: riot-desktop
+    #  tags: riot
     - role: node
       vars:
         nvm_git_tag: v0.37.0
@@ -160,13 +160,13 @@
 
     - name: Change .dotfiles repo from https to ssh
       shell: "git remote set-url origin git@github.com:dailyherold/dotfiles.git"
-      when: ansible_facts['user_id'] == 'jpherold'
+      when: ansible_facts['user_id'] == 'jpherold' or ansible_facts['user_id'] == 'dailyherold'
 
     - name: Change prezto repo fork from https to ssh
       shell: "git remote set-url origin git@github.com:dailyherold/prezto.git"
       args:
         chdir: ../.zprezto/
-      when: ansible_facts['user_id'] == 'jpherold'
+      when: ansible_facts['user_id'] == 'jpherold' or ansible_facts['user_id'] == 'dailyherold'
 
     - name: Set zsh as default shell
       user:
