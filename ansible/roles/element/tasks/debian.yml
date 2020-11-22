@@ -1,20 +1,28 @@
 ---
-## Riot.im
-## https://riot.im/desktop.html
-- name: Add Riot GPG key
+## Element.io
+## https://element.io/get-started
+
+- name: Install prerequisite packages
+  apt:
+    state: latest
+    name: apt-transport-https
+  become: yes
+
+- name: Add Element GPG key
   get_url:
     url: https://packages.riot.im/debian/riot-im-archive-keyring.gpg
     dest: /usr/share/keyrings/riot-im-archive-keyring.gpg
   become: yes
 
-- name: Add Riot repo to sources list
+- name: Add Element repo to sources list
   apt_repository:
     repo: deb [signed-by=/usr/share/keyrings/riot-im-archive-keyring.gpg] https://packages.riot.im/debian/ default main
-    filename: riot-im
+    filename: element-im
   become: yes
 
-- name: Install Riot package
+- name: Install Element package
   apt:
     state: latest
-    name: "{{ riot_package }}"
+    name: "{{ element_package }}"
+    update_cache: yes
   become: yes

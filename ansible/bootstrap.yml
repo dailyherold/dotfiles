@@ -82,10 +82,10 @@
     - { role: hashicorp, tags: [ 'hashicorp' ] }
     - { role: docker, install_docker_compose: true, tags: [ 'docker' ] }
     - { role: kubernetes, tags: [ 'kubernetes' ] }
-    #- role: riot
-    #  vars:
-    #    riot_package: riot-desktop
-    #  tags: riot
+    - role: element
+      vars:
+        element_package: element-desktop
+      tags: element
     - role: node
       vars:
         nvm_git_tag: v0.37.0

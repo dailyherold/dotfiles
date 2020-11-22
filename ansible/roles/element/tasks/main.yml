@@ -1,5 +1,5 @@
 ---
-# tasks file for riot
+# tasks file for element
 #
 - name: RedHat tasks
   import_tasks: redhat.yml
