@@ -7,10 +7,10 @@
 
   pre_tasks:
     ## DEBUG
-    - debug: var=hostvars[inventory_hostname]
-      tags: always
-    - debug: var=ansible_facts
-      tags: always
+    #- debug: var=hostvars[inventory_hostname]
+    #  tags: always
+    #- debug: var=ansible_facts
+    #  tags: always
 
     ## Include user var file if it exists
     - name: Look for user var file
