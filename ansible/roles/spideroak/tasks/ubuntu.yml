@@ -1,7 +1,0 @@
----
-
-- name: Install SpiderOak
-  apt:
-    deb: https://spideroak.com/release/spideroak/deb_{{ spideroak_arch }}
-    state: present
-  become: yes

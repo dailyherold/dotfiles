@@ -96,10 +96,6 @@
       tags: onlykey
     - role: awscli-v2
       tags: awscli
-    #- { role: mailpile, tags: [ 'mailpile' ] }
-    #- { role: spideroak, tags: [ 'spideroak' ] }
-    #- { role: weechat, tags: [ 'weechat' ] }
-    #- { role: mellowplayer, tags: [ 'mellowplayer' ] }
 
   post_tasks:
     - name: Setup git config
