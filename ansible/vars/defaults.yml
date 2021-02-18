@@ -81,6 +81,8 @@ extra_packages:
   - direnv # environment switcher for the shell
   - darktable # open source photography workflow application and raw developer
   - chrome-gnome-shell # gnome shell integration for extension installs via browser
+  - ngrep # network packet analyzer
+  - flameshot # awesome screen captures with markup
 
 snap_packages:
   - install intellij-idea-community --classic # JetBrains IntelliJ Community Edition

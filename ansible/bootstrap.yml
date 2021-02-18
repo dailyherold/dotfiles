@@ -92,7 +92,7 @@
       tags: node
     - role: onlykey
       vars:
-        onlykey_app_version: 5.2.0
+        onlykey_app_version: 5.3.1
       tags: onlykey
     - role: awscli-v2
       tags: awscli
