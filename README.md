@@ -18,12 +18,10 @@ Check out `dfm` if you are curious about it's role. The repo itself was also bui
 - Pull submodules: `cd .dotfiles && git submodule update --init --recursive`
 - Bootstrap: `./bootstrap`
 - If you want to override any default vars, create vars file named after your $USER in `ansible/vars/`
-- Run ansible playbook: `cd ansible && ansible-playbook bootstrap.yml -i inventory.yml --ask-become-pass`
+- Run ansible playbook: `cd ansible && ansible-playbook bootstrap.yml -i inventory.yml --ask-become-pass` and follow any recommended commands at the end (fzf and tmux related)
 - Open up vim and run `:PluginInstall`
 - Pull submodules for YouCompleteMe vim plugin: `cd ~/.vim/bundle/YouCompleteMe && git submodule update --init --recursive`
 - Compile YouCompleteMe's component: `cd ~/.vim/bundle/YouCompleteMe && ./install.py` . See README.md in YCM directory for more info.
-- Start tmux: `tmux`
-- Install tmux plugins: tmux `prefix` + `I`
 - Logout and back in.
 
 ## Common commands

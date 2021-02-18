@@ -15,7 +15,7 @@ debian_other_distros:
   - Pop!_OS
 #redhat_other_distros:
 
-beyondcompare_version: "4.2.6.23150"
+beyondcompare_version: "4.3.7.25118"
 
 #ppa_repos:
 
@@ -106,6 +106,7 @@ debian_packages:
   - libvirt-daemon-system # qemu virtualization
   - libvirt-clients # qemu virtualization
   - verse # bible verse package
+  - nfs-common # for nfs mounting
 
 redhat_packages:
   - man-pages

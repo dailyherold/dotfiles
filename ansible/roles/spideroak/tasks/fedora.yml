@@ -1,7 +1,0 @@
----
-
-- name: Install SpiderOak
-  dnf:
-    name: https://spideroak.com/release/spideroak/rpm_{{ spideroak_arch }}
-    state: present
-  become: yes

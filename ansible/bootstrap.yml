@@ -74,32 +74,37 @@
         - svn
 
   roles:
-    - { role: ssh, tags: [ 'ssh' ] }
-    - { role: sublime, tags: [ 'sublime' ] }
-    - { role: xcape, xcape_install_dir: "{{ ansible_facts['user_dir'] }}/repos/git", tags: [ 'xcape' ] }
-    - { role: thinkpad, tags: [ 'thinkpad' ], when: thinkpad_workstation == true }
-    - { role: dell, tags: [ 'dell' ], when: dell_workstation == true }
-    - { role: hashicorp, tags: [ 'hashicorp' ] }
-    - { role: docker, install_docker_compose: true, tags: [ 'docker' ] }
-    - { role: kubernetes, tags: [ 'kubernetes' ] }
-    - role: riot
-      vars:
-        riot_package: riot-desktop
-      tags: riot
-    - role: node
-      vars:
-        nvm_git_tag: v0.35.3
-      tags: node
-    - role: onlykey
-      vars:
-        onlykey_app_version: 5.3.1
-      tags: onlykey
-    - role: awscli-v2
-      tags: awscli
-    #- { role: mailpile, tags: [ 'mailpile' ] }
-    #- { role: spideroak, tags: [ 'spideroak' ] }
-    #- { role: weechat, tags: [ 'weechat' ] }
-    #- { role: mellowplayer, tags: [ 'mellowplayer' ] }
+    - { role: awscli-v2,
+        tags: [ 'aws', 'awscli' ] }
+    - { role: dell,
+        tags: [ 'dell', 'laptop' ],
+        when: dell_workstation == true }
+    - { role: docker,
+        tags: [ 'docker' ],
+        install_docker_compose: true }
+    - { role: element,
+        tags: [ 'element' ],
+        element_package: element-desktop }
+    - { role: hashicorp,
+        tags: [ 'hashicorp' ] }
+    - { role: kubernetes,
+        tags: [ 'k8s' ] }
+    - { role: node,
+        tags: [ 'node', 'js' ],
+        nvm_git_tag: v0.37.0 }
+    - { role: onlykey,
+        tags: [ 'onlykey' ],
+        onlykey_app_version: 5.3.0 }
+    - { role: ssh,
+        tags: [ 'ssh' ] }
+    - { role: sublime,
+        tags: [ 'sublime' ] }
+    - { role: thinkpad,
+        tags: [ 'thinkpad', 'laptop' ],
+        when: thinkpad_workstation == true }
+    - { role: xcape,
+        tags: [ 'xcape' ],
+        xcape_install_dir: "{{ ansible_facts['user_dir'] }}/repos/git" }
 
   post_tasks:
     - name: Setup git config
@@ -160,13 +165,13 @@
 
     - name: Change .dotfiles repo from https to ssh
       shell: "git remote set-url origin git@github.com:dailyherold/dotfiles.git"
-      when: ansible_facts['user_id'] == 'jpherold'
+      when: ansible_facts['user_id'] == 'jpherold' or ansible_facts['user_id'] == 'dailyherold'
 
     - name: Change prezto repo fork from https to ssh
       shell: "git remote set-url origin git@github.com:dailyherold/prezto.git"
       args:
         chdir: ../.zprezto/
-      when: ansible_facts['user_id'] == 'jpherold'
+      when: ansible_facts['user_id'] == 'jpherold' or ansible_facts['user_id'] == 'dailyherold'
 
     - name: Set zsh as default shell
       user:

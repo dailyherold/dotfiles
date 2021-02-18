@@ -12,8 +12,7 @@
 - name: Get awscli v2 binary archive
   get_url:
     url: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
-    dest: "{{ ansible_facts.env.TMPDIR }}"
-    tmp_dest: ''
+    dest: "/tmp"
   register: awscliv2_archive
 
 - debug: var=awscliv2_archive
@@ -22,11 +21,11 @@
   unarchive:
     src: "{{ awscliv2_archive.dest }}"
     remote_src: yes
-    dest: "{{ ansible_facts.env.TMPDIR }}"
+    dest: "/tmp"
   register: awscliv2_dir
 
 - name: Install awscli v2
-  command: "{{ ansible_facts.env.TMPDIR }}/aws/install"
+  command: "/tmp/aws/install --update"
   become: yes
 
 - command: aws --version

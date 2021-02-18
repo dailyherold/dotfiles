@@ -1,0 +1,10 @@
+---
+# tasks file for element
+#
+- name: RedHat tasks
+  import_tasks: redhat.yml
+  when: "'redhat_family' in group_names"
+
+- name: Debian tasks
+  import_tasks: debian.yml
+  when: "'debian_family' in group_names"
