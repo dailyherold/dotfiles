@@ -1,0 +1,8 @@
+---
+# gnome specific tasks
+
+- name: Enable showing desktop shortcut
+  become: false
+  dconf:
+    key: "/org/gnome/desktop/wm/keybindings/show-desktop"
+    value: "['<Super>d']"

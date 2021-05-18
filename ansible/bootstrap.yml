@@ -73,6 +73,12 @@
         - git
         - svn
 
+    ## WM/DE specific tasks
+    - name: Gnome tasks
+      include: tasks/gnome.yml
+      when: "'gnome' in ansible_facts['env']['XDG_CURRENT_DESKTOP'] | lower"
+      tags: gnome
+
   roles:
     - { role: awscli-v2,
         tags: [ 'aws', 'awscli' ] }
