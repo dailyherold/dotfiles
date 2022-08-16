@@ -39,7 +39,6 @@ extra_packages:
   - iftop
   - htop
   - ioping
-  - ntp
   - tree
   - powertop
   #- smartmontools
@@ -69,12 +68,10 @@ extra_packages:
   - libinput-tools # helpful libinput commands like `libinput debug-events --device /dev/input/event8`
   - cifs-utils # for cifs mounts (e.g. samba)
   - vlc # for da videos
-  - exfat-fuse # exfat filesystem support (e.g. HiBy R3)
-  - exfat-utils # exfat filesystem support (e.g. HiBy R3)
   - net-tools # useful network tools e.g. netstat
   - pylint # python linter
   - gtypist # handy cli tool for typing better
-  - gnome-tweak-tool # Graphical interface for advanced GNOME 3 settings
+  - gnome-tweaks # Graphical interface for advanced GNOME 3 settings
   - iperf3 # network throughput tester
   - ncdu # disk usage analyzer with ncurses interface
   - pv # tool for monitoring the progress of data through a pipeline
@@ -94,10 +91,8 @@ debian_packages:
   - linux-headers-generic
   - vim-gtk # for some additional xserver support (e.g. clipboard)
   - build-essential
-  - openjdk-8-jdk
-  - python-dev
   - python3-dev
-  - python-apt # for Ansible's apt_repository module
+  - python3-apt # for Ansible's apt_repository module
   - ppa-purge
   - ack-grep
   - silversearcher-ag
@@ -107,6 +102,7 @@ debian_packages:
   - libvirt-clients # qemu virtualization
   - verse # bible verse package
   - nfs-common # for nfs mounting
+  - systemd-timesyncd # worked better with work config
 
 redhat_packages:
   - man-pages
@@ -130,6 +126,7 @@ pip_modules:
   - boto3
   - awscli
   - virtualenv
+  - psutil
   #- paramiko
   #- PyYAML
   #- Jinja2
