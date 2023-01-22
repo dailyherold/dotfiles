@@ -17,11 +17,12 @@ debian_other_distros:
 
 beyondcompare_version: "4.3.7.25118"
 
-#ppa_repos:
+ppa_repos:
+  - ppa:obsproject/obs-studio
+  - ppa:flexiondotorg/quickemu
 
 packages:
   - git
-  - subversion
   - python3-pip
   - wget
   - bzip2
@@ -55,7 +56,6 @@ extra_packages:
   - tmux
   - remmina
   - xclip
-  - awscli
   - gimp # GNU image manipulation program
   - zeal # offline documentation browser
   - guake # drop down terminal
@@ -65,12 +65,11 @@ extra_packages:
   - openvpn # vpn
   - qemu # qemu virtualization
   - qemu-kvm # qemu virtualization
+  - virt-manager # qemu virtualization
   - snapd # snap package daemon
   - libinput-tools # helpful libinput commands like `libinput debug-events --device /dev/input/event8`
   - cifs-utils # for cifs mounts (e.g. samba)
   - vlc # for da videos
-  - exfat-fuse # exfat filesystem support (e.g. HiBy R3)
-  - exfat-utils # exfat filesystem support (e.g. HiBy R3)
   - net-tools # useful network tools e.g. netstat
   - pylint # python linter
   - gtypist # handy cli tool for typing better
@@ -83,6 +82,7 @@ extra_packages:
   - chrome-gnome-shell # gnome shell integration for extension installs via browser
   - ngrep # network packet analyzer
   - flameshot # awesome screen captures with markup
+  - ffmpeg # multimedia magic
 
 snap_packages:
   - install intellij-idea-community --classic # JetBrains IntelliJ Community Edition
@@ -94,8 +94,6 @@ debian_packages:
   - linux-headers-generic
   - vim-gtk # for some additional xserver support (e.g. clipboard)
   - build-essential
-  - openjdk-8-jdk
-  - python-dev
   - python3-dev
   - python-apt # for Ansible's apt_repository module
   - ppa-purge
@@ -107,16 +105,15 @@ debian_packages:
   - libvirt-clients # qemu virtualization
   - verse # bible verse package
   - nfs-common # for nfs mounting
+  - quickemu # optimized VM helper (requires ppa:flexiondotorg/quickemu)
 
 redhat_packages:
   - man-pages
   - gcc-c++ # devtools
   - kernel-devel # devtools
   - vim-X11 # for some additional xserver support (e.g. clipboard)
-  - java-1.8.0-openjdk-devel
-  - python-devel
   - python3-devel # devtools
-  - python2-dnf # for Ansible's dnf module
+  - python3-dnf # for Ansible's dnf module
   - python-netaddr # used by Ansible for some network fu
   - libselinux-python # used by Ansible
   - ack
@@ -128,8 +125,8 @@ redhat_packages:
 
 pip_modules:
   - boto3
-  - awscli
   - virtualenv
+  - xkcdpass # passphrase generator inspired by [XKCD 936](http://xkcd.com/936/)
   #- paramiko
   #- PyYAML
   #- Jinja2
