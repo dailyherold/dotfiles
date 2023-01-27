@@ -1,0 +1,24 @@
+---
+# tasks file for multimedia
+
+#- name: RedHat tasks
+#  include: redhat.yml
+#  when: "'redhat_family' in group_names"
+
+#- name: Debian tasks
+#  include: debian.yml
+#  when: "'debian_family' in group_names"
+
+- name: Add required packages
+  apt:
+    state: latest
+    name: ffmpeg
+  become: yes
+
+- name: Audio tasks
+  include: audio.yml
+  tags: audio
+
+- name: Photography tasks
+  include: photo.yml
+  tags: photo

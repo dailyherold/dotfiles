@@ -1,0 +1,17 @@
+---
+# tasks file for audio
+
+# Scarlett GUI
+# sudo apt -y install git make gcc libgtk-4-dev libasound2-dev
+# https://github.com/geoffreybennett/alsa-scarlett-gui
+
+#
+# whipper
+# Pick a DAW
+# Evo 4 pulse audio conf tweaks
+# pulse audio volume control
+# whipper for cd rips
+# ffmpeg
+# audacity
+# pipewire?
+# alsamixer
