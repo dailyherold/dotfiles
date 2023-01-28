@@ -184,20 +184,20 @@
 #      dest: "{{ current_user_home }}"
 #    tags: ["nvpy","config"]
 
-  # Beyond Compare
-  - name: Download Beyond Compare 4
-    get_url:
-      url: http://www.scootersoftware.com/bcompare-{{ beyondcompare_version }}_amd64.deb
-      dest: "{{ ansible_facts['user_dir'] }}/Downloads"
-    register: beyondcompare
-    tags: beyondcompare
+#  # Beyond Compare
+#  - name: Download Beyond Compare 4
+#    get_url:
+#      url: http://www.scootersoftware.com/bcompare-{{ beyondcompare_version }}_amd64.deb
+#      dest: "{{ ansible_facts['user_dir'] }}/Downloads"
+#    register: beyondcompare
+#    tags: beyondcompare
 
-  - name: Install Beyond Compare 4
-    apt:
-      deb: "{{ beyondcompare.dest }}"
-      state: present
-    become: yes
-    tags: ["beyondcompare","packages"]
+#  - name: Install Beyond Compare 4
+#    apt:
+#      deb: "{{ beyondcompare.dest }}"
+#      state: present
+#    become: yes
+#    tags: ["beyondcompare","packages"]
 
 # mdless (markdown less)
 #  - name: Install mdless gem

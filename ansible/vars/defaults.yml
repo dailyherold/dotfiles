@@ -40,7 +40,6 @@ extra_packages:
   - iftop
   - htop
   - ioping
-  - ntp
   - tree
   - powertop
   #- smartmontools
@@ -73,7 +72,7 @@ extra_packages:
   - net-tools # useful network tools e.g. netstat
   - pylint # python linter
   - gtypist # handy cli tool for typing better
-  - gnome-tweak-tool # Graphical interface for advanced GNOME 3 settings
+  - gnome-tweaks # Graphical interface for advanced GNOME 3 settings
   - iperf3 # network throughput tester
   - ncdu # disk usage analyzer with ncurses interface
   - pv # tool for monitoring the progress of data through a pipeline
@@ -95,7 +94,7 @@ debian_packages:
   - vim-gtk # for some additional xserver support (e.g. clipboard)
   - build-essential
   - python3-dev
-  - python-apt # for Ansible's apt_repository module
+  - python3-apt # for Ansible's apt_repository module
   - ppa-purge
   - ack-grep
   - silversearcher-ag
@@ -106,6 +105,7 @@ debian_packages:
   - verse # bible verse package
   - nfs-common # for nfs mounting
   - quickemu # optimized VM helper (requires ppa:flexiondotorg/quickemu)
+  - systemd-timesyncd # worked better with work config
 
 redhat_packages:
   - man-pages
@@ -127,6 +127,7 @@ pip_modules:
   - boto3
   - virtualenv
   - xkcdpass # passphrase generator inspired by [XKCD 936](http://xkcd.com/936/)
+  - psutil
   #- paramiko
   #- PyYAML
   #- Jinja2

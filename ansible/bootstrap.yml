@@ -100,7 +100,7 @@
         nvm_git_tag: v0.37.0 }
     - { role: onlykey,
         tags: [ 'onlykey' ],
-        onlykey_app_version: 5.3.0 }
+        onlykey_app_version: 5.3.4 }
     - { role: ssh,
         tags: [ 'ssh' ] }
     - { role: sublime,
